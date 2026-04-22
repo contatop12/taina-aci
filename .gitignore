@@ -13,4 +13,8 @@ next.user-config.*
 # Common ignores
 node_modules
 .next/
+.open-next/
+.wrangler/
+.dev.vars
+cloudflare-env.d.ts
 .DS_Store
