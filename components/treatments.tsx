@@ -17,22 +17,22 @@ const treatments = [
   {
     icon: Heart,
     title: "Menopausa",
-    description: "Controle do ganho de peso e reequilíbrio hormonal feminino",
+    description: "Controle dos sintomas e melhora da composição corporal",
   },
   {
     icon: User,
     title: "Hormônios Masculinos",
-    description: "Diagnóstico e tratamento do declínio hormonal natural",
+    description: "Diagnóstico e tratamento da deficiência de testosterona em homens",
   },
   {
     icon: Activity,
     title: "Pós-Bariátrica",
-    description: "Acompanhamento especializado para reganho de peso",
+    description: "Acompanhamento especializado para reposição de vitaminas, manutenção do peso perdido e tratamento do reganho de peso caso aconteça",
   },
   {
     icon: Baby,
     title: "Gestação",
-    description: "Controle de diabetes gestacional e disfunções da tireoide",
+    description: "Acompanhamento, suplementação, prevenção e tratamento do diabetes gestacional e disfunções da tireoide",
   },
   {
     icon: Droplets,

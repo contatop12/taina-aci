@@ -5,16 +5,16 @@ import { Users, BookOpen, Microscope, Pill } from "lucide-react"
 
 const differentials = [
   {
-    icon: Users,
-    title: "Consulta Médica + Nutricional Integrada",
-    description:
-      "Você não precisa marcar duas consultas separadas. A Dra. Tainã realiza o atendimento junto com nutricionista, otimizando seu tempo e potencializando seus resultados.",
-  },
-  {
     icon: BookOpen,
     title: "Medicina Baseada em Evidência",
     description:
-      "Cada decisão clínica é fundamentada em ciência. Sem modismos, sem protocolos genéricos — apenas o que realmente funciona para o seu caso.",
+      "Após 14 anos de formação, com duas residências médicas, dois registros de qualificação de especialista e mestrado profissional, a Dra. Tainã leva a sério o tratamento com embasamento científico correto. Cada decisão clínica é fundamentada em evidências robustas, associado a uma escuta ativa pra identificar o que realmente funciona para a realidade de cada paciente.",
+  },
+  {
+    icon: Users,
+    title: "Consulta Médica + Nutricional Integrada",
+    description:
+      "No programa de acompanhamento da Dra. Tainã — com resultados altamente positivos comprovados no consultório — você não precisa agendar uma consulta com endocrinologista e outra com nutricionista separadamente. O atendimento é realizado em conjunto: otimização do tratamento endocrinológico e ajustes da estratégia alimentar, com o paciente participando ativamente de cada decisão. Uma única consulta que poupa seu tempo e potencializa seus resultados.",
   },
   {
     icon: Microscope,
