@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Button } from "@/components/ui/button"
+import { CTAButton } from "@/components/ui/cta-button"
 import { Scale, Heart, User, Activity, Baby, Droplets, Zap, Shield } from "lucide-react"
 
 interface TreatmentsProps {
@@ -105,12 +105,9 @@ export function Treatments({ onOpenModal }: TreatmentsProps) {
         </div>
 
         <div className="text-center">
-          <Button
-            onClick={onOpenModal}
-            className="bg-[#AABB6A] hover:bg-[#9AAB5A] text-white font-medium px-8 py-6 text-base"
-          >
+          <CTAButton onClick={onOpenModal}>
             Quero saber qual tratamento é para mim
-          </Button>
+          </CTAButton>
         </div>
       </div>
     </section>

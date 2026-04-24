@@ -11,6 +11,8 @@ interface CTAButtonProps {
   className?: string
   fullWidth?: boolean
   size?: CTASize
+  type?: "button" | "submit" | "reset"
+  disabled?: boolean
 }
 
 const sizeStyles: Record<CTASize, { button: string; icon: string; iconPx: number }> = {
@@ -31,17 +33,29 @@ const sizeStyles: Record<CTASize, { button: string; icon: string; iconPx: number
   },
 }
 
-export function CTAButton({ onClick, children, className, fullWidth, size = "md" }: CTAButtonProps) {
+export function CTAButton({
+  onClick,
+  children,
+  className,
+  fullWidth,
+  size = "md",
+  type = "button",
+  disabled = false,
+}: CTAButtonProps) {
   const s = sizeStyles[size]
 
   return (
     <button
       onClick={onClick}
+      type={type}
+      disabled={disabled}
       className={cn(
         "relative inline-flex items-center font-medium rounded-full p-1",
-        "bg-[#AABB6A] text-white cursor-pointer overflow-hidden",
+        "bg-[#AABB6A] text-white overflow-hidden",
         "transition-all duration-500 group",
-        "shadow-md hover:shadow-[0_4px_20px_rgba(170,187,106,0.45)]",
+        "shadow-md",
+        !disabled && "cursor-pointer hover:shadow-[0_4px_20px_rgba(170,187,106,0.45)]",
+        disabled && "opacity-60 cursor-not-allowed",
         s.button,
         fullWidth && "w-full justify-center",
         className
@@ -52,7 +66,8 @@ export function CTAButton({ onClick, children, className, fullWidth, size = "md"
       </span>
       <div
         className={cn(
-          "absolute right-1 bg-white text-[#AABB6A] rounded-full flex items-center justify-center transition-all duration-500 group-hover:rotate-45 flex-shrink-0",
+          "absolute right-1 bg-white text-[#AABB6A] rounded-full flex items-center justify-center transition-all duration-500 flex-shrink-0",
+          !disabled && "group-hover:rotate-45",
           s.icon
         )}
       >

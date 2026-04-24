@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { X, Check } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { CTAButton } from "@/components/ui/cta-button"
 import { Input } from "@/components/ui/input"
 import {
   Select,
@@ -186,13 +186,13 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </Label>
             </div>
 
-            <Button
+            <CTAButton
               type="submit"
               disabled={!name || !phone || !objective || !agreed || isSubmitting}
-              className="w-full bg-[#AABB6A] hover:bg-[#9AAB5A] text-white font-medium py-6"
+              fullWidth
             >
               {isSubmitting ? "Enviando..." : "Falar com a equipe agora"}
-            </Button>
+            </CTAButton>
 
             <p className="text-xs text-center text-muted-foreground">
               Você será atendido em instantes pelo WhatsApp
