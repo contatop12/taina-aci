@@ -35,6 +35,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const pendingWhatsappWindowRef = useRef<Window | null>(null)
 
   const isOther = objective === "Outro"
   const otherObjective = otherText.trim()
@@ -93,6 +94,16 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     if (!isFormValid) return
     setIsSubmitting(true)
 
+    const whatsappNumber = "5511951515103"
+    const message = encodeURIComponent(
+      `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Meu objetivo principal é: ${whatsappObjective}.`
+    )
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${message}`
+
+    // Safari/iOS pode bloquear popups fora do gesto de clique.
+    // Pré-abre a aba durante o submit para navegar depois com segurança.
+    pendingWhatsappWindowRef.current = window.open("", "_blank")
+
     // Envia lead via rota de API interna (evita CORS do browser → n8n)
     try {
       await fetch("/api/lead", {
@@ -115,11 +126,14 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setIsSubmitting(false)
     setIsSubmitted(true)
     setTimeout(() => {
-      const whatsappNumber = "5511951515103"
-      const message = encodeURIComponent(
-        `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Meu objetivo principal é: ${whatsappObjective}.`
-      )
-      window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank")
+      const pendingWindow = pendingWhatsappWindowRef.current
+      if (pendingWindow && !pendingWindow.closed) {
+        pendingWindow.location.href = whatsappUrl
+      } else {
+        // Fallback para navegacao na mesma aba quando o popup for bloqueado.
+        window.location.href = whatsappUrl
+      }
+      pendingWhatsappWindowRef.current = null
       onClose()
       resetForm()
     }, 3000)
