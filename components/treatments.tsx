@@ -3,15 +3,15 @@
 import { useEffect, useRef, useState } from "react"
 import { CTAButton } from "@/components/ui/cta-button"
 import {
-  ObesidadeIcon,
-  MenopausaIcon,
-  HormoniosMasculinosIcon,
-  PosBáriatricaIcon,
-  GestacaoIcon,
-  DiabetesIcon,
-  TireoideIcon,
-  PrevencaoIcon,
-} from "@/components/ui/treatment-icons"
+  Scale,
+  Thermometer,
+  Syringe,
+  Stethoscope,
+  Baby,
+  Droplets,
+  Zap,
+  ShieldCheck,
+} from "lucide-react"
 
 interface TreatmentsProps {
   onOpenModal: () => void
@@ -19,42 +19,42 @@ interface TreatmentsProps {
 
 const treatments = [
   {
-    Icon: ObesidadeIcon,
+    icon: Scale,
     title: "Obesidade",
     description: "Tratamento médico completo com foco em emagrecimento sustentável",
   },
   {
-    Icon: MenopausaIcon,
+    icon: Thermometer,
     title: "Menopausa",
     description: "Controle dos sintomas e melhora da composição corporal",
   },
   {
-    Icon: HormoniosMasculinosIcon,
+    icon: Syringe,
     title: "Hormônios Masculinos",
     description: "Diagnóstico e tratamento da deficiência de testosterona em homens",
   },
   {
-    Icon: PosBáriatricaIcon,
+    icon: Stethoscope,
     title: "Pós-Bariátrica",
     description: "Acompanhamento especializado para reposição de vitaminas, manutenção do peso perdido e tratamento do reganho de peso caso aconteça",
   },
   {
-    Icon: GestacaoIcon,
+    icon: Baby,
     title: "Gestação",
     description: "Acompanhamento, suplementação, prevenção e tratamento do diabetes gestacional e disfunções da tireoide",
   },
   {
-    Icon: DiabetesIcon,
+    icon: Droplets,
     title: "Diabetes",
     description: "Manejo clínico moderno e individualizado",
   },
   {
-    Icon: TireoideIcon,
+    icon: Zap,
     title: "Tireoide",
     description: "Diagnóstico preciso e tratamento personalizado",
   },
   {
-    Icon: PrevencaoIcon,
+    icon: ShieldCheck,
     title: "Prevenção",
     description: "Para quem quer otimizar saúde antes dos sintomas aparecerem",
   },
@@ -67,17 +67,11 @@ export function Treatments({ onOpenModal }: TreatmentsProps) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
+        if (entry.isIntersecting) setIsVisible(true)
       },
       { threshold: 0.1 }
     )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
+    if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [])
 
@@ -101,13 +95,13 @@ export function Treatments({ onOpenModal }: TreatmentsProps) {
           {treatments.map((treatment, index) => (
             <div
               key={treatment.title}
-              className="bg-card p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow group"
+              className="bg-card p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 group cursor-default"
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              <div className="w-12 h-12 mb-4 text-primary transition-transform duration-300 group-hover:scale-110">
-                <treatment.Icon className="w-full h-full" />
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 transition-colors duration-300 group-hover:bg-primary/20">
+                <treatment.icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
               </div>
-              <h3 className="text-lg font-semibold mb-2 text-card-foreground">{treatment.title}</h3>
+              <h3 className="text-base font-semibold mb-2 text-card-foreground">{treatment.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {treatment.description}
               </p>
