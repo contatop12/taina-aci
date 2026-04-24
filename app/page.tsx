@@ -16,7 +16,6 @@ import { FinalCTA } from "@/components/final-cta"
 import { Footer } from "@/components/footer"
 import { ContactModal } from "@/components/contact-modal"
 import { WhatsAppButton } from "@/components/whatsapp-button"
-import { MobileCTA } from "@/components/mobile-cta"
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -37,7 +36,6 @@ export default function Home() {
       <FinalCTA onOpenModal={() => setIsModalOpen(true)} />
       <Footer />
       <WhatsAppButton onOpenModal={() => setIsModalOpen(true)} />
-      <MobileCTA onOpenModal={() => setIsModalOpen(true)} />
       <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </main>
   )

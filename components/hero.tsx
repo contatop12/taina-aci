@@ -9,34 +9,27 @@ interface HeroProps {
 
 export function Hero({ onOpenModal }: HeroProps) {
   return (
-    <section className="min-h-[100svh]">
+    <section>
 
       {/* ── MOBILE layout ── */}
-      <div className="lg:hidden flex flex-col min-h-[100svh]">
+      <div className="lg:hidden pt-[70px]">
 
-        {/* Photo — cinematic top block */}
-        <div className="relative h-[62svh] w-full flex-shrink-0">
+        {/* Photo — max 300px */}
+        <div className="relative w-full h-[300px]">
           <Image
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/FOTO%20TAINA1-2BJX8A68XuuPN4jOi6zgOVMJXZUqd7.jpg"
             alt="Dra. Tainã Aci em seu consultório"
             fill
             className="object-cover object-top"
             priority
+            sizes="100vw"
           />
-          {/* gradient fade into card below */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-background" />
-
-          {/* floating credential badge — top left */}
-          <div className="absolute top-16 left-4 bg-white/80 backdrop-blur-md rounded-2xl px-3 py-2 shadow-sm">
-            <p className="text-[10px] uppercase tracking-widest text-primary font-semibold">Endocrinologista</p>
-            <p className="text-[11px] text-foreground font-medium">CRM 166519 · RQE 81061</p>
-          </div>
         </div>
 
-        {/* Content card — overlaps photo */}
-        <div className="relative -mt-6 bg-background rounded-t-[2rem] flex-1 px-6 pt-7 pb-32 space-y-5 shadow-[0_-8px_32px_rgba(0,0,0,0.06)]">
+        {/* Content */}
+        <div className="px-6 pt-8 pb-12 space-y-5">
 
-          {/* small eyebrow */}
+          {/* eyebrow */}
           <div className="flex items-center gap-2">
             <span className="block w-5 h-px bg-primary" />
             <span className="text-[11px] uppercase tracking-[0.18em] text-primary font-semibold">
@@ -53,30 +46,29 @@ export function Hero({ onOpenModal }: HeroProps) {
             Emagrecimento, Hormônios e Saúde Metabólica com embasamento científico.
           </p>
 
-          <CTAButton onClick={onOpenModal} className="text-[15px] h-13">
-            Fale com nossa equipe
-          </CTAButton>
+          {/* credentials — now below subtitle */}
+          <div className="pt-1">
+            <p className="text-[10px] uppercase tracking-[0.18em] text-primary font-semibold mb-1">
+              Endocrinologista
+            </p>
+            <p className="text-sm text-foreground font-medium">
+              CRM 166519 · RQE 81061
+            </p>
+          </div>
+
+          <div className="pt-2">
+            <CTAButton onClick={onOpenModal} size="sm">
+              Fale com nossa equipe
+            </CTAButton>
+          </div>
 
           <p className="text-xs text-muted-foreground">
             Nossa equipe entrará em contato pelo WhatsApp
           </p>
-
-          {/* credential badges */}
-          <div className="flex flex-wrap gap-2 pt-1">
-            <span className="text-[11px] bg-primary/10 text-primary px-3 py-1.5 rounded-full font-medium">
-              Membro SBEM
-            </span>
-            <span className="text-[11px] bg-primary/10 text-primary px-3 py-1.5 rounded-full font-medium">
-              Fellow McGill University
-            </span>
-            <span className="text-[11px] bg-muted text-muted-foreground px-3 py-1.5 rounded-full">
-              Professora de Medicina
-            </span>
-          </div>
         </div>
       </div>
 
-      {/* ── DESKTOP layout (unchanged) ── */}
+      {/* ── DESKTOP layout ── */}
       <div className="hidden lg:flex items-center min-h-[100svh]">
         <div className="container mx-auto px-8 py-20">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -105,7 +97,7 @@ export function Hero({ onOpenModal }: HeroProps) {
               </div>
 
               <div>
-                <CTAButton onClick={onOpenModal} className="text-base h-14 ps-8 pe-16 hover:ps-16 hover:pe-8">
+                <CTAButton onClick={onOpenModal} size="lg">
                   Fale com nossa equipe
                 </CTAButton>
               </div>
