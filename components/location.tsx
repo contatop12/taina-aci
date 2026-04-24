@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Button } from "@/components/ui/button"
+import { CTAButton } from "@/components/ui/cta-button"
 import { MapPin, Clock, Building, Globe, ExternalLink } from "lucide-react"
 
 interface LocationProps {
@@ -87,12 +87,9 @@ export function Location({ onOpenModal }: LocationProps) {
               </div>
             </div>
 
-            <Button
-              onClick={onOpenModal}
-              className="bg-[#AABB6A] hover:bg-[#9AAB5A] text-white font-medium px-8 py-6 text-base"
-            >
-              Quero agendar minha consulta
-            </Button>
+            <CTAButton onClick={onOpenModal}>
+              Fale com nossa equipe
+            </CTAButton>
           </div>
 
           <div className="rounded-2xl overflow-hidden shadow-lg h-[400px] lg:h-[500px]">

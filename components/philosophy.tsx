@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { InstagramStories } from "./instagram-stories"
+import { Ripple } from "@/components/ui/ripple"
 
 export function Philosophy() {
   const ref = useRef<HTMLDivElement>(null)
@@ -25,7 +26,8 @@ export function Philosophy() {
   }, [])
 
   return (
-    <section className="py-24 lg:py-32 bg-background">
+    <section className="py-24 lg:py-32 bg-background relative overflow-hidden">
+      <Ripple className="opacity-40" />
       <div
         ref={ref}
         className={`container mx-auto px-4 max-w-4xl transition-all duration-700 ${

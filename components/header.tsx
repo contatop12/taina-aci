@@ -35,7 +35,7 @@ export function Header({ onOpenModal }: HeaderProps) {
           priority
         />
         <CTAButton onClick={onOpenModal}>
-          Agendar Consulta
+          Fale com nossa equipe
         </CTAButton>
       </div>
     </header>

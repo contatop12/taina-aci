@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
+import { CTAButton } from "@/components/ui/cta-button"
 import { Check } from "lucide-react"
 
 interface AboutProps {
@@ -91,12 +91,9 @@ export function About({ onOpenModal }: AboutProps) {
               CRM: 166519 | RQE: 81061
             </p>
 
-            <Button
-              onClick={onOpenModal}
-              className="bg-[#AABB6A] hover:bg-[#9AAB5A] text-white font-medium px-8 py-6 text-base"
-            >
-              Agendar com a Dra. Tainã
-            </Button>
+            <CTAButton onClick={onOpenModal}>
+              Fale com nossa equipe
+            </CTAButton>
           </div>
         </div>
       </div>
