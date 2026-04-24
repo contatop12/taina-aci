@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -v \"^ui$\")",
+      "Bash(claude mcp *)",
+      "Bash(supabase --version)",
+      "Bash(supabase projects *)",
+      "Bash(npx supabase *)",
+      "Bash(pnpm add *)",
+      "Bash(npm install *)",
+      "Bash(SUPABASE_KEY=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kaXNld21nd3hnamhxaHN6bnV2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Njk0OTg4OSwiZXhwIjoyMDkyNTI1ODg5fQ.VOu0Za11PX2rxKMjXFtuhMVkSQwdOWn3XaM6377oC8g\" MEDIA_FOLDER=\"C:\\\\\\\\Users\\\\\\\\rya_p\\\\\\\\Downloads\\\\\\\\DESTAQUE -TAINÃ ACI\" node scripts/upload-stories.mjs)",
+      "Bash(gh pr *)",
+      "Bash(where gh *)",
+      "Bash(winpty gh *)",
+      "Bash(pnpm install *)",
+      "Bash(npx pnpm *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://odisewmgwxgjhqhsznuv.supabase.co/storage/v1/object/public/taina-stories/story-01.jpg\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://odisewmgwxgjhqhsznuv.supabase.co/storage/v1/object/public/taina-stories/story-02.mp4\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://odisewmgwxgjhqhsznuv.supabase.co/storage/v1/object/public/taina-stories/story-29.mp4\")",
+      "Bash(npx shadcn@latest add @magicui/ripple)",
+      "Bash(SUPABASE_KEY=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kaXNld21nd3hnamhxaHN6bnV2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Njk0OTg4OSwiZXhwIjoyMDkyNTI1ODg5fQ.VOu0Za11PX2rxKMjXFtuhMVkSQwdOWn3XaM6377oC8g\" node scripts/upload-logos.mjs)"
+    ]
+  }
+}
