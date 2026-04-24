@@ -61,6 +61,12 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`
   }
 
+  const normalizePhoneForPayload = (value: string) => {
+    const digits = value.replace(/\D/g, "")
+    const localDigits = digits.startsWith("55") ? digits.slice(2) : digits
+    return `+55${localDigits}`
+  }
+
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhone(formatPhone(e.target.value))
   }
@@ -77,7 +83,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nome: name,
-          telefone: phone,
+          telefone: normalizePhoneForPayload(phone),
           objetivo: objective,
           objetivo_outro: isOther ? otherObjective : "",
           origem: "formulario-modal",
