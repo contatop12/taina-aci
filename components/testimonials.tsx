@@ -10,28 +10,28 @@ const instagramReels = [
     embedUrl: "https://www.instagram.com/p/DCDPNW4u94p/embed",
   },
   {
-    url: "https://www.instagram.com/reel/C9dnzQfOYPr/",
-    embedUrl: "https://www.instagram.com/reel/C9dnzQfOYPr/embed",
+    url: "https://www.instagram.com/reel/C8fftB_hivb/",
+    embedUrl: "https://www.instagram.com/reel/C8fftB_hivb/embed",
   },
   {
-    url: "https://www.instagram.com/reel/DGy0VwfOJl3/",
-    embedUrl: "https://www.instagram.com/reel/DGy0VwfOJl3/embed",
+    url: "https://www.instagram.com/p/DBRI4QoOmYo/?img_index=1",
+    embedUrl: "https://www.instagram.com/p/DBRI4QoOmYo/embed",
+  },
+  {
+    url: "https://www.instagram.com/reel/C_G5oEKyRFD/",
+    embedUrl: "https://www.instagram.com/reel/C_G5oEKyRFD/embed",
   },
   {
     url: "https://www.instagram.com/reel/C-EAqxTuJYk/",
     embedUrl: "https://www.instagram.com/reel/C-EAqxTuJYk/embed",
   },
   {
-    url: "https://www.instagram.com/p/DBRI4QoOmYo/",
-    embedUrl: "https://www.instagram.com/p/DBRI4QoOmYo/embed",
+    url: "https://www.instagram.com/reel/DDuCOIKOw_y/",
+    embedUrl: "https://www.instagram.com/reel/DDuCOIKOw_y/embed",
   },
   {
-    url: "https://www.instagram.com/reel/C8fftB_hivb/",
-    embedUrl: "https://www.instagram.com/reel/C8fftB_hivb/embed",
-  },
-  {
-    url: "https://www.instagram.com/reel/C_G5oEKyRFD/",
-    embedUrl: "https://www.instagram.com/reel/C_G5oEKyRFD/embed",
+    url: "https://www.instagram.com/reel/DGy0VwfOJl3/",
+    embedUrl: "https://www.instagram.com/reel/DGy0VwfOJl3/embed",
   },
   {
     url: "https://www.instagram.com/reel/DL0mNglu81r/",
@@ -143,7 +143,7 @@ export function Testimonials() {
             {instagramReels.map((reel, index) => (
               <div
                 key={reel.url}
-                className="flex-shrink-0 w-[320px] snap-center"
+                className="shrink-0 w-[320px] snap-center"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="bg-card rounded-2xl shadow-lg overflow-hidden">

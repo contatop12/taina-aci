@@ -22,5 +22,9 @@
       "Bash(grep -n \"primary\\\\|foreground\\\\|background\" tailwind.config*)",
       "Bash(cat tailwind.config*)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "supabase"
+  ],
+  "enableAllProjectMcpServers": true
 }
