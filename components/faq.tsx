@@ -37,7 +37,7 @@ const faqs = [
   {
     question: "É possível fazer a consulta online?",
     answer:
-      "Sim. A Dra. Tainã realiza atendimentos via telemedicina para pacientes em todo o Brasil.",
+      "Sim. A Dra. Tainã realiza atendimentos via telemedicina para pacientes em todo o Brasil e no exterior, incluindo Portugal, Estados Unidos e Japão.",
   },
   {
     question: "Como funciona a consulta com nutricionista incluída?",

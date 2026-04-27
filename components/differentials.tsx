@@ -18,9 +18,9 @@ const differentials = [
   },
   {
     icon: Microscope,
-    title: "Exames Avançados: Bioimpedância e Teste Genético",
+    title: "Exames Avançados: Teste Genético, Scanner Corporal e Bioimpedância",
     description:
-      "Avaliação completa do seu metabolismo com tecnologia de ponta para um diagnóstico mais preciso e um plano mais eficaz.",
+      "Avaliação completa do seu metabolismo com teste genético, scanner corporal e bioimpedância, usando tecnologia de ponta para um diagnóstico mais preciso e um plano mais eficaz.",
   },
   {
     icon: Pill,
@@ -72,7 +72,7 @@ export function Differentials() {
               {/* Mobile: card compacto */}
               <div className="md:hidden bg-muted/50 rounded-2xl p-5 flex flex-col gap-4 border border-border/40">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                     <item.icon className="w-5 h-5 text-primary" />
                   </div>
                   <h3 className="text-base font-semibold text-foreground text-balance leading-snug">
@@ -90,7 +90,7 @@ export function Differentials() {
                   index % 2 === 1 ? "flex-row-reverse" : "flex-row"
                 }`}
               >
-                <div className="flex-shrink-0 flex flex-col items-center gap-3">
+                <div className="shrink-0 flex flex-col items-center gap-3">
                   <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
                     <item.icon className="w-8 h-8 text-primary" />
                   </div>

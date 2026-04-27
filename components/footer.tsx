@@ -34,7 +34,7 @@ export function Footer() {
           {/* Coluna 1: Logo e Descrição */}
           <div className="space-y-5">
             <Image
-              src="https://odisewmgwxgjhqhsznuv.supabase.co/storage/v1/object/public/taina-stories/logo-rodape.png"
+              src="/LOGO%20V2%20TAIN%C3%83.png"
               alt="Dra. Tainã Aci - Endocrinologia e Metabologia Nutrologia"
               width={280}
               height={70}

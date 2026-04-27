@@ -44,13 +44,13 @@ export function Location({ onOpenModal }: LocationProps) {
                 Onde nos encontrar
               </p>
               <h2 className="text-3xl md:text-4xl font-serif mb-6 text-balance">
-                Atendimento presencial na Vila Mariana ou online para todo o Brasil
+                Atendimento presencial na Vila Mariana e on-line para o Brasil e exterior
               </h2>
             </div>
 
             <div className="space-y-4">
               <div className="flex items-start gap-4">
-                <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                <MapPin className="w-5 h-5 text-primary shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-foreground">R. Domingos de Morais, 2187, CJ 406</p>
                   <p className="text-muted-foreground">Torre Paris — Vila Mariana, São Paulo</p>
@@ -68,7 +68,7 @@ export function Location({ onOpenModal }: LocationProps) {
               </div>
 
               <div className="flex items-start gap-4">
-                <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                <Clock className="w-5 h-5 text-primary shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-foreground">Horário de Atendimento</p>
                   <p className="text-muted-foreground">Segunda a Sexta: 9h30 às 18h30</p>
@@ -83,7 +83,9 @@ export function Location({ onOpenModal }: LocationProps) {
               </div>
               <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
                 <Globe className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-primary">Online — Todo o Brasil</span>
+                <span className="text-sm font-medium text-primary">
+                  On-line — Brasil e exterior (Portugal, Estados Unidos e Japão)
+                </span>
               </div>
             </div>
 
