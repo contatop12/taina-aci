@@ -56,7 +56,7 @@ const treatments = [
   {
     icon: ShieldCheck,
     title: "Prevenção",
-    description: "Para quem quer otimizar saúde antes dos sintomas aparecerem",
+    description: "Acompanhamento médico voltado à identificação precoce de alterações metabólicas e à otimização da saúde, com foco na redução de riscos e na promoção de qualidade de vida.",
   },
 ]
 

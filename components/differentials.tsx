@@ -24,9 +24,9 @@ const differentials = [
   },
   {
     icon: Pill,
-    title: "Quando indicado: Medicamentos Modernos",
+    title: "Quando indicado: tratamento medicamentoso acompanhado.",
     description:
-      "A Dra. Tainã pode prescrever, quando clinicamente indicado, medicamentos como Ozempic, Mounjaro, Wegovy e Rybelsus — sempre com acompanhamento seguro.",
+      "Avanços recentes trouxeram opções eficazes para o tratamento da obesidade e do diabetes, com benefícios no peso e no controle metabólico. A escolha da medicação deve ser criteriosa e personalizada. O acompanhamento profissional permite ajustes precisos para otimizar os resultados e a sua manutenção a longo prazo.",
   },
 ]
 

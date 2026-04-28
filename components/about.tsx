@@ -10,13 +10,13 @@ interface AboutProps {
 }
 
 const credentials = [
-  "Residência em Clínica Médica — Hospital do Servidor Público Municipal de SP",
-  "Residência em Endocrinologia — Hospital Santa Marcelina",
-  "Especialista pela SBEM",
+  "Residência em Clínica Médica — Hospital do Servidor Público Municipal de SP - RQE 81060",
+  "Residência em Endocrinologia — Hospital Santa Marcelina - RQE 81061",
+  "Mestrado profissional Inovação no ensino superior em saúde - USCS",
+  "Especialista pela Sociedade Brasileira de Endocrinologia (SBEM)",
   "Membro da Endocrine Society (EUA)",
   "Pós-graduada em Nutrologia — ABRAN",
   "Fellow Research — McGill University, Canadá",
-  "Professora de Medicina — USCS",
 ]
 
 export function About({ onOpenModal }: AboutProps) {
@@ -65,8 +65,11 @@ export function About({ onOpenModal }: AboutProps) {
                 Sobre a Dra. Tainã Aci
               </p>
               <h2 className="text-3xl md:text-4xl font-serif mb-6 text-balance">
-                Uma médica que escolheu a endocrinologia por paixão — não por acaso
+                Experiência clínica aliada à formação acadêmica
               </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed text-balance">
+                Cuidado médico com rigor científico e atenção individual
+              </p>
             </div>
 
             <div className="space-y-4 text-muted-foreground leading-relaxed">
@@ -74,7 +77,7 @@ export function About({ onOpenModal }: AboutProps) {
                 Pacientes, alunos e amigos são testemunhas da minha paixão pela medicina. Após formação em Clínica Médica, encontrei na endocrinologia minha verdadeira realização profissional.
               </p>
               <p>
-                Hoje, além de atender pacientes com dedicação e acolhimento, sou professora universitária de medicina e exercito uma prática baseada em evidências científicas.
+                Além do atendimento clínico, atuo na formação de médicos, com experiência no ensino de endocrinologia em nível de graduação e pós-graduação, e na mentoria de colegas. A vivência acadêmica contribui para atualização constante e integração entre evidência científica e prática clínica.
               </p>
             </div>
 

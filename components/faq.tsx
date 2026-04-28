@@ -12,17 +12,17 @@ const faqs = [
   {
     question: "A Dra. Tainã Aci atende por convênio ou plano de saúde?",
     answer:
-      "Não. O atendimento é exclusivamente particular. Essa escolha garante tempo adequado de consulta, abordagem personalizada e acesso ao que há de mais moderno em medicina de precisão.",
+      "O atendimento é exclusivamente particular. Essa escolha garante tempo adequado de consulta, abordagem personalizada e acesso ao que há de mais moderno em medicina de precisão.",
   },
   {
     question: "Por que escolher a Dra. Tainã em vez de outros profissionais?",
     answer:
-      "Pela combinação única de experiência clínica, formação internacional, atuação acadêmica e um modelo de consulta que inclui nutricionista integrada — tudo focado em resultados consistentes e seguros.",
+      "Construir um vínculo de confiança com o médico é parte fundamental para o sucesso do tratamento. A condução da Dra Tainã integra experiência clínica, formação sólida, atuação acadêmica e um modelo de cuidado que inclui acompanhamento nutricional integrado e foco em resultados sustentáveis e seguros.",
   },
   {
     question: "Os tratamentos são só para quem já tem algum problema de saúde?",
     answer:
-      "Não. Muitos pacientes buscam prevenção, performance e otimização da saúde. O acompanhamento é indicado tanto para quem já tem sintomas quanto para quem quer se antecipar a desequilíbrios futuros.",
+      "Não. O acompanhamento endocrinológico é indicado tanto para o tratamento de condições já estabelecidas quanto para a prevenção, com foco na detecção precoce de alterações metabólicas e na redução de riscos ao longo do tempo.",
   },
   {
     question: "Por que qualquer pessoa acima dos 30 anos deveria consultar um endocrinologista?",

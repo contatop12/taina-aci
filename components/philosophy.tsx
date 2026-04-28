@@ -39,10 +39,10 @@ export function Philosophy() {
             Nossa Filosofia
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif mb-8 text-balance">
-            Não é sobre emagrecer rápido. É sobre tratar a causa.
+            Emagrecimento com ciência, para resultados que permanecem.
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-            A maioria dos pacientes já tentou dietas, treinos e soluções rápidas. Aqui, o foco é entender profundamente o seu metabolismo, seus hormônios e seu histórico — para construir resultados que realmente se sustentam ao longo do tempo.
+            Tratar obesidade vai além de orientações genéricas. Aqui, cada paciente é avaliado de forma individual, com exames modernos e tratamento baseado em evidências científicas, considerando o metabolismo, perfil hormonal e histórico de saúde. O acompanhamento é parte fundamental do processo para garantir resultados sustentáveis e evitar o reganho de peso e efeito sanfona.
           </p>
         </div>
 

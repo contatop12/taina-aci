@@ -14,8 +14,8 @@ interface ContactModalProps {
 const objectives = [
   "Emagrecimento e Tratamento da Obesidade",
   "Saúde Hormonal Feminina e Menopausa",
-  "Saúde Hormonal Masculina e Testosterona",
-  "Acompanhamento Pós-Bariátrica (Reposição e Manutenção)",
+  "Saúde Hormonal Masculina e reposição de testosterona Testosterona",
+  "Acompanhamento Pós-Bariátrica",
   "Acompanhamento Metabólico e Hormonal na Gestação",
   "Tratamento de Diabetes (Tipo 1, 2 e Gestacional)",
   "Controle de Distúrbios da Tireoide",
@@ -25,7 +25,7 @@ const objectives = [
   "Outro",
 ]
 
-const FORM_ID = "formulario_modal_site"
+const FORM_ID = "taina_vila_mariana_sp"
 const CODI_ID = "73058194261490732816540927385016"
 
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
@@ -39,6 +39,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const pendingWhatsappWindowRef = useRef<Window | null>(null)
+  const hasTrackedFormStartRef = useRef(false)
+  const hasTrackedFormSubmitRef = useRef(false)
 
   const isOther = objective === "Outro"
   const otherObjective = otherText.trim()
@@ -71,6 +73,26 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     return `+55${localDigits}`
   }
 
+  const pushDataLayerEvent = (eventName: string, extraData: Record<string, unknown> = {}) => {
+    if (typeof window === "undefined") return
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({
+      event: eventName,
+      form_id: FORM_ID,
+      codi_id: CODI_ID,
+      ...extraData,
+    })
+  }
+
+  const handleFormStart = () => {
+    if (hasTrackedFormStartRef.current) return
+    hasTrackedFormStartRef.current = true
+    pushDataLayerEvent("form_start", {
+      origem: "formulario-modal",
+      pagina: window.location.href,
+    })
+  }
+
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhone(formatPhone(e.target.value))
   }
@@ -95,6 +117,13 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!isFormValid) return
+    if (!hasTrackedFormSubmitRef.current) {
+      hasTrackedFormSubmitRef.current = true
+      pushDataLayerEvent("form_submit", {
+        origem: "formulario-modal",
+        pagina: window.location.href,
+      })
+    }
     setIsSubmitting(true)
 
     const whatsappNumber = "5511951515103"
@@ -152,6 +181,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setAgreed(true)
     setIsSubmitted(false)
     setIsDropdownOpen(false)
+    hasTrackedFormStartRef.current = false
+    hasTrackedFormSubmitRef.current = false
   }
 
   const handleClose = () => {
@@ -229,7 +260,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} onFocusCapture={handleFormStart} className="space-y-4">
 
               {/* Name input */}
               <div className="relative">

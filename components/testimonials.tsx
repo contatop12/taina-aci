@@ -101,7 +101,7 @@ export function Testimonials() {
             Pacientes que decidiram investir na própria saúde
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Resultados reais de pessoas reais — sem filtros, sem roteiros.
+            Resultados reais de pessoas reais.
           </p>
         </div>
 

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { Clock, Target, Microscope, Users } from "lucide-react"
 
 const benefits = [
-  { icon: Clock, text: "Tempo real de escuta e análise" },
+  { icon: Clock, text: "Tempo real de escuta e vínculo" },
   { icon: Target, text: "Estratégia 100% personalizada" },
   { icon: Microscope, text: "Acesso a tecnologias e exames avançados" },
   { icon: Users, text: "Acompanhamento próximo e contínuo" },
