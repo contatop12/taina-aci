@@ -1,17 +1,23 @@
 export const runtime = "nodejs"
 
-const WEBHOOK_URL =
-  "https://n8n-webhook.axmxa0.easypanel.host/webhook/vila-mariana-sp"
+const WEBHOOK_URLS = [
+  "https://n8n-webhook.axmxa0.easypanel.host/webhook/vila-mariana-sp",
+  "https://python-auto-relatorio-trafego.axmxa0.easypanel.host/meta-new-lead",
+]
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
 
-    await fetch(WEBHOOK_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    })
+    await Promise.all(
+      WEBHOOK_URLS.map((url) =>
+        fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        })
+      )
+    )
 
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
