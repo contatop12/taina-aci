@@ -26,10 +26,6 @@ const instagramReels = [
     embedUrl: "https://www.instagram.com/reel/C_G5oEKyRFD/embed",
   },
   {
-    url: "https://www.instagram.com/reel/DGy0VwfOJl3/",
-    embedUrl: "https://www.instagram.com/reel/DGy0VwfOJl3/embed",
-  },
-  {
     url: "https://www.instagram.com/reel/C-EAqxTuJYk/",
     embedUrl: "https://www.instagram.com/reel/C-EAqxTuJYk/embed",
   },
