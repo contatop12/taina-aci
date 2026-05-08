@@ -8,7 +8,6 @@ const BASE = "https://pub-fab1140cac404905a5537d13579c2404.r2.dev"
 
 const stories = [
   { id:  1, type: "video", url: `${BASE}/story-01.mp4` },
-  { id:  2, type: "video", url: `${BASE}/story-02.mp4` },
   { id:  3, type: "video", url: `${BASE}/story-03.mp4` },
   { id:  4, type: "video", url: `${BASE}/story-04.mp4` },
   { id:  5, type: "video", url: `${BASE}/story-05.mp4` },

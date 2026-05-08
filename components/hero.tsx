@@ -17,7 +17,7 @@ export function Hero({ onOpenModal }: HeroProps) {
         {/* Photo — max 300px */}
         <div className="relative w-full h-[300px]">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/FOTO%20TAINA1-2BJX8A68XuuPN4jOi6zgOVMJXZUqd7.jpg"
+            src="https://pub-fab1140cac404905a5537d13579c2404.r2.dev/foto-taina1.webp"
             alt="Dra. Tainã Aci em seu consultório"
             fill
             className="object-cover object-center"
@@ -76,7 +76,7 @@ export function Hero({ onOpenModal }: HeroProps) {
             <div className="order-2">
               <div className="relative">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/FOTO%20TAINA1-2BJX8A68XuuPN4jOi6zgOVMJXZUqd7.jpg"
+                  src="https://pub-fab1140cac404905a5537d13579c2404.r2.dev/foto-taina1.webp"
                   alt="Dra. Tainã Aci em seu consultório"
                   width={600}
                   height={750}

@@ -51,7 +51,7 @@ export function About({ onOpenModal }: AboutProps) {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="order-2 lg:order-1">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/FOTO%20TAINA2-3lI4a8wwQ6emnGVlVeFeAEmZ4pYkMe.jpg"
+              src="https://pub-fab1140cac404905a5537d13579c2404.r2.dev/foto-taina2.webp"
               alt="Dra. Tainã Aci"
               width={500}
               height={650}
