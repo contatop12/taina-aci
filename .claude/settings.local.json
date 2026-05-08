@@ -32,7 +32,12 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" -X POST \"https://n8n-webhook.axmxa0.easypanel.host/webhook/vila-mariana-sp\" -H \"Content-Type: application/json\" -d '{\"nome\":\"Teste\",\"telefone\":\"+5511999999999\",\"form_id\":\"taina_vila_mariana_sp\"}')",
       "Bash(curl -s -w \"\\\\nHTTP:%{http_code}\" -X POST \"https://python-auto-relatorio-trafego.axmxa0.easypanel.host/site-new-lead\" -H \"Content-Type: application/json\" -d '{\"nome\":\"Teste\",\"telefone\":\"+5511999999999\",\"form_id\":\"taina_vila_mariana_sp\"}')",
       "Bash(pnpm deploy *)",
-      "Bash(curl -s -w '\\\\nHTTP:%{http_code}' -X POST https://endocrinologista.tainaaci.com.br/api/lead -H 'Content-Type: application/json' -d '{\"form_id\":\"taina_vila_mariana_sp\",\"codi_id\":\"73058194261490732816540927385016\",\"nome\":\"Teste Deploy\",\"telefone\":\"+5511999999999\",\"objetivo\":\"Emagrecimento e Tratamento da Obesidade\",\"objetivo_outro\":\"\",\"ciente_consulta_particular\":true,\"origem\":\"formulario-modal\",\"pagina\":\"https://endocrinologista.tainaaci.com.br/vila-mariana-sp\",\"data\":\"2026-05-08T00:00:00.000Z\",\"utm_source\":\"\",\"utm_medium\":\"\",\"utm_campaign\":\"\",\"utm_term\":\"\",\"utm_content\":\"\"}')"
+      "Bash(curl -s -w '\\\\nHTTP:%{http_code}' -X POST https://endocrinologista.tainaaci.com.br/api/lead -H 'Content-Type: application/json' -d '{\"form_id\":\"taina_vila_mariana_sp\",\"codi_id\":\"73058194261490732816540927385016\",\"nome\":\"Teste Deploy\",\"telefone\":\"+5511999999999\",\"objetivo\":\"Emagrecimento e Tratamento da Obesidade\",\"objetivo_outro\":\"\",\"ciente_consulta_particular\":true,\"origem\":\"formulario-modal\",\"pagina\":\"https://endocrinologista.tainaaci.com.br/vila-mariana-sp\",\"data\":\"2026-05-08T00:00:00.000Z\",\"utm_source\":\"\",\"utm_medium\":\"\",\"utm_campaign\":\"\",\"utm_term\":\"\",\"utm_content\":\"\"}')",
+      "mcp__claude_ai_Cloudflare_Developer_Platform__r2_bucket_create",
+      "PowerShell(Get-ChildItem \"C:\\\\IA\\\\P12\\\\01 - CLIENTES\\\\taina-aci\" | Where-Object { $_.Name -notin @\\('node_modules','.open-next'\\) } | Select-Object Name, PSIsContainer | Format-Table)",
+      "PowerShell(Get-ChildItem \"C:\\\\IA\\\\P12\\\\01 - CLIENTES\\\\taina-aci\\\\lib\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object Name, FullName | Format-Table)",
+      "PowerShell(Get-ChildItem \"C:\\\\IA\\\\P12\\\\01 - CLIENTES\\\\taina-aci\\\\app\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object Name | Format-Table)",
+      "PowerShell(Get-ChildItem \"C:\\\\IA\\\\P12\\\\01 - CLIENTES\\\\taina-aci\\\\components\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object Name | Format-Table)"
     ]
   },
   "enableAllProjectMcpServers": true,
