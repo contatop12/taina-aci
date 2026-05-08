@@ -17,6 +17,11 @@ const nextConfig = {
         destination: "/vila-mariana-sp",
         permanent: true,
       },
+      {
+        source: "/desq",
+        destination: "/por-que-particular",
+        permanent: true,
+      },
     ]
   },
 }

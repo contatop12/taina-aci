@@ -50,7 +50,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [phone, setPhone] = useState("")
   const [objective, setObjective] = useState("")
   const [otherText, setOtherText] = useState("")
-  const [particularAware, setParticularAware] = useState<"" | "sim" | "nao">("")
+  const [situacao, setSituacao] = useState<"" | "pronto" | "plano">("")
   const [agreed, setAgreed] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -79,7 +79,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     !!phone &&
     !!objective &&
     (!isOther || !!otherText.trim()) &&
-    !!particularAware &&
+    !!situacao &&
     agreed
 
   // Fecha dropdown ao clicar fora
@@ -171,8 +171,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     e.preventDefault()
     if (!isFormValid) return
 
-    if (particularAware === "nao") {
-      router.push("/desq")
+    if (situacao === "plano") {
+      router.push("/por-que-particular")
       onClose()
       resetForm()
       return
@@ -190,7 +190,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
     const whatsappNumber = "5511951515103"
     const message = encodeURIComponent(
-      `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Tenho interesse em: ${whatsappObjective}. Confirmo ciência de que o atendimento é particular.`
+      `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Tenho interesse em: ${whatsappObjective}. Estou pronto(a) para investir na minha saúde com consulta particular e confirmo ciência de que o atendimento é particular.`
     )
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${message}`
 
@@ -232,7 +232,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setPhone("")
     setObjective("")
     setOtherText("")
-    setParticularAware("")
+    setSituacao("")
     setAgreed(true)
     setIsDropdownOpen(false)
     hasTrackedFormStartRef.current = false
@@ -404,35 +404,35 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 )}
               </div>
 
-              {/* Consulta particular — Sim/Não */}
+              {/* Situação atual */}
               <div className="space-y-2">
                 <p className="text-[10px] text-primary font-medium leading-relaxed">
-                  Você está ciente de que essa consulta é somente particular?
+                  Qual é a sua situação atual?
                 </p>
-                <div className="flex gap-2">
+                <div className="flex flex-col gap-2">
                   <button
                     type="button"
-                    onClick={() => setParticularAware("sim")}
+                    onClick={() => setSituacao("pronto")}
                     className={cn(
-                      "flex-1 py-3 px-3 rounded-xl text-sm font-medium border transition-all duration-200",
-                      particularAware === "sim"
+                      "w-full py-3 px-3 rounded-xl text-left text-sm font-medium border transition-all duration-200 leading-snug",
+                      situacao === "pronto"
                         ? "border-primary bg-primary/10 text-primary"
                         : "border-border bg-muted/30 text-muted-foreground hover:border-primary/40"
                     )}
                   >
-                    Sim
+                    ✅ Estou pronto(a) para investir na minha saúde com consulta particular
                   </button>
                   <button
                     type="button"
-                    onClick={() => setParticularAware("nao")}
+                    onClick={() => setSituacao("plano")}
                     className={cn(
-                      "flex-1 py-3 px-3 rounded-xl text-sm font-medium border transition-all duration-200",
-                      particularAware === "nao"
+                      "w-full py-3 px-3 rounded-xl text-left text-sm font-medium border transition-all duration-200 leading-snug",
+                      situacao === "plano"
                         ? "border-primary bg-primary/10 text-primary"
                         : "border-border bg-muted/30 text-muted-foreground hover:border-primary/40"
                     )}
                   >
-                    Não
+                    🕐 Tenho interesse, mas hoje só consigo pelo plano de saúde
                   </button>
                 </div>
               </div>
