@@ -37,7 +37,14 @@
       "PowerShell(Get-ChildItem \"C:\\\\IA\\\\P12\\\\01 - CLIENTES\\\\taina-aci\" | Where-Object { $_.Name -notin @\\('node_modules','.open-next'\\) } | Select-Object Name, PSIsContainer | Format-Table)",
       "PowerShell(Get-ChildItem \"C:\\\\IA\\\\P12\\\\01 - CLIENTES\\\\taina-aci\\\\lib\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object Name, FullName | Format-Table)",
       "PowerShell(Get-ChildItem \"C:\\\\IA\\\\P12\\\\01 - CLIENTES\\\\taina-aci\\\\app\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object Name | Format-Table)",
-      "PowerShell(Get-ChildItem \"C:\\\\IA\\\\P12\\\\01 - CLIENTES\\\\taina-aci\\\\components\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object Name | Format-Table)"
+      "PowerShell(Get-ChildItem \"C:\\\\IA\\\\P12\\\\01 - CLIENTES\\\\taina-aci\\\\components\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object Name | Format-Table)",
+      "mcp__claude_ai_Cloudflare_Developer_Platform__r2_bucket_get",
+      "Bash(node scripts/migrate-to-r2.mjs)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\rya_p\\\\Downloads\\\\DESTAQUE -TAINÃ ACI\" | Where-Object { !$_.PSIsContainer } | Select-Object Name, Length, LastWriteTime | Sort-Object LastWriteTime | Format-Table -AutoSize)",
+      "Bash(node scripts/upload-local-to-r2.mjs)",
+      "Bash(ffmpeg -version)",
+      "PowerShell(ffmpeg *)",
+      "PowerShell(winget *)"
     ]
   },
   "enableAllProjectMcpServers": true,
