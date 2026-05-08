@@ -3,9 +3,10 @@
 import { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { X, Check, MessageCircle, ChevronDown } from "lucide-react"
+import { X, ChevronDown } from "lucide-react"
 import { CTAButton } from "@/components/ui/cta-button"
 import { cn } from "@/lib/utils"
+import { storeWhatsappRedirectUrl } from "@/lib/whatsapp-redirect-session"
 
 interface ContactModalProps {
   isOpen: boolean
@@ -45,7 +46,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [otherText, setOtherText] = useState("")
   const [particularAware, setParticularAware] = useState<"" | "sim" | "nao">("")
   const [agreed, setAgreed] = useState(true)
-  const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [utmParams, setUtmParams] = useState<UtmParams>({
@@ -56,7 +56,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     utm_content: "",
   })
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const pendingWhatsappWindowRef = useRef<Window | null>(null)
   const hasTrackedFormStartRef = useRef(false)
   const hasTrackedFormSubmitRef = useRef(false)
 
@@ -177,10 +176,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     )
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${message}`
 
-    // Safari/iOS pode bloquear popups fora do gesto de clique.
-    // Pré-abre a aba durante o submit para navegar depois com segurança.
-    pendingWhatsappWindowRef.current = window.open("", "_blank")
-
     // Envia lead via rota de API interna (evita CORS do browser → n8n)
     try {
       await fetch("/api/lead", {
@@ -205,19 +200,13 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     }
 
     setIsSubmitting(false)
-    setIsSubmitted(true)
-    setTimeout(() => {
-      const pendingWindow = pendingWhatsappWindowRef.current
-      if (pendingWindow && !pendingWindow.closed) {
-        pendingWindow.location.href = whatsappUrl
-      } else {
-        // Fallback para navegacao na mesma aba quando o popup for bloqueado.
-        window.location.href = whatsappUrl
-      }
-      pendingWhatsappWindowRef.current = null
-      onClose()
-      resetForm()
-    }, 3000)
+
+    storeWhatsappRedirectUrl(whatsappUrl)
+
+    const query = typeof window !== "undefined" ? window.location.search : ""
+    onClose()
+    resetForm()
+    router.push(`/obrigado${query}`)
   }
 
   const resetForm = () => {
@@ -227,7 +216,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setOtherText("")
     setParticularAware("")
     setAgreed(true)
-    setIsSubmitted(false)
     setIsDropdownOpen(false)
     hasTrackedFormStartRef.current = false
     hasTrackedFormSubmitRef.current = false
@@ -235,7 +223,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   const handleClose = () => {
     onClose()
-    if (isSubmitted) resetForm()
   }
 
   if (!isOpen) return null
@@ -287,28 +274,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </p>
           </div>
 
-          {/* Success state */}
-          {isSubmitted ? (
-            <div className="text-center py-10 space-y-5">
-              <div className="relative mx-auto w-20 h-20">
-                <div className="absolute inset-0 rounded-full bg-primary/10 animate-ping opacity-40" />
-                <div className="relative w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center">
-                  <Check className="w-9 h-9 text-primary" strokeWidth={2} />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <p className="text-lg font-serif text-foreground">Recebemos seu contato!</p>
-                <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">
-                  Nossa equipe já foi notificada e entrará em contato em instantes pelo WhatsApp.
-                </p>
-              </div>
-              <div className="flex items-center justify-center gap-2 text-[#25D366]">
-                <MessageCircle className="w-4 h-4 fill-current" />
-                <span className="text-sm font-medium">Abrindo WhatsApp...</span>
-              </div>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} onFocusCapture={handleFormStart} className="space-y-4">
+          <form onSubmit={handleSubmit} onFocusCapture={handleFormStart} className="space-y-4">
               <input type="hidden" name="utm_source" value={utmParams.utm_source} />
               <input type="hidden" name="utm_medium" value={utmParams.utm_medium} />
               <input type="hidden" name="utm_campaign" value={utmParams.utm_campaign} />
@@ -481,8 +447,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 </CTAButton>
               </div>
 
-            </form>
-          )}
+          </form>
         </div>
       </div>
     </div>

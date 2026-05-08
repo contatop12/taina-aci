@@ -18,3 +18,5 @@ node_modules
 .dev.vars
 cloudflare-env.d.ts
 .DS_Store
+
+pagina_convenio_taina_aci.pdf
