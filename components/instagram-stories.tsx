@@ -4,9 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react"
 import Image from "next/image"
 
-// R2 public URL — after enabling public access in Cloudflare dashboard:
-// R2 → taina-aci → Settings → Public Access → copy the pub-XXXX.r2.dev domain
-const BASE = process.env.NEXT_PUBLIC_MEDIA_BASE_URL ?? "https://odisewmgwxgjhqhsznuv.supabase.co/storage/v1/object/public/taina-stories"
+const BASE = "https://pub-fab1140cac404905a5537d13579c2404.r2.dev"
 
 const stories = [
   { id: 1,  type: "video", url: `${BASE}/story-02.mp4` },
