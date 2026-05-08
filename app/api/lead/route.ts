@@ -1,4 +1,4 @@
-export const runtime = "edge"
+/** Mantenha runtime padrão (Node/OpenNext). `edge` nesta rota pode falhar no Worker da Cloudflare (500). */
 
 const WEBHOOK_URLS = [
   "https://n8n-webhook.axmxa0.easypanel.host/webhook/vila-mariana-sp",
@@ -21,22 +21,22 @@ async function sendWithTimeout(url: string, body: string, timeoutMs = 8000): Pro
 }
 
 export async function POST(request: Request) {
+  let body: unknown
   try {
-    const body = await request.json()
-    const payload = JSON.stringify(body)
-
-    await Promise.allSettled(
-      WEBHOOK_URLS.map((url) => sendWithTimeout(url, payload))
-    )
-
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    })
+    body = await request.json()
   } catch {
-    return new Response(JSON.stringify({ ok: false }), {
-      status: 200,
+    return new Response(JSON.stringify({ ok: false, error: "invalid_json" }), {
+      status: 400,
       headers: { "Content-Type": "application/json" },
     })
   }
+
+  const payload = JSON.stringify(body)
+
+  await Promise.allSettled(WEBHOOK_URLS.map((url) => sendWithTimeout(url, payload)))
+
+  return new Response(JSON.stringify({ ok: true }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  })
 }
