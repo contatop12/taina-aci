@@ -27,7 +27,10 @@
       "Bash(git remote *)",
       "Bash(gh release *)",
       "Bash(Get-Command gh *)",
-      "Bash(gh auth *)"
+      "Bash(gh auth *)",
+      "mcp__claude_ai_Cloudflare_Developer_Platform__workers_get_worker",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" -X POST \"https://n8n-webhook.axmxa0.easypanel.host/webhook/vila-mariana-sp\" -H \"Content-Type: application/json\" -d '{\"nome\":\"Teste\",\"telefone\":\"+5511999999999\",\"form_id\":\"taina_vila_mariana_sp\"}')",
+      "Bash(curl -s -w \"\\\\nHTTP:%{http_code}\" -X POST \"https://python-auto-relatorio-trafego.axmxa0.easypanel.host/site-new-lead\" -H \"Content-Type: application/json\" -d '{\"nome\":\"Teste\",\"telefone\":\"+5511999999999\",\"form_id\":\"taina_vila_mariana_sp\"}')"
     ]
   },
   "enableAllProjectMcpServers": true,
