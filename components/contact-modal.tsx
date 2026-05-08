@@ -13,12 +13,18 @@ interface ContactModalProps {
   onClose: () => void
 }
 
-interface UtmParams {
+interface TrackingParams {
   utm_source: string
   utm_medium: string
   utm_campaign: string
   utm_term: string
   utm_content: string
+  utm_id: string
+  gclid: string
+  gbraid: string
+  gad_source: string
+  gad_campaignid: string
+  device: string
 }
 
 const objectives = [
@@ -48,12 +54,18 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [agreed, setAgreed] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [utmParams, setUtmParams] = useState<UtmParams>({
+  const [trackingParams, setTrackingParams] = useState<TrackingParams>({
     utm_source: "",
     utm_medium: "",
     utm_campaign: "",
     utm_term: "",
     utm_content: "",
+    utm_id: "",
+    gclid: "",
+    gbraid: "",
+    gad_source: "",
+    gad_campaignid: "",
+    device: "",
   })
   const dropdownRef = useRef<HTMLDivElement>(null)
   const hasTrackedFormStartRef = useRef(false)
@@ -84,12 +96,18 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   useEffect(() => {
     if (typeof window === "undefined") return
     const params = new URLSearchParams(window.location.search)
-    setUtmParams({
+    setTrackingParams({
       utm_source: params.get("utm_source") ?? "",
       utm_medium: params.get("utm_medium") ?? "",
       utm_campaign: params.get("utm_campaign") ?? "",
       utm_term: params.get("utm_term") ?? "",
       utm_content: params.get("utm_content") ?? "",
+      utm_id: params.get("utm_id") ?? "",
+      gclid: params.get("gclid") ?? "",
+      gbraid: params.get("gbraid") ?? "",
+      gad_source: params.get("gad_source") ?? "",
+      gad_campaignid: params.get("gad_campaignid") ?? "",
+      device: params.get("device") ?? "",
     })
   }, [isOpen])
 
@@ -165,7 +183,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       pushDataLayerEvent("form_submit", {
         origem: "formulario-modal",
         pagina: window.location.href,
-        ...utmParams,
+        ...trackingParams,
       })
     }
     setIsSubmitting(true)
@@ -192,7 +210,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           origem: "formulario-modal",
           pagina: typeof window !== "undefined" ? window.location.href : "",
           data: new Date().toISOString(),
-          ...utmParams,
+          ...trackingParams,
         }),
       })
     } catch (_) {
@@ -275,11 +293,17 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           </div>
 
           <form onSubmit={handleSubmit} onFocusCapture={handleFormStart} className="space-y-4">
-              <input type="hidden" name="utm_source" value={utmParams.utm_source} />
-              <input type="hidden" name="utm_medium" value={utmParams.utm_medium} />
-              <input type="hidden" name="utm_campaign" value={utmParams.utm_campaign} />
-              <input type="hidden" name="utm_term" value={utmParams.utm_term} />
-              <input type="hidden" name="utm_content" value={utmParams.utm_content} />
+              <input type="hidden" name="utm_source" value={trackingParams.utm_source} />
+              <input type="hidden" name="utm_medium" value={trackingParams.utm_medium} />
+              <input type="hidden" name="utm_campaign" value={trackingParams.utm_campaign} />
+              <input type="hidden" name="utm_term" value={trackingParams.utm_term} />
+              <input type="hidden" name="utm_content" value={trackingParams.utm_content} />
+              <input type="hidden" name="utm_id" value={trackingParams.utm_id} />
+              <input type="hidden" name="gclid" value={trackingParams.gclid} />
+              <input type="hidden" name="gbraid" value={trackingParams.gbraid} />
+              <input type="hidden" name="gad_source" value={trackingParams.gad_source} />
+              <input type="hidden" name="gad_campaignid" value={trackingParams.gad_campaignid} />
+              <input type="hidden" name="device" value={trackingParams.device} />
 
               {/* Name input */}
               <div className="relative">
