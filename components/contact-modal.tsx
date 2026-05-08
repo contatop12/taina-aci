@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { X, Check, MessageCircle, ChevronDown } from "lucide-react"
 import { CTAButton } from "@/components/ui/cta-button"
@@ -37,10 +38,12 @@ const FORM_ID = "taina_vila_mariana_sp"
 const CODI_ID = "73058194261490732816540927385016"
 
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  const router = useRouter()
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [objective, setObjective] = useState("")
   const [otherText, setOtherText] = useState("")
+  const [particularAware, setParticularAware] = useState<"" | "sim" | "nao">("")
   const [agreed, setAgreed] = useState(true)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -60,7 +63,13 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const isOther = objective === "Outro"
   const otherObjective = otherText.trim()
   const whatsappObjective = isOther ? (otherObjective || "Outro") : objective
-  const isFormValid = !!name && !!phone && !!objective && (!isOther || !!otherText.trim()) && agreed
+  const isFormValid =
+    !!name &&
+    !!phone &&
+    !!objective &&
+    (!isOther || !!otherText.trim()) &&
+    !!particularAware &&
+    agreed
 
   // Fecha dropdown ao clicar fora
   useEffect(() => {
@@ -144,6 +153,14 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!isFormValid) return
+
+    if (particularAware === "nao") {
+      router.push("/desq")
+      onClose()
+      resetForm()
+      return
+    }
+
     if (!hasTrackedFormSubmitRef.current) {
       hasTrackedFormSubmitRef.current = true
       pushDataLayerEvent("form_submit", {
@@ -156,7 +173,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
     const whatsappNumber = "5511951515103"
     const message = encodeURIComponent(
-      `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Meu objetivo principal é: ${whatsappObjective}.`
+      `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Tenho interesse em: ${whatsappObjective}. Confirmo ciência de que o atendimento é particular.`
     )
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${message}`
 
@@ -176,6 +193,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           telefone: normalizePhoneForPayload(phone),
           objetivo: objective,
           objetivo_outro: isOther ? otherObjective : "",
+          ciente_consulta_particular: true,
           origem: "formulario-modal",
           pagina: typeof window !== "undefined" ? window.location.href : "",
           data: new Date().toISOString(),
@@ -207,6 +225,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setPhone("")
     setObjective("")
     setOtherText("")
+    setParticularAware("")
     setAgreed(true)
     setIsSubmitted(false)
     setIsDropdownOpen(false)
@@ -328,11 +347,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
               {/* Objective dropdown */}
               <div ref={dropdownRef} className="relative">
-                {/* Label fixa acima */}
-                <p className="text-[10px] text-primary font-medium mb-1.5">
-                  Objetivo principal
-                </p>
-
                 {/* Trigger */}
                 <button
                   type="button"
@@ -398,6 +412,39 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     </label>
                   </div>
                 )}
+              </div>
+
+              {/* Consulta particular — Sim/Não */}
+              <div className="space-y-2">
+                <p className="text-[10px] text-primary font-medium leading-relaxed">
+                  Você está ciente de que essa consulta é somente particular?
+                </p>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setParticularAware("sim")}
+                    className={cn(
+                      "flex-1 py-3 px-3 rounded-xl text-sm font-medium border transition-all duration-200",
+                      particularAware === "sim"
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-border bg-muted/30 text-muted-foreground hover:border-primary/40"
+                    )}
+                  >
+                    Sim
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setParticularAware("nao")}
+                    className={cn(
+                      "flex-1 py-3 px-3 rounded-xl text-sm font-medium border transition-all duration-200",
+                      particularAware === "nao"
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-border bg-muted/30 text-muted-foreground hover:border-primary/40"
+                    )}
+                  >
+                    Não
+                  </button>
+                </div>
               </div>
 
               {/* Privacy checkbox */}
