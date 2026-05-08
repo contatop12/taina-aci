@@ -20,11 +20,18 @@
       "Bash(npx shadcn@latest add @magicui/ripple)",
       "Bash(SUPABASE_KEY=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kaXNld21nd3hnamhxaHN6bnV2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Njk0OTg4OSwiZXhwIjoyMDkyNTI1ODg5fQ.VOu0Za11PX2rxKMjXFtuhMVkSQwdOWn3XaM6377oC8g\" node scripts/upload-logos.mjs)",
       "Bash(grep -n \"primary\\\\|foreground\\\\|background\" tailwind.config*)",
-      "Bash(cat tailwind.config*)"
+      "Bash(cat tailwind.config*)",
+      "mcp__claude_ai_Cloudflare_Developer_Platform__accounts_list",
+      "mcp__claude_ai_Cloudflare_Developer_Platform__set_active_account",
+      "mcp__claude_ai_Cloudflare_Developer_Platform__r2_buckets_list",
+      "Bash(git remote *)",
+      "Bash(gh release *)",
+      "Bash(Get-Command gh *)",
+      "Bash(gh auth *)"
     ]
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "supabase"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }

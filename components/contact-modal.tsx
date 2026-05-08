@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { X, ChevronDown } from "lucide-react"
+import { X, ChevronDown, Check } from "lucide-react"
 import { CTAButton } from "@/components/ui/cta-button"
 import { cn } from "@/lib/utils"
 import { storeWhatsappRedirectUrl } from "@/lib/whatsapp-redirect-session"
