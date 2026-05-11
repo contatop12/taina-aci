@@ -18,6 +18,8 @@ const FOTO_HERO = `${CDN}/foto-taina1.webp`
 const FOTO_SOBRE = `${CDN}/foto-taina2.webp`
 const WA_URL = "https://wa.me/5511951515103"
 
+const FORM_ID = "taina_vila_mariana_sp"
+
 function carouselStoryUrls(): string[] {
   const nums: number[] = []
   for (let n = 4; n <= 21; n++) {
@@ -217,6 +219,17 @@ function StoryVideoCarousel() {
 
 export function PorQueParticularContent() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({
+      event: "lead_desqualificado",
+      page_path: "/por-que-particular",
+      form_id: FORM_ID,
+    })
+  }, [])
 
   const openWa = () => {
     window.open(WA_URL, "_blank")
