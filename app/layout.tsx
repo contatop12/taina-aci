@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
 import Script from 'next/script'
+import { Suspense } from 'react'
 import './globals.css'
+import { PageviewTracker } from '@/components/pageview-tracker'
 
 const playfair = Playfair_Display({ 
   subsets: ["latin"],
@@ -56,6 +58,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
+        <Suspense fallback={null}>
+          <PageviewTracker />
+        </Suspense>
         {children}
       </body>
     </html>
