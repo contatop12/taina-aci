@@ -295,11 +295,11 @@ export function PorQueParticularContent() {
       {/* Seção 2 */}
       <section id="entenda-como-funciona" className="scroll-mt-28 py-16 lg:py-24">
         <div className="container mx-auto max-w-4xl px-4 lg:px-8">
-          <h2 className="mb-10 font-serif text-2xl text-balance md:text-4xl lg:text-[2.75rem]">
+          <h2 className="mb-10 text-center font-serif text-2xl text-balance md:text-4xl lg:text-[2.75rem]">
             Convênio não é errado. Só não é o que a Dra. Tainã oferece.
           </h2>
 
-          <div className="mb-12 space-y-6 text-muted-foreground leading-relaxed lg:text-[17px]">
+          <div className="mb-12 space-y-6 text-center text-muted-foreground leading-relaxed lg:text-[17px]">
             <p>
               O plano de saúde tem o papel dele. Para exames de rotina, urgências, procedimentos cirúrgicos, ele faz
               sentido. Mas quando o assunto é emagrecimento, hormônios, metabolismo, menopausa ou diabetes, o que faz
