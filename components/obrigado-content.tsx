@@ -38,7 +38,7 @@ export function ObrigadoContent() {
         clearWhatsappRedirectUrl()
         window.location.assign(whatsappUrl)
       }
-    }, 2500)
+    }, 10000)
 
     return () => window.clearTimeout(timer)
   }, [whatsappUrl])
