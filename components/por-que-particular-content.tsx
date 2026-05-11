@@ -11,13 +11,12 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import { CTAButton } from "@/components/ui/cta-button"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
+import { InstagramReelsCarousel } from "@/components/instagram-reels-carousel"
 
 const CDN = "https://pub-fab1140cac404905a5537d13579c2404.r2.dev"
 const FOTO_HERO = `${CDN}/foto-taina1.webp`
 const FOTO_SOBRE = `${CDN}/foto-taina2.webp`
 const VIDEO_OBJECAO = `${CDN}/story-05.mp4`
-const VIDEO_PROVA_A = `${CDN}/story-01.mp4`
-const VIDEO_PROVA_B = `${CDN}/story-03.mp4`
 const WA_URL = "https://wa.me/5511951515103"
 
 function carouselStoryUrls(): string[] {
@@ -356,17 +355,17 @@ export function PorQueParticularContent() {
       {/* Seção 4 */}
       <section className="py-16 lg:py-24">
         <div className="container mx-auto max-w-6xl px-4 lg:px-8">
-          <h2 className="mx-auto mb-12 max-w-3xl font-serif text-3xl text-balance md:text-center md:text-4xl">
+          <h2 className="mx-auto mb-6 max-w-3xl font-serif text-3xl text-balance md:text-center md:text-4xl">
             Quem chegou com dúvida e decidiu tentar
           </h2>
 
-          <div className="mx-auto mb-12 flex max-w-xs flex-col gap-12">
-            <VideoSpotlight src={VIDEO_PROVA_A} label="Paciente conta sua experiência" />
-            <p className="text-muted-foreground mx-auto max-w-xl text-center text-lg leading-relaxed">
-              184 avaliações no Google com nota 5.0. Mas o que mais aparece nos relatos não é só o resultado clínico.
-              É a sensação de finalmente ser ouvida de verdade.
-            </p>
-            <VideoSpotlight src={VIDEO_PROVA_B} label="Paciente conta sua experiência" />
+          <p className="text-muted-foreground mx-auto mb-12 max-w-2xl text-center text-lg leading-relaxed">
+            Mais de Mil vidas transformadas. Muito além do sucesso clínico, o que meus pacientes mais valorizam é o
+            acolhimento e a certeza de que, finalmente, encontraram um lugar onde são ouvidos de verdade.
+          </p>
+
+          <div className="mb-12">
+            <InstagramReelsCarousel />
           </div>
 
           <div className="mx-auto mb-16 max-w-4xl rounded-2xl border border-border/60 bg-card p-6 shadow-sm md:p-10">
@@ -465,10 +464,10 @@ export function PorQueParticularContent() {
       {/* Seção 6 */}
       <section className="bg-foreground py-16 text-white lg:py-28">
         <div className="container mx-auto max-w-3xl px-4 lg:px-8">
-          <h2 className="mb-12 font-serif text-3xl text-balance md:text-center md:text-[2.4rem] lg:text-[2.6rem]">
+          <h2 className="mb-12 text-center font-serif text-3xl text-balance md:text-[2.4rem] lg:text-[2.6rem]">
             O que custa continuar sem um acompanhamento que funciona?
           </h2>
-          <div className="space-y-6 text-[17px] leading-relaxed text-white/85">
+          <div className="space-y-6 text-center text-[17px] leading-relaxed text-white/85">
             <p>Não é uma crítica. É uma pergunta honesta.</p>
             <p>
               Quantas vezes você já tentou emagrecer e voltou para o mesmo peso? Quantas consultas você fez onde saiu

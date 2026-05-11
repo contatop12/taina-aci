@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { CTAButton } from "@/components/ui/cta-button"
 
 interface HeaderProps {
@@ -26,14 +27,20 @@ export function Header({ onOpenModal }: HeaderProps) {
       }`}
     >
       <div className="container mx-auto h-full flex items-center justify-between px-4 lg:px-8">
-        <Image
-          src="/LOGO%20V2%20TAIN%C3%83.png"
-          alt="Dra. Tainã Aci - Endocrinologia e Metabologia Nutrologia"
-          width={280}
-          height={70}
-          className="h-12 md:h-16 w-auto"
-          priority
-        />
+        <Link
+          href="/"
+          aria-label="Ir para a página inicial"
+          className="inline-flex items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        >
+          <Image
+            src="/LOGO%20V2%20TAIN%C3%83.png"
+            alt="Dra. Tainã Aci - Endocrinologia e Metabologia Nutrologia"
+            width={280}
+            height={70}
+            className="h-12 md:h-16 w-auto"
+            priority
+          />
+        </Link>
         <CTAButton onClick={onOpenModal} size="sm" className="md:hidden">
           Fale com a equipe
         </CTAButton>
