@@ -171,28 +171,17 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     e.preventDefault()
     if (!isFormValid) return
 
-    if (situacao === "plano") {
-      router.push("/por-que-particular")
-      onClose()
-      resetForm()
-      return
-    }
-
     if (!hasTrackedFormSubmitRef.current) {
       hasTrackedFormSubmitRef.current = true
       pushDataLayerEvent("form_submit", {
         origem: "formulario-modal",
         pagina: window.location.href,
+        situacao,
+        ciente_consulta_particular: situacao === "pronto",
         ...trackingParams,
       })
     }
     setIsSubmitting(true)
-
-    const whatsappNumber = "5511951515103"
-    const message = encodeURIComponent(
-      `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Tenho interesse em: ${whatsappObjective}. Estou pronto(a) para investir na minha saúde com consulta particular e confirmo ciência de que o atendimento é particular.`
-    )
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${message}`
 
     // Envia lead via rota de API interna (evita CORS do browser → n8n)
     try {
@@ -206,7 +195,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           telefone: normalizePhoneForPayload(phone),
           objetivo: objective,
           objetivo_outro: isOther ? otherObjective : "",
-          ciente_consulta_particular: true,
+          situacao,
+          ciente_consulta_particular: situacao === "pronto",
           origem: "formulario-modal",
           pagina: typeof window !== "undefined" ? window.location.href : "",
           data: new Date().toISOString(),
@@ -218,6 +208,19 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     }
 
     setIsSubmitting(false)
+
+    if (situacao === "plano") {
+      onClose()
+      resetForm()
+      router.push("/por-que-particular")
+      return
+    }
+
+    const whatsappNumber = "5511951515103"
+    const message = encodeURIComponent(
+      `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Tenho interesse em: ${whatsappObjective}. Estou pronto(a) para investir na minha saúde com consulta particular e confirmo ciência de que o atendimento é particular.`
+    )
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${message}`
 
     storeWhatsappRedirectUrl(whatsappUrl)
 
