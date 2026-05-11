@@ -41,6 +41,23 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${playfair.variable} ${inter.variable} bg-background scroll-smooth`}>
       <head>
+        {/* Pré-conexão com Google Tag Manager e Google Analytics para reduzir latência */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link
+          rel="preload"
+          as="script"
+          href="https://www.googletagmanager.com/gtm.js?id=GTM-MX88GNQ9"
+        />
+
+        {/* Inicializa dataLayer o mais cedo possível para que qualquer push antes do GTM seja preservado */}
+        <Script id="datalayer-init" strategy="beforeInteractive">
+          {`window.dataLayer = window.dataLayer || [];`}
+        </Script>
+
+        {/* GTM container — carregado o mais cedo possível em todas as rotas */}
         <Script id="gtm-script" strategy="beforeInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
