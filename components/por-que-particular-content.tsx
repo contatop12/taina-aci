@@ -330,7 +330,7 @@ export function PorQueParticularContent() {
             </p>
           </div>
 
-          <div className="mb-14 grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2">
             {practiceCards.map((card) => (
               <div
                 key={card.title}
@@ -349,16 +349,6 @@ export function PorQueParticularContent() {
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="relative mx-auto max-w-2xl overflow-hidden rounded-2xl shadow-xl">
-            <Image
-              src={FOTO_HERO}
-              alt="Atendimento no consultório da Dra. Tainã Aci"
-              width={960}
-              height={640}
-              className="h-auto w-full object-cover object-center"
-            />
           </div>
         </div>
       </section>
