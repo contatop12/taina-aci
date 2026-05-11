@@ -16,7 +16,6 @@ import { InstagramReelsCarousel } from "@/components/instagram-reels-carousel"
 const CDN = "https://pub-fab1140cac404905a5537d13579c2404.r2.dev"
 const FOTO_HERO = `${CDN}/foto-taina1.webp`
 const FOTO_SOBRE = `${CDN}/foto-taina2.webp`
-const VIDEO_OBJECAO = `${CDN}/story-05.mp4`
 const WA_URL = "https://wa.me/5511951515103"
 
 function carouselStoryUrls(): string[] {
@@ -113,34 +112,6 @@ function GoogleIcon({ className }: { className?: string }) {
         d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
       />
     </svg>
-  )
-}
-
-function VideoSpotlight({
-  src,
-  className,
-  label,
-}: {
-  src: string
-  className?: string
-  label: string
-}) {
-  return (
-    <div
-      className={`relative mx-auto max-w-xs overflow-hidden rounded-2xl bg-black shadow-xl ${className ?? ""}`}
-      style={{ aspectRatio: "9/16" }}
-    >
-      <video
-        className="h-full w-full object-cover"
-        src={src}
-        muted
-        playsInline
-        loop
-        autoPlay
-        preload="metadata"
-        aria-label={label}
-      />
-    </div>
   )
 }
 
@@ -298,7 +269,7 @@ export function PorQueParticularContent() {
             Convênio não é errado. Só não é o que a Dra. Tainã oferece.
           </h2>
 
-          <div className="mb-12 space-y-6 text-center text-muted-foreground leading-relaxed lg:text-[17px]">
+          <div className="space-y-6 text-center text-muted-foreground leading-relaxed lg:text-[17px]">
             <p>
               O plano de saúde tem o papel dele. Para exames de rotina, urgências, procedimentos cirúrgicos, ele faz
               sentido. Mas quando o assunto é emagrecimento, hormônios, metabolismo, menopausa ou diabetes, o que faz
@@ -314,8 +285,6 @@ export function PorQueParticularContent() {
               que ela acredita que precisa ser feito.
             </p>
           </div>
-
-          <VideoSpotlight src={VIDEO_OBJECAO} label="Depoimento em vídeo" />
         </div>
       </section>
 
