@@ -2,7 +2,6 @@
 
 const WEBHOOK_URLS = [
   "https://n8n-webhook.axmxa0.easypanel.host/webhook/vila-mariana-sp",
-  "https://python-auto-relatorio-trafego.axmxa0.easypanel.host/site-new-lead",
 ]
 
 async function sendWithTimeout(url: string, body: string, timeoutMs = 8000): Promise<void> {
