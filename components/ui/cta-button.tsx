@@ -13,6 +13,7 @@ interface CTAButtonProps {
   size?: CTASize
   type?: "button" | "submit" | "reset"
   disabled?: boolean
+  id?: string
 }
 
 const sizeStyles: Record<CTASize, { button: string; icon: string; iconPx: number }> = {
@@ -41,11 +42,13 @@ export function CTAButton({
   size = "md",
   type = "button",
   disabled = false,
+  id,
 }: CTAButtonProps) {
   const s = sizeStyles[size]
 
   return (
     <button
+      id={id}
       onClick={onClick}
       type={type}
       disabled={disabled}

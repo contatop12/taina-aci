@@ -166,6 +166,7 @@ function StoryVideoCarousel() {
       </p>
       <div className="relative">
         <button
+          id="pqp-stories-carousel-prev"
           type="button"
           className={`absolute left-0 top-1/2 z-10 hidden h-10 w-10 -translate-x-4 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg hover:bg-muted/80 md:flex ${
             !canLeft ? "pointer-events-none opacity-0" : ""
@@ -176,6 +177,7 @@ function StoryVideoCarousel() {
           <ChevronLeft className="h-5 w-5" />
         </button>
         <button
+          id="pqp-stories-carousel-next"
           type="button"
           className={`absolute right-0 top-1/2 z-10 hidden h-10 w-10 translate-x-4 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg hover:bg-muted/80 md:flex ${
             !canRight ? "pointer-events-none opacity-0" : ""
@@ -264,6 +266,7 @@ export function PorQueParticularContent() {
               </p>
               <div>
                 <a
+                  id="pqp-cta-hero-entender-como-funciona"
                   href="#entenda-como-funciona"
                   className="relative inline-flex items-center justify-center rounded-full bg-[#AABB6A] px-8 py-3.5 font-medium text-base text-white shadow-md transition-all hover:shadow-[0_4px_20px_rgba(170,187,106,0.45)] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:outline-none"
                 >
@@ -463,7 +466,7 @@ export function PorQueParticularContent() {
             <p>Às vezes o que parece mais caro no curto prazo é o que economiza mais no longo.</p>
           </div>
           <div className="mt-12 flex justify-center">
-            <CTAButton size="lg" onClick={openWa}>
+            <CTAButton id="pqp-cta-whatsapp-secao-custo" size="lg" onClick={openWa}>
               Falar pelo WhatsApp
             </CTAButton>
           </div>
@@ -487,11 +490,15 @@ export function PorQueParticularContent() {
             </p>
           </div>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
-            <CTAButton size="lg" onClick={openWa}>
+            <CTAButton id="pqp-cta-whatsapp-final" size="lg" onClick={openWa}>
               Quero falar com a equipe pelo WhatsApp
             </CTAButton>
             <Button variant="outline" size="default" className="max-w-lg shrink text-sm leading-snug h-auto py-3 px-6" asChild>
-              <a href="https://endocrinologista.tainaaci.com.br/" rel="noopener noreferrer">
+              <a
+                id="pqp-link-voltar-inicio"
+                href="https://endocrinologista.tainaaci.com.br/"
+                rel="noopener noreferrer"
+              >
                 Voltar para o início e saber mais sobre a Dra. Tainã
               </a>
             </Button>
