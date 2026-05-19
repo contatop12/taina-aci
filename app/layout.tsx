@@ -20,7 +20,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Dra. Tainã Aci | Endocrinologista em Vila Mariana, São Paulo',
   description: 'Endocrinologista especializada em emagrecimento, hormônios e saúde metabólica. Atendimento de alto padrão na Vila Mariana, São Paulo. CRM 166519 | RQE 81061.',
-  keywords: 'endocrinologista, Vila Mariana, São Paulo, emagrecimento, hormônios, tireoide, diabetes, menopausa, Ozempic, Mounjaro',
+  keywords: 'endocrinologista, Vila Mariana, São Paulo, emagrecimento, hormônios, tireoide, diabetes, menopausa, caneta emagrecedora',
   icons: {
     icon: '/FAV%20ICON%20TAINA%20V2.png',
     shortcut: '/FAV%20ICON%20TAINA%20V2.png',

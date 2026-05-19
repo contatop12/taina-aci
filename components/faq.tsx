@@ -30,7 +30,7 @@ const faqs = [
       "A partir dos 30 anos, o corpo passa por mudanças hormonais e metabólicas importantes. O acompanhamento especializado permite identificar desequilíbrios precocemente, preservar energia, vitalidade e qualidade de vida.",
   },
   {
-    question: "A Dra. prescreve Ozempic, Mounjaro ou Wegovy?",
+    question: "A Dra. prescreve caneta emagrecedora?",
     answer:
       "Quando clinicamente indicado, sim. O uso é sempre individualizado, seguro e acompanhado de perto — nunca como solução isolada.",
   },
