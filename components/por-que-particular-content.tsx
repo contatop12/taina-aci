@@ -6,7 +6,6 @@ import { ChevronLeft, ChevronRight, Star } from "lucide-react"
 import { ClipboardList, ListChecks, Microscope, UtensilsCrossed } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { ContactModal } from "@/components/contact-modal"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { CTAButton } from "@/components/ui/cta-button"
 import { Button } from "@/components/ui/button"
@@ -16,9 +15,9 @@ import { InstagramReelsCarousel } from "@/components/instagram-reels-carousel"
 const CDN = "https://pub-fab1140cac404905a5537d13579c2404.r2.dev"
 const FOTO_HERO = `${CDN}/foto-taina1.webp`
 const FOTO_SOBRE = `${CDN}/foto-taina2.webp`
-const WA_URL = "https://wa.me/5511951515103"
 
 const FORM_ID = "taina_vila_mariana_sp"
+const WA_URL = "https://wa.me/5511951515103"
 
 function carouselStoryUrls(): string[] {
   const nums: number[] = []
@@ -220,7 +219,9 @@ function StoryVideoCarousel() {
 }
 
 export function PorQueParticularContent() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const openWa = () => {
+    window.open(WA_URL, "_blank")
+  }
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -233,13 +234,9 @@ export function PorQueParticularContent() {
     })
   }, [])
 
-  const openWa = () => {
-    window.open(WA_URL, "_blank")
-  }
-
   return (
     <main className="min-h-screen bg-background">
-      <Header onOpenModal={() => setIsModalOpen(true)} />
+      <Header onOpenModal={openWa} />
 
       {/* Seção 1 Hero */}
       <section className="border-b border-border/60 pt-[90px] md:pt-[100px]">
@@ -507,8 +504,7 @@ export function PorQueParticularContent() {
       </section>
 
       <Footer />
-      <WhatsAppButton onOpenModal={() => setIsModalOpen(true)} />
-      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <WhatsAppButton onOpenModal={openWa} />
     </main>
   )
 }
