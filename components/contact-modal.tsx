@@ -77,7 +77,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const whatsappObjective = isOther ? (otherObjective || "Outro") : objective
   const isFormValid =
     !!name &&
-    !!email &&
     !!phone &&
     !!objective &&
     (!isOther || !!otherText.trim()) &&
@@ -345,7 +344,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   placeholder=" "
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                   autoComplete="email"
                   className="peer w-full px-4 pt-5 pb-2 text-base md:text-sm border border-border rounded-xl bg-muted/30 text-foreground placeholder-transparent focus:outline-none focus:border-primary focus:bg-white transition-all duration-200"
                 />
