@@ -47,6 +47,7 @@ const CODI_ID = "73058194261490732816540927385016"
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const router = useRouter()
   const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [objective, setObjective] = useState("")
   const [otherText, setOtherText] = useState("")
@@ -76,6 +77,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const whatsappObjective = isOther ? (otherObjective || "Outro") : objective
   const isFormValid =
     !!name &&
+    !!email &&
     !!phone &&
     !!objective &&
     (!isOther || !!otherText.trim()) &&
@@ -176,6 +178,9 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       pushDataLayerEvent("form_submit", {
         origem: "formulario-modal",
         pagina: window.location.href,
+        nome: name,
+        email,
+        telefone: normalizePhoneForPayload(phone),
         situacao,
         ciente_consulta_particular: situacao === "pronto",
         ...trackingParams,
@@ -192,6 +197,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           form_id: FORM_ID,
           codi_id: CODI_ID,
           nome: name,
+          email,
           telefone: normalizePhoneForPayload(phone),
           objetivo: objective,
           objetivo_outro: isOther ? otherObjective : "",
@@ -232,6 +238,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   const resetForm = () => {
     setName("")
+    setEmail("")
     setPhone("")
     setObjective("")
     setOtherText("")
@@ -311,29 +318,62 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               {/* Name input */}
               <div className="relative">
                 <input
+                  id="form-field-nome"
+                  name="nome"
                   type="text"
                   placeholder=" "
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
+                  autoComplete="name"
                   className="peer w-full px-4 pt-5 pb-2 text-base md:text-sm border border-border rounded-xl bg-muted/30 text-foreground placeholder-transparent focus:outline-none focus:border-primary focus:bg-white transition-all duration-200"
                 />
-                <label className="absolute left-4 top-1.5 text-[10px] text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base md:peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-primary">
+                <label
+                  htmlFor="form-field-nome"
+                  className="absolute left-4 top-1.5 text-[10px] text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base md:peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-primary"
+                >
                   Nome completo
+                </label>
+              </div>
+
+              {/* Email input */}
+              <div className="relative">
+                <input
+                  id="form-field-email"
+                  name="email"
+                  type="email"
+                  placeholder=" "
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  autoComplete="email"
+                  className="peer w-full px-4 pt-5 pb-2 text-base md:text-sm border border-border rounded-xl bg-muted/30 text-foreground placeholder-transparent focus:outline-none focus:border-primary focus:bg-white transition-all duration-200"
+                />
+                <label
+                  htmlFor="form-field-email"
+                  className="absolute left-4 top-1.5 text-[10px] text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base md:peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-primary"
+                >
+                  E-mail
                 </label>
               </div>
 
               {/* Phone input */}
               <div className="relative">
                 <input
+                  id="form-field-telefone"
+                  name="telefone"
                   type="tel"
                   placeholder=" "
                   value={phone}
                   onChange={handlePhoneChange}
                   required
+                  autoComplete="tel"
                   className="peer w-full px-4 pt-5 pb-2 text-base md:text-sm border border-border rounded-xl bg-muted/30 text-foreground placeholder-transparent focus:outline-none focus:border-primary focus:bg-white transition-all duration-200"
                 />
-                <label className="absolute left-4 top-1.5 text-[10px] text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base md:peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-primary">
+                <label
+                  htmlFor="form-field-telefone"
+                  className="absolute left-4 top-1.5 text-[10px] text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base md:peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-primary"
+                >
                   WhatsApp
                 </label>
               </div>
