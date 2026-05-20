@@ -94,6 +94,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const otherObjective = otherText.trim()
   const whatsappObjective = isOther ? (otherObjective || "Outro") : objective
   const phoneDigits = phone.replace(/\D/g, "")
+  const phoneHasCountryCode = ddi === "+55" && phoneDigits.startsWith("55") && phoneDigits.length > 2
   const isPhoneValid = ddi === "+55"
     ? phoneDigits.length >= 10 && phoneDigits.length <= 11
     : phoneDigits.length >= 5
@@ -422,6 +423,12 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     className="flex-1 px-3 pt-5 pb-2 text-base md:text-sm text-foreground bg-transparent focus:outline-none placeholder:text-muted-foreground/40"
                   />
                 </div>
+                {phoneHasCountryCode && (
+                  <p className="mt-1.5 flex items-start gap-1.5 text-xs text-amber-600">
+                    <span className="leading-none mt-px">⚠️</span>
+                    <span>Não inclua o +55. O código do país já está selecionado.</span>
+                  </p>
+                )}
                 {ddiOpen && (
                   <div className="absolute z-40 top-full left-0 mt-1.5 bg-white border border-border rounded-xl shadow-xl overflow-hidden w-52">
                     <div className="max-h-52 overflow-y-auto divide-y divide-border/50">
