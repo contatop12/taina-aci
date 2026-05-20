@@ -27,6 +27,21 @@ interface TrackingParams {
   device: string
 }
 
+const DDI_OPTIONS = [
+  { code: "+55", flag: "🇧🇷", label: "Brasil" },
+  { code: "+1", flag: "🇺🇸", label: "EUA / Canadá" },
+  { code: "+351", flag: "🇵🇹", label: "Portugal" },
+  { code: "+54", flag: "🇦🇷", label: "Argentina" },
+  { code: "+34", flag: "🇪🇸", label: "Espanha" },
+  { code: "+44", flag: "🇬🇧", label: "Reino Unido" },
+  { code: "+33", flag: "🇫🇷", label: "França" },
+  { code: "+49", flag: "🇩🇪", label: "Alemanha" },
+  { code: "+39", flag: "🇮🇹", label: "Itália" },
+  { code: "+41", flag: "🇨🇭", label: "Suíça" },
+  { code: "+244", flag: "🇦🇴", label: "Angola" },
+  { code: "+258", flag: "🇲🇿", label: "Moçambique" },
+]
+
 const objectives = [
   "Emagrecimento e Tratamento da Obesidade",
   "Saúde Hormonal Feminina e Menopausa",
@@ -55,6 +70,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [agreed, setAgreed] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [ddi, setDdi] = useState("+55")
+  const [ddiOpen, setDdiOpen] = useState(false)
   const [trackingParams, setTrackingParams] = useState<TrackingParams>({
     utm_source: "",
     utm_medium: "",
@@ -69,15 +86,20 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     device: "",
   })
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const ddiRef = useRef<HTMLDivElement>(null)
   const hasTrackedFormStartRef = useRef(false)
   const hasTrackedFormSubmitRef = useRef(false)
 
   const isOther = objective === "Outro"
   const otherObjective = otherText.trim()
   const whatsappObjective = isOther ? (otherObjective || "Outro") : objective
+  const phoneDigits = phone.replace(/\D/g, "")
+  const isPhoneValid = ddi === "+55"
+    ? phoneDigits.length >= 10 && phoneDigits.length <= 11
+    : phoneDigits.length >= 5
   const isFormValid =
     !!name &&
-    !!phone &&
+    isPhoneValid &&
     !!objective &&
     (!isOther || !!otherText.trim()) &&
     !!situacao &&
@@ -88,6 +110,16 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     const handler = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setIsDropdownOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
+  }, [])
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ddiRef.current && !ddiRef.current.contains(e.target as Node)) {
+        setDdiOpen(false)
       }
     }
     document.addEventListener("mousedown", handler)
@@ -113,18 +145,17 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   }, [isOpen])
 
   const formatPhone = (value: string) => {
-    const numbers = value.replace(/\D/g, "")
+    const numbers = value.replace(/\D/g, "").slice(0, 11)
     if (numbers.length <= 2) return numbers
-    if (numbers.length <= 7) return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`
-    if (numbers.length <= 11)
-      return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7)}`
-    return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`
+    if (numbers.length <= 6) return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`
+    if (numbers.length <= 10)
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 6)}-${numbers.slice(6)}`
+    return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7)}`
   }
 
   const normalizePhoneForPayload = (value: string) => {
     const digits = value.replace(/\D/g, "")
-    const localDigits = digits.startsWith("55") ? digits.slice(2) : digits
-    return `+55${localDigits}`
+    return `${ddi}${digits}`
   }
 
   const pushDataLayerEvent = (eventName: string, extraData: Record<string, unknown> = {}) => {
@@ -148,7 +179,11 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   }
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPhone(formatPhone(e.target.value))
+    if (ddi === "+55") {
+      setPhone(formatPhone(e.target.value))
+    } else {
+      setPhone(e.target.value.replace(/\D/g, ""))
+    }
   }
 
   const handleObjectiveToggle = () => {
@@ -244,6 +279,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setSituacao("")
     setAgreed(true)
     setIsDropdownOpen(false)
+    setDdi("+55")
+    setDdiOpen(false)
     hasTrackedFormStartRef.current = false
     hasTrackedFormSubmitRef.current = false
   }
@@ -301,7 +338,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} onFocusCapture={handleFormStart} className="space-y-4">
+          <form onSubmit={handleSubmit} onFocusCapture={handleFormStart} autoComplete="off" className="space-y-4">
               <input type="hidden" name="utm_source" value={trackingParams.utm_source} />
               <input type="hidden" name="utm_medium" value={trackingParams.utm_medium} />
               <input type="hidden" name="utm_campaign" value={trackingParams.utm_campaign} />
@@ -324,7 +361,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  autoComplete="name"
+                  autoComplete="off"
                   className="peer w-full px-4 pt-5 pb-2 text-base md:text-sm border border-border rounded-xl bg-muted/30 text-foreground placeholder-transparent focus:outline-none focus:border-primary focus:bg-white transition-all duration-200"
                 />
                 <label
@@ -344,7 +381,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   placeholder=" "
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
+                  autoComplete="off"
                   className="peer w-full px-4 pt-5 pb-2 text-base md:text-sm border border-border rounded-xl bg-muted/30 text-foreground placeholder-transparent focus:outline-none focus:border-primary focus:bg-white transition-all duration-200"
                 />
                 <label
@@ -355,25 +392,63 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 </label>
               </div>
 
-              {/* Phone input */}
-              <div className="relative">
-                <input
-                  id="form-field-telefone"
-                  name="telefone"
-                  type="tel"
-                  placeholder=" "
-                  value={phone}
-                  onChange={handlePhoneChange}
-                  required
-                  autoComplete="tel"
-                  className="peer w-full px-4 pt-5 pb-2 text-base md:text-sm border border-border rounded-xl bg-muted/30 text-foreground placeholder-transparent focus:outline-none focus:border-primary focus:bg-white transition-all duration-200"
-                />
+              {/* Phone input with DDI */}
+              <div className="relative" ref={ddiRef}>
                 <label
                   htmlFor="form-field-telefone"
-                  className="absolute left-4 top-1.5 text-[10px] text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base md:peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-primary"
+                  className="absolute left-4 top-1.5 text-[10px] text-primary font-medium pointer-events-none z-10"
                 >
                   WhatsApp
                 </label>
+                <div className="flex items-stretch border border-border rounded-xl bg-muted/30 focus-within:border-primary focus-within:bg-white transition-all duration-200 overflow-hidden">
+                  <button
+                    type="button"
+                    onClick={() => setDdiOpen((prev) => !prev)}
+                    className="self-stretch flex items-center gap-1.5 pl-4 pr-3 border-r border-border/60 shrink-0 hover:bg-muted/60 transition-colors"
+                  >
+                    <span className="text-sm leading-none">{DDI_OPTIONS.find((d) => d.code === ddi)?.flag}</span>
+                    <span className="text-xs font-medium text-foreground">{ddi}</span>
+                    <ChevronDown className={cn("w-3 h-3 text-muted-foreground transition-transform", ddiOpen && "rotate-180")} />
+                  </button>
+                  <input
+                    id="form-field-telefone"
+                    name="telefone"
+                    type="tel"
+                    placeholder={ddi === "+55" ? "(00) 00000-0000" : "Número"}
+                    value={phone}
+                    onChange={handlePhoneChange}
+                    required
+                    autoComplete="off"
+                    className="flex-1 px-3 pt-5 pb-2 text-base md:text-sm text-foreground bg-transparent focus:outline-none placeholder:text-muted-foreground/40"
+                  />
+                </div>
+                {ddiOpen && (
+                  <div className="absolute z-40 top-full left-0 mt-1.5 bg-white border border-border rounded-xl shadow-xl overflow-hidden w-52">
+                    <div className="max-h-52 overflow-y-auto divide-y divide-border/50">
+                      {DDI_OPTIONS.map((d) => (
+                        <button
+                          key={d.code}
+                          type="button"
+                          onClick={() => {
+                            setDdi(d.code)
+                            setDdiOpen(false)
+                            setPhone("")
+                          }}
+                          className={cn(
+                            "w-full text-left px-4 py-2.5 text-sm flex items-center gap-2.5 transition-colors",
+                            ddi === d.code
+                              ? "bg-primary/10 text-primary font-medium"
+                              : "text-foreground hover:bg-muted/60"
+                          )}
+                        >
+                          <span className="text-base">{d.flag}</span>
+                          <span className="flex-1">{d.label}</span>
+                          <span className="text-xs text-muted-foreground">{d.code}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Objective dropdown */}
