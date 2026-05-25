@@ -44,6 +44,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${playfair.variable} ${inter.variable} bg-background scroll-smooth`}>
       <head>
+        <meta name="facebook-domain-verification" content="4yad41aniydcacq7jndnwbxujtr44t" />
         {/* Pré-conexão com Google Tag Manager e Google Analytics para reduzir latência */}
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
