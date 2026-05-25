@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     shortcut: '/FAV%20ICON%20TAINA%20V2.png',
     apple: '/FAV%20ICON%20TAINA%20V2.png',
   },
+  other: {
+    'facebook-domain-verification': 'r3puut6a1stg0tccn5v972ti5j2kpk',
+  },
 }
 
 export const viewport = {
