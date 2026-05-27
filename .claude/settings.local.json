@@ -48,7 +48,14 @@
       "PowerShell(\\(Invoke-WebRequest -Uri \"https://pub-fab1140cac404905a5537d13579c2404.r2.dev/story-01.mp4\" -Method Head\\).StatusCode)",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(git -C \"C:/IA/P12/01 - CLIENTES/ATIVOS/taina-aci\" status)",
+      "Bash(git -C \"C:/IA/P12/01 - CLIENTES/ATIVOS/taina-aci\" diff)",
+      "Bash(git -C \"C:/IA/P12/01 - CLIENTES/ATIVOS/taina-aci\" add app/layout.tsx)",
+      "Bash(git -C \"C:/IA/P12/01 - CLIENTES/ATIVOS/taina-aci\" commit -m \"feat: add Facebook domain verification meta tag\")",
+      "Bash(git -C \"C:/IA/P12/01 - CLIENTES/ATIVOS/taina-aci\" push)",
+      "Bash(git -C \"C:/IA/P12/01 - CLIENTES/ATIVOS/taina-aci\" commit -m \"feat: add Meta Pixel \\(ID 2028496574752822\\)\")",
+      "Bash(git -C \"C:/IA/P12/01 - CLIENTES/ATIVOS/taina-aci\" commit -m \"feat: add second Facebook domain verification meta tag\")"
     ]
   },
   "enableAllProjectMcpServers": true,

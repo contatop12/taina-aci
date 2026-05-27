@@ -89,23 +89,15 @@ export function ObrigadoContent() {
             </>
           ) : (
             <>
-              Você pode voltar ao início do site ou usar o WhatsApp diretamente se já tiver o número da
-              equipe.
+              Nossa equipe entrará em contato com você dentro dos próximos minutos.
             </>
           )}
         </p>
 
-        {whatsappUrl ? (
+        {whatsappUrl && (
           <CTAButton onClick={openWhatsapp} size="lg">
             Abrir WhatsApp agora
           </CTAButton>
-        ) : (
-          <Link
-            href="/"
-            className="text-sm font-medium text-primary underline underline-offset-4 hover:opacity-80"
-          >
-            Voltar ao início
-          </Link>
         )}
       </div>
     </main>
