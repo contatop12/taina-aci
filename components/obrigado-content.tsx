@@ -11,9 +11,12 @@ import {
 import { CTAButton } from "@/components/ui/cta-button"
 
 const FORM_ID = "taina_vila_mariana_sp"
+const FALLBACK_WHATSAPP = "https://wa.me/5511951515103"
+const FALLBACK_COUNTDOWN = 5
 
 export function ObrigadoContent() {
   const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null)
+  const [countdown, setCountdown] = useState<number | null>(null)
   const redirectedRef = useRef(false)
 
   useEffect(() => {
@@ -29,6 +32,7 @@ export function ObrigadoContent() {
     })
   }, [])
 
+  // Redirect via stored whatsappUrl (10s)
   useEffect(() => {
     if (!whatsappUrl || typeof window === "undefined") return
 
@@ -43,11 +47,36 @@ export function ObrigadoContent() {
     return () => window.clearTimeout(timer)
   }, [whatsappUrl])
 
+  // Fallback countdown redirect (5s) when no stored URL
+  useEffect(() => {
+    if (whatsappUrl !== null) return
+
+    setCountdown(FALLBACK_COUNTDOWN)
+  }, [whatsappUrl])
+
+  useEffect(() => {
+    if (countdown === null) return
+
+    if (countdown === 0) {
+      if (!redirectedRef.current) {
+        redirectedRef.current = true
+        window.location.assign(FALLBACK_WHATSAPP)
+      }
+      return
+    }
+
+    const timer = window.setTimeout(() => setCountdown((c) => (c !== null ? c - 1 : null)), 1000)
+    return () => window.clearTimeout(timer)
+  }, [countdown])
+
   const openWhatsapp = () => {
-    if (!whatsappUrl) return
     redirectedRef.current = true
-    clearWhatsappRedirectUrl()
-    window.location.assign(whatsappUrl)
+    if (whatsappUrl) {
+      clearWhatsappRedirectUrl()
+      window.location.assign(whatsappUrl)
+    } else {
+      window.location.assign(FALLBACK_WHATSAPP)
+    }
   }
 
   return (
@@ -90,15 +119,16 @@ export function ObrigadoContent() {
           ) : (
             <>
               Nossa equipe entrará em contato com você dentro dos próximos minutos.
+              {countdown !== null && countdown > 0 && (
+                <> Você será redirecionado ao WhatsApp em <strong>{countdown}s</strong>.</>
+              )}
             </>
           )}
         </p>
 
-        {whatsappUrl && (
-          <CTAButton onClick={openWhatsapp} size="lg">
-            Abrir WhatsApp agora
-          </CTAButton>
-        )}
+        <CTAButton onClick={openWhatsapp} size="lg">
+          Abrir WhatsApp agora
+        </CTAButton>
       </div>
     </main>
   )
