@@ -24,6 +24,7 @@ interface TrackingParams {
   gbraid: string
   gad_source: string
   gad_campaignid: string
+  fbclid: string
   device: string
 }
 
@@ -83,6 +84,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     gbraid: "",
     gad_source: "",
     gad_campaignid: "",
+    fbclid: "",
     device: "",
   })
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -141,6 +143,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       gbraid: params.get("gbraid") ?? "",
       gad_source: params.get("gad_source") ?? "",
       gad_campaignid: params.get("gad_campaignid") ?? "",
+      fbclid: params.get("fbclid") ?? "",
       device: params.get("device") ?? "",
     })
   }, [isOpen])
@@ -350,6 +353,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               <input type="hidden" name="gbraid" value={trackingParams.gbraid} />
               <input type="hidden" name="gad_source" value={trackingParams.gad_source} />
               <input type="hidden" name="gad_campaignid" value={trackingParams.gad_campaignid} />
+              <input type="hidden" name="fbclid" value={trackingParams.fbclid} />
               <input type="hidden" name="device" value={trackingParams.device} />
 
               {/* Name input */}
