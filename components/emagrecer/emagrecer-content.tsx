@@ -49,7 +49,6 @@ export function EmagrecerContent() {
         onOpenModal={openModal}
         extraParagraph="No contexto do emagrecimento, a Dra. Tainã Aci realiza avaliação clínica completa, interpretação de exames e acompanhamento metabólico individualizado, com foco em causas hormonais e metabólicas que podem dificultar a perda de peso."
       />
-      <Testimonials />
       <WhyPrivate />
       <GoogleReviews />
       <Location
