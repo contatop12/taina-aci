@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Header } from "@/components/header"
+import { Philosophy } from "@/components/philosophy"
 import { Differentials } from "@/components/differentials"
 import { Testimonials } from "@/components/testimonials"
 import { About } from "@/components/about"
@@ -41,6 +42,7 @@ export function EmagrecerContent() {
       <EmagrecerPain onOpenModal={openModal} />
       <EmagrecerHelp />
       <EmagrecerForWho />
+      <Philosophy />
       <EmagrecerIndividual />
       <EmagrecerEducational />
       <EmagrecerMedication />
