@@ -11,6 +11,10 @@ import { storeWhatsappRedirectUrl } from "@/lib/whatsapp-redirect-session"
 interface ContactModalProps {
   isOpen: boolean
   onClose: () => void
+  objectives?: string[]
+  subtitle?: string
+  submitLabel?: string
+  formId?: string
 }
 
 interface TrackingParams {
@@ -43,7 +47,7 @@ const DDI_OPTIONS = [
   { code: "+258", flag: "🇲🇿", label: "Moçambique" },
 ]
 
-const objectives = [
+const DEFAULT_OBJECTIVES = [
   "Emagrecimento e Tratamento da Obesidade",
   "Saúde Hormonal Feminina e Menopausa",
   "Saúde Hormonal Masculina e reposição de Testosterona",
@@ -57,11 +61,19 @@ const objectives = [
   "Outro",
 ]
 
-const FORM_ID = "taina_vila_mariana_sp"
+const DEFAULT_FORM_ID = "taina_vila_mariana_sp"
 const CODI_ID = "73058194261490732816540927385016"
 
-export function ContactModal({ isOpen, onClose }: ContactModalProps) {
+export function ContactModal({
+  isOpen,
+  onClose,
+  objectives = DEFAULT_OBJECTIVES,
+  subtitle = "Nossa equipe entrará em contato pelo WhatsApp em instantes.",
+  submitLabel = "Falar com a equipe agora",
+  formId = DEFAULT_FORM_ID,
+}: ContactModalProps) {
   const router = useRouter()
+  const FORM_ID = formId
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
@@ -338,7 +350,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               Fale agora com um atendente
             </h3>
             <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
-              Nossa equipe entrará em contato pelo WhatsApp em instantes.
+              {subtitle}
             </p>
           </div>
 
@@ -594,7 +606,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   disabled={!isFormValid || isSubmitting}
                   fullWidth
                 >
-                  {isSubmitting ? "Enviando..." : "Falar com a equipe agora"}
+                  {isSubmitting ? "Enviando..." : submitLabel}
                 </CTAButton>
               </div>
 

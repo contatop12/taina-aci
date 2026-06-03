@@ -6,9 +6,11 @@ import { MapPin, Clock, Building, Globe, ExternalLink } from "lucide-react"
 
 interface LocationProps {
   onOpenModal: () => void
+  reinforcement?: string
+  ctaLabel?: string
 }
 
-export function Location({ onOpenModal }: LocationProps) {
+export function Location({ onOpenModal, reinforcement, ctaLabel = "Fale com nossa equipe" }: LocationProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -46,6 +48,11 @@ export function Location({ onOpenModal }: LocationProps) {
               <h2 className="text-3xl md:text-4xl font-serif mb-6 text-balance">
                 Atendimento presencial na Vila Mariana e on-line para o Brasil e exterior
               </h2>
+              {reinforcement && (
+                <p className="text-lg text-muted-foreground leading-relaxed text-balance">
+                  {reinforcement}
+                </p>
+              )}
             </div>
 
             <div className="space-y-4">
@@ -90,7 +97,7 @@ export function Location({ onOpenModal }: LocationProps) {
             </div>
 
             <CTAButton onClick={onOpenModal}>
-              Fale com nossa equipe
+              {ctaLabel}
             </CTAButton>
           </div>
 

@@ -7,6 +7,7 @@ import { Check } from "lucide-react"
 
 interface AboutProps {
   onOpenModal: () => void
+  extraParagraph?: string
 }
 
 const credentials = [
@@ -19,7 +20,7 @@ const credentials = [
   "Fellow Research — McGill University, Canadá",
 ]
 
-export function About({ onOpenModal }: AboutProps) {
+export function About({ onOpenModal, extraParagraph }: AboutProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -79,6 +80,7 @@ export function About({ onOpenModal }: AboutProps) {
               <p>
                 Além do atendimento clínico, atuo na formação de médicos, com experiência no ensino de endocrinologia em nível de graduação e pós-graduação, e na mentoria de colegas. A vivência acadêmica contribui para atualização constante e integração entre evidência científica e prática clínica.
               </p>
+              {extraParagraph && <p>{extraParagraph}</p>}
             </div>
 
             <div className="space-y-3">
