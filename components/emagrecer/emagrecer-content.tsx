@@ -37,6 +37,7 @@ export function EmagrecerContent() {
     <main className="min-h-screen bg-background">
       <Header onOpenModal={openModal} />
       <EmagrecerHero onOpenModal={openModal} />
+      <Testimonials />
       <EmagrecerPain onOpenModal={openModal} />
       <EmagrecerHelp />
       <EmagrecerForWho />
