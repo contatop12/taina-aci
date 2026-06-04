@@ -1,7 +1,7 @@
 /** Mantenha runtime padrão (Node/OpenNext). `edge` nesta rota pode falhar no Worker da Cloudflare (500). */
 
 const WEBHOOK_URLS = [
-  "https://n8n-webhook.axmxa0.easypanel.host/webhook/vila-mariana-sp",
+  "https://n8n.sitespdoze.com.br/webhook/vila-mariana-sp",
 ]
 
 async function sendWithTimeout(url: string, body: string, timeoutMs = 8000): Promise<void> {
