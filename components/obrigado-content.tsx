@@ -9,12 +9,17 @@ import {
   getWhatsappRedirectUrl,
 } from "@/lib/whatsapp-redirect-session"
 import { CTAButton } from "@/components/ui/cta-button"
+import { VILA_MARIANA_FLOW, type FormFlow } from "@/lib/form-flows"
+import { WHATSAPP_NUMBER } from "@/lib/tracking"
 
-const FORM_ID = "taina_vila_mariana_sp"
-const FALLBACK_WHATSAPP = "https://wa.me/5511951515103"
+const FALLBACK_WHATSAPP = `https://wa.me/${WHATSAPP_NUMBER}`
 const FALLBACK_COUNTDOWN = 5
 
-export function ObrigadoContent() {
+interface ObrigadoContentProps {
+  flow?: FormFlow
+}
+
+export function ObrigadoContent({ flow = VILA_MARIANA_FLOW }: ObrigadoContentProps) {
   const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null)
   const [countdown, setCountdown] = useState<number | null>(null)
   const redirectedRef = useRef(false)
@@ -27,10 +32,10 @@ export function ObrigadoContent() {
     window.dataLayer = window.dataLayer || []
     window.dataLayer.push({
       event: "lead_obrigado",
-      page_path: "/obrigado",
-      form_id: FORM_ID,
+      page_path: flow.obrigadoPath,
+      form_id: flow.formId,
     })
-  }, [])
+  }, [flow.formId, flow.obrigadoPath])
 
   // Redirect via stored whatsappUrl (10s)
   useEffect(() => {
@@ -83,7 +88,7 @@ export function ObrigadoContent() {
     <main className="min-h-screen bg-background flex flex-col">
       <header className="border-b border-border bg-white/90 backdrop-blur-sm">
         <div className="container mx-auto px-4 lg:px-8 h-[70px] md:h-[80px] flex items-center justify-center md:justify-start">
-          <Link href="/" className="inline-block">
+          <Link href={flow.homePath} className="inline-block">
             <Image
               src="/LOGO%20V2%20TAIN%C3%83.png"
               alt="Dra. Tainã Aci"

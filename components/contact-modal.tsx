@@ -7,6 +7,16 @@ import { X, ChevronDown, Check } from "lucide-react"
 import { CTAButton } from "@/components/ui/cta-button"
 import { cn } from "@/lib/utils"
 import { storeWhatsappRedirectUrl } from "@/lib/whatsapp-redirect-session"
+import { getFormFlow } from "@/lib/form-flows"
+import {
+  CODI_ID,
+  EMPTY_TRACKING_PARAMS,
+  type TrackingParams,
+  buildWhatsAppApiUrl,
+  pushDataLayerEvent,
+  readTrackingParamsFromSearch,
+  sendLeadClickToWebhook,
+} from "@/lib/tracking"
 
 interface ContactModalProps {
   isOpen: boolean
@@ -15,21 +25,6 @@ interface ContactModalProps {
   subtitle?: string
   submitLabel?: string
   formId?: string
-}
-
-interface TrackingParams {
-  utm_source: string
-  utm_medium: string
-  utm_campaign: string
-  utm_term: string
-  utm_content: string
-  utm_id: string
-  gclid: string
-  gbraid: string
-  gad_source: string
-  gad_campaignid: string
-  fbclid: string
-  device: string
 }
 
 const DDI_OPTIONS = [
@@ -62,7 +57,6 @@ const DEFAULT_OBJECTIVES = [
 ]
 
 const DEFAULT_FORM_ID = "taina_vila_mariana_sp"
-const CODI_ID = "73058194261490732816540927385016"
 
 export function ContactModal({
   isOpen,
@@ -74,6 +68,7 @@ export function ContactModal({
 }: ContactModalProps) {
   const router = useRouter()
   const FORM_ID = formId
+  const flow = getFormFlow(FORM_ID)
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
@@ -85,20 +80,7 @@ export function ContactModal({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [ddi, setDdi] = useState("+55")
   const [ddiOpen, setDdiOpen] = useState(false)
-  const [trackingParams, setTrackingParams] = useState<TrackingParams>({
-    utm_source: "",
-    utm_medium: "",
-    utm_campaign: "",
-    utm_term: "",
-    utm_content: "",
-    utm_id: "",
-    gclid: "",
-    gbraid: "",
-    gad_source: "",
-    gad_campaignid: "",
-    fbclid: "",
-    device: "",
-  })
+  const [trackingParams, setTrackingParams] = useState<TrackingParams>(EMPTY_TRACKING_PARAMS)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const ddiRef = useRef<HTMLDivElement>(null)
   const hasTrackedFormStartRef = useRef(false)
@@ -143,21 +125,7 @@ export function ContactModal({
 
   useEffect(() => {
     if (typeof window === "undefined") return
-    const params = new URLSearchParams(window.location.search)
-    setTrackingParams({
-      utm_source: params.get("utm_source") ?? "",
-      utm_medium: params.get("utm_medium") ?? "",
-      utm_campaign: params.get("utm_campaign") ?? "",
-      utm_term: params.get("utm_term") ?? "",
-      utm_content: params.get("utm_content") ?? "",
-      utm_id: params.get("utm_id") ?? "",
-      gclid: params.get("gclid") ?? "",
-      gbraid: params.get("gbraid") ?? "",
-      gad_source: params.get("gad_source") ?? "",
-      gad_campaignid: params.get("gad_campaignid") ?? "",
-      fbclid: params.get("fbclid") ?? "",
-      device: params.get("device") ?? "",
-    })
+    setTrackingParams(readTrackingParamsFromSearch(window.location.search))
   }, [isOpen])
 
   const formatPhone = (value: string) => {
@@ -174,13 +142,10 @@ export function ContactModal({
     return `${ddi}${digits}`
   }
 
-  const pushDataLayerEvent = (eventName: string, extraData: Record<string, unknown> = {}) => {
-    if (typeof window === "undefined") return
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push({
-      event: eventName,
-      form_id: FORM_ID,
-      codi_id: CODI_ID,
+  const pushFormDataLayerEvent = (eventName: string, extraData: Record<string, unknown> = {}) => {
+    pushDataLayerEvent(eventName, FORM_ID, {
+      origem: "formulario-modal",
+      pagina: typeof window !== "undefined" ? window.location.href : "",
       ...extraData,
     })
   }
@@ -188,10 +153,7 @@ export function ContactModal({
   const handleFormStart = () => {
     if (hasTrackedFormStartRef.current) return
     hasTrackedFormStartRef.current = true
-    pushDataLayerEvent("form_start", {
-      origem: "formulario-modal",
-      pagina: window.location.href,
-    })
+    pushFormDataLayerEvent("form_start")
   }
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -225,9 +187,7 @@ export function ContactModal({
 
     if (!hasTrackedFormSubmitRef.current) {
       hasTrackedFormSubmitRef.current = true
-      pushDataLayerEvent("form_submit", {
-        origem: "formulario-modal",
-        pagina: window.location.href,
+      pushFormDataLayerEvent("form_submit", {
         nome: name,
         email,
         telefone: normalizePhoneForPayload(phone),
@@ -239,51 +199,40 @@ export function ContactModal({
     setIsSubmitting(true)
 
     // Envia lead via rota de API interna (evita CORS do browser → n8n)
-    try {
-      await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          form_id: FORM_ID,
-          codi_id: CODI_ID,
-          nome: name,
-          email,
-          telefone: normalizePhoneForPayload(phone),
-          objetivo: objective,
-          objetivo_outro: isOther ? otherObjective : "",
-          situacao,
-          ciente_consulta_particular: situacao === "pronto",
-          origem: "formulario-modal",
-          pagina: typeof window !== "undefined" ? window.location.href : "",
-          data: new Date().toISOString(),
-          ...trackingParams,
-        }),
-      })
-    } catch (_) {
-      // Falha silenciosa — não impede o fluxo do usuário
-    }
+    await sendLeadClickToWebhook({
+      form_id: FORM_ID,
+      codi_id: CODI_ID,
+      nome: name,
+      email,
+      telefone: normalizePhoneForPayload(phone),
+      objetivo: objective,
+      objetivo_outro: isOther ? otherObjective : "",
+      situacao,
+      ciente_consulta_particular: situacao === "pronto",
+      origem: "formulario-modal",
+      pagina: typeof window !== "undefined" ? window.location.href : "",
+      data: new Date().toISOString(),
+      ...trackingParams,
+    })
 
     setIsSubmitting(false)
 
     if (situacao === "plano") {
       onClose()
       resetForm()
-      router.push("/por-que-particular")
+      router.push(flow.porQueParticularPath)
       return
     }
 
-    const whatsappNumber = "5511951515103"
-    const message = encodeURIComponent(
-      `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Tenho interesse em: ${whatsappObjective}. Estou pronto(a) para investir na minha saúde com consulta particular e confirmo ciência de que o atendimento é particular.`
-    )
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${message}`
+    const message = `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Tenho interesse em: ${whatsappObjective}. Estou pronto(a) para investir na minha saúde com consulta particular e confirmo ciência de que o atendimento é particular.`
+    const whatsappUrl = buildWhatsAppApiUrl({ message, tracking: trackingParams })
 
     storeWhatsappRedirectUrl(whatsappUrl)
 
     const query = typeof window !== "undefined" ? window.location.search : ""
     onClose()
     resetForm()
-    router.push(`/obrigado${query}`)
+    router.push(`${flow.obrigadoPath}${query}`)
   }
 
   const resetForm = () => {

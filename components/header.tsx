@@ -7,9 +7,10 @@ import { CTAButton } from "@/components/ui/cta-button"
 
 interface HeaderProps {
   onOpenModal: () => void
+  whatsappDirect?: boolean
 }
 
-export function Header({ onOpenModal }: HeaderProps) {
+export function Header({ onOpenModal, whatsappDirect = false }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -42,10 +43,10 @@ export function Header({ onOpenModal }: HeaderProps) {
           />
         </Link>
         <CTAButton onClick={onOpenModal} size="sm" className="md:hidden">
-          Fale com a equipe
+          {whatsappDirect ? "WhatsApp" : "Fale com a equipe"}
         </CTAButton>
         <CTAButton onClick={onOpenModal} className="hidden md:inline-flex">
-          Fale com nossa equipe
+          {whatsappDirect ? "Falar pelo WhatsApp" : "Fale com nossa equipe"}
         </CTAButton>
       </div>
     </header>

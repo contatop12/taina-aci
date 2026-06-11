@@ -11,13 +11,14 @@ import { CTAButton } from "@/components/ui/cta-button"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { InstagramReelsCarousel } from "@/components/instagram-reels-carousel"
+import { VILA_MARIANA_FLOW, type FormFlow } from "@/lib/form-flows"
+import { WHATSAPP_NUMBER } from "@/lib/tracking"
 
 const CDN = "https://pub-fab1140cac404905a5537d13579c2404.r2.dev"
 const FOTO_HERO = `${CDN}/foto-taina1.webp`
 const FOTO_SOBRE = `${CDN}/foto-taina2.webp`
 
-const FORM_ID = "taina_vila_mariana_sp"
-const WA_URL = "https://wa.me/5511951515103"
+const WA_URL = `https://wa.me/${WHATSAPP_NUMBER}`
 
 function carouselStoryUrls(): string[] {
   const nums: number[] = []
@@ -218,7 +219,11 @@ function StoryVideoCarousel() {
   )
 }
 
-export function PorQueParticularContent() {
+interface PorQueParticularContentProps {
+  flow?: FormFlow
+}
+
+export function PorQueParticularContent({ flow = VILA_MARIANA_FLOW }: PorQueParticularContentProps) {
   const openWa = () => {
     window.open(WA_URL, "_blank")
   }
@@ -229,10 +234,10 @@ export function PorQueParticularContent() {
     window.dataLayer = window.dataLayer || []
     window.dataLayer.push({
       event: "lead_desqualificado",
-      page_path: "/por-que-particular",
-      form_id: FORM_ID,
+      page_path: flow.porQueParticularPath,
+      form_id: flow.formId,
     })
-  }, [])
+  }, [flow.formId, flow.porQueParticularPath])
 
   return (
     <main className="min-h-screen bg-background">
@@ -493,7 +498,7 @@ export function PorQueParticularContent() {
             <Button variant="outline" size="default" className="max-w-lg shrink text-sm leading-snug h-auto py-3 px-6" asChild>
               <a
                 id="pqp-link-voltar-inicio"
-                href="https://endocrinologista.tainaaci.com.br/"
+                href={flow.homeUrl}
                 rel="noopener noreferrer"
               >
                 Voltar para o início e saber mais sobre a Dra. Tainã

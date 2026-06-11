@@ -5,9 +5,10 @@ import { CTAButton } from "@/components/ui/cta-button"
 
 interface FinalCTAProps {
   onOpenModal: () => void
+  whatsappDirect?: boolean
 }
 
-export function FinalCTA({ onOpenModal }: FinalCTAProps) {
+export function FinalCTA({ onOpenModal, whatsappDirect = false }: FinalCTAProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -45,10 +46,12 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
 
         <div className="space-y-4">
           <CTAButton onClick={onOpenModal} className="text-base h-14 ps-8 pe-16 hover:ps-16 hover:pe-8">
-            Quero garantir minha vaga
+            {whatsappDirect ? "Falar pelo WhatsApp" : "Quero garantir minha vaga"}
           </CTAButton>
           <p className="text-sm text-white/60">
-            Nossa equipe entrará em contato pelo WhatsApp imediatamente
+            {whatsappDirect
+              ? "Abra uma conversa direto no WhatsApp"
+              : "Nossa equipe entrará em contato pelo WhatsApp imediatamente"}
           </p>
         </div>
       </div>

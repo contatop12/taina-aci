@@ -5,9 +5,10 @@ import { CTAButton } from "@/components/ui/cta-button"
 
 interface HeroProps {
   onOpenModal: () => void
+  whatsappDirect?: boolean
 }
 
-export function Hero({ onOpenModal }: HeroProps) {
+export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
   return (
     <section>
 
@@ -58,12 +59,14 @@ export function Hero({ onOpenModal }: HeroProps) {
 
           <div className="pt-2">
             <CTAButton onClick={onOpenModal} size="sm">
-              Fale com nossa equipe
+              {whatsappDirect ? "Falar pelo WhatsApp" : "Fale com nossa equipe"}
             </CTAButton>
           </div>
 
           <p className="text-xs text-muted-foreground">
-            Nossa equipe entrará em contato pelo WhatsApp
+            {whatsappDirect
+              ? "Abra uma conversa direto no WhatsApp"
+              : "Nossa equipe entrará em contato pelo WhatsApp"}
           </p>
         </div>
       </div>
@@ -98,12 +101,14 @@ export function Hero({ onOpenModal }: HeroProps) {
 
               <div>
                 <CTAButton onClick={onOpenModal} size="lg">
-                  Fale com nossa equipe
+                  {whatsappDirect ? "Falar pelo WhatsApp" : "Fale com nossa equipe"}
                 </CTAButton>
               </div>
 
               <p className="text-sm text-muted-foreground">
-                Nossa equipe entrará em contato pelo WhatsApp
+                {whatsappDirect
+                  ? "Abra uma conversa direto no WhatsApp"
+                  : "Nossa equipe entrará em contato pelo WhatsApp"}
               </p>
 
               <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
