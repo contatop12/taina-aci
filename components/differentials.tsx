@@ -39,43 +39,68 @@ const differentials: DifferentialItem[] = [
   },
 ]
 
+const COUNT = differentials.length
+const LOOP_ITEMS = [...differentials, ...differentials, ...differentials]
+const START_INDEX = COUNT
+
+function getSlidesPerView(width: number) {
+  if (width < 640) return 1
+  if (width < 1024) return 2
+  return 3
+}
+
 function DifferentialVisual({ item, index }: { item: DifferentialItem; index: number }) {
   const Icon = item.icon
 
   if (item.image) {
     return (
-      <div className="relative aspect-[16/10] w-full overflow-hidden">
+      <div className="relative h-28 w-full overflow-hidden rounded-t-xl">
         <Image
           src={item.image}
           alt={item.title}
           fill
           className="object-cover"
-          sizes="(max-width: 768px) 100vw, 720px"
-          priority={index === 0}
+          sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
       </div>
     )
   }
 
   return (
-    <div className="relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br from-[#EEF1E8] via-[#F7F6F3] to-[#E8E4DC]">
-      <div
-        className="absolute inset-0 opacity-[0.35]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 20% 80%, rgba(122,139,110,0.25) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(196,184,168,0.3) 0%, transparent 45%)",
-        }}
-      />
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-primary/15 bg-white/70 shadow-[0_8px_32px_rgba(122,139,110,0.12)] backdrop-blur-sm">
-          <Icon className="h-9 w-9 text-primary" strokeWidth={1.5} />
-        </div>
-      </div>
-      <span className="absolute bottom-4 left-5 font-serif text-5xl leading-none text-primary/10 tabular-nums select-none">
-        0{index + 1}
-      </span>
+    <div className="flex h-28 items-center justify-center rounded-t-xl bg-muted/60">
+      <Icon className="h-7 w-7 text-primary/70" strokeWidth={1.5} />
+      <span className="sr-only">Diferencial 0{(index % COUNT) + 1}</span>
     </div>
+  )
+}
+
+function DifferentialCard({
+  item,
+  index,
+  isActive,
+}: {
+  item: DifferentialItem
+  index: number
+  isActive: boolean
+}) {
+  return (
+    <article
+      className={cn(
+        "flex h-full flex-col overflow-hidden rounded-xl border bg-white transition-colors duration-300",
+        isActive ? "border-primary/30" : "border-border/60"
+      )}
+    >
+      <DifferentialVisual item={item} index={index} />
+
+      <div className="flex flex-1 flex-col gap-2 p-4">
+        <h3 className="text-sm font-semibold leading-snug text-foreground line-clamp-2">
+          {item.title}
+        </h3>
+        <p className="text-xs leading-relaxed text-muted-foreground line-clamp-3">
+          {item.description}
+        </p>
+      </div>
+    </article>
   )
 }
 
@@ -83,11 +108,11 @@ export function Differentials() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const touchStartX = useRef<number | null>(null)
   const [isVisible, setIsVisible] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
+  const [slidesPerView, setSlidesPerView] = useState(3)
+  const [index, setIndex] = useState(START_INDEX)
+  const [enableTransition, setEnableTransition] = useState(true)
 
-  const total = differentials.length
-  const active = differentials[activeIndex]
+  const logicalIndex = ((index - START_INDEX) % COUNT + COUNT) % COUNT
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -100,27 +125,31 @@ export function Differentials() {
     return () => observer.disconnect()
   }, [])
 
-  const goTo = useCallback(
-    (index: number) => {
-      if (isAnimating || index === activeIndex) return
-      setIsAnimating(true)
-      setActiveIndex((index + total) % total)
-      window.setTimeout(() => setIsAnimating(false), 420)
-    },
-    [activeIndex, isAnimating, total]
-  )
-
-  const goPrev = useCallback(() => goTo(activeIndex - 1), [activeIndex, goTo])
-  const goNext = useCallback(() => goTo(activeIndex + 1), [activeIndex, goTo])
-
   useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") goPrev()
-      if (e.key === "ArrowRight") goNext()
+    const update = () => setSlidesPerView(getSlidesPerView(window.innerWidth))
+    update()
+    window.addEventListener("resize", update)
+    return () => window.removeEventListener("resize", update)
+  }, [])
+
+  const resetLoop = useCallback((nextIndex: number) => {
+    setEnableTransition(false)
+    setIndex(nextIndex)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setEnableTransition(true))
+    })
+  }, [])
+
+  const handleTransitionEnd = useCallback(() => {
+    if (index >= COUNT * 2) {
+      resetLoop(index - COUNT)
+    } else if (index < COUNT) {
+      resetLoop(index + COUNT)
     }
-    window.addEventListener("keydown", onKeyDown)
-    return () => window.removeEventListener("keydown", onKeyDown)
-  }, [goNext, goPrev])
+  }, [index, resetLoop])
+
+  const goNext = useCallback(() => setIndex((i) => i + 1), [])
+  const goPrev = useCallback(() => setIndex((i) => i - 1), [])
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX
@@ -129,110 +158,102 @@ export function Differentials() {
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return
     const delta = touchStartX.current - e.changedTouches[0].clientX
-    if (Math.abs(delta) > 48) {
+    if (Math.abs(delta) > 40) {
       if (delta > 0) goNext()
       else goPrev()
     }
     touchStartX.current = null
   }
 
+  const gap = 12
+  const centerOffset = Math.floor(slidesPerView / 2)
+  const slideStep = `((100% - ${(slidesPerView - 1) * gap}px) / ${slidesPerView} + ${gap}px)`
+
   return (
-    <section id="diferenciais" className="overflow-hidden bg-background py-24 lg:py-32">
+    <section id="diferenciais" className="overflow-hidden bg-background py-16 lg:py-20">
       <div
         ref={sectionRef}
         className={cn(
-          "container mx-auto px-4 transition-all duration-700 lg:px-8",
-          isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          "container mx-auto px-4 transition-all duration-500 lg:px-8",
+          isVisible ? "opacity-100" : "opacity-0"
         )}
       >
-        <div className="mx-auto mb-12 max-w-2xl text-center md:mb-16">
-          <p className="mb-4 text-sm font-medium uppercase tracking-[0.2em] text-primary">
-            Diferenciais
-          </p>
-          <h2 className="font-serif text-3xl text-balance md:text-4xl lg:text-5xl">
+        <div className="mx-auto mb-8 max-w-xl text-center">
+          <p className="mb-2 text-xs uppercase tracking-widest text-primary">Diferenciais</p>
+          <h2 className="font-serif text-2xl text-balance md:text-3xl">
             Um modelo de consulta que você não encontra no convencional
           </h2>
         </div>
 
-        <div className="relative mx-auto max-w-3xl">
+        <div className="relative mx-auto max-w-5xl">
+          <button
+            type="button"
+            onClick={goPrev}
+            className="absolute -left-1 top-1/2 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-muted-foreground transition-colors hover:text-foreground md:flex"
+            aria-label="Anterior"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+
+          <button
+            type="button"
+            onClick={goNext}
+            className="absolute -right-1 top-1/2 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-muted-foreground transition-colors hover:text-foreground md:flex"
+            aria-label="Próximo"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+
           <div
-            className="overflow-hidden rounded-3xl border border-border/60 bg-white shadow-[0_24px_64px_rgba(92,88,86,0.08)]"
+            className="overflow-hidden"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             aria-roledescription="carrossel"
             aria-label="Diferenciais do atendimento"
           >
             <div
-              key={activeIndex}
-              className={cn(
-                "animate-in fade-in slide-in-from-right-4 duration-400 fill-mode-both",
-                isAnimating && "pointer-events-none"
-              )}
+              className={cn("flex", enableTransition && "transition-transform duration-400 ease-out")}
+              style={{
+                gap: `${gap}px`,
+                transform: `translateX(calc(-${index} * ${slideStep}))`,
+              }}
+              onTransitionEnd={handleTransitionEnd}
             >
-              <DifferentialVisual item={active} index={activeIndex} />
-
-              <div className="space-y-5 px-6 py-8 md:px-10 md:py-10">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary tabular-nums">
-                    0{activeIndex + 1} / 0{total}
-                  </span>
-                  <span className="h-px flex-1 bg-border" />
+              {LOOP_ITEMS.map((item, i) => (
+                <div
+                  key={`${item.title}-${i}`}
+                  className="shrink-0"
+                  style={{
+                    width: `calc((100% - ${(slidesPerView - 1) * gap}px) / ${slidesPerView})`,
+                  }}
+                >
+                  <DifferentialCard
+                    item={item}
+                    index={i}
+                    isActive={i === index + centerOffset}
+                  />
                 </div>
-
-                <h3 className="font-serif text-2xl leading-snug text-balance text-foreground md:text-[1.65rem]">
-                  {active.title}
-                </h3>
-
-                <p className="text-[15px] leading-[1.75] text-muted-foreground md:text-base">
-                  {active.description}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 flex items-center justify-between gap-4">
-            <div className="flex gap-2" role="tablist" aria-label="Navegação dos diferenciais">
-              {differentials.map((item, index) => (
-                <button
-                  key={item.title}
-                  type="button"
-                  role="tab"
-                  aria-selected={index === activeIndex}
-                  aria-label={`Ir para: ${item.title}`}
-                  onClick={() => goTo(index)}
-                  className={cn(
-                    "h-2 rounded-full transition-all duration-300",
-                    index === activeIndex
-                      ? "w-8 bg-primary"
-                      : "w-2 bg-border hover:bg-primary/40"
-                  )}
-                />
               ))}
             </div>
-
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={goPrev}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-sm transition-colors hover:border-primary/30 hover:bg-muted/50"
-                aria-label="Diferencial anterior"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                type="button"
-                onClick={goNext}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-sm transition-colors hover:border-primary/30 hover:bg-muted/50"
-                aria-label="Próximo diferencial"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
           </div>
 
-          <p className="mt-4 text-center text-xs text-muted-foreground md:hidden">
-            Deslize para ver mais diferenciais
-          </p>
+          <div className="mt-5 flex items-center justify-center gap-1.5">
+            {differentials.map((item, i) => (
+              <button
+                key={item.title}
+                type="button"
+                aria-label={`Ir para: ${item.title}`}
+                onClick={() => {
+                  setEnableTransition(true)
+                  setIndex(START_INDEX + i)
+                }}
+                className={cn(
+                  "h-1.5 rounded-full transition-all duration-300",
+                  i === logicalIndex ? "w-5 bg-primary" : "w-1.5 bg-border"
+                )}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
