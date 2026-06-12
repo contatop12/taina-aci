@@ -29,10 +29,10 @@ export function HomeContent({ variant = "form" }: HomeContentProps) {
     <main className="min-h-screen bg-background">
       <Header onOpenModal={onCtaClick} whatsappDirect={isWhatsApp} />
       <Hero onOpenModal={onCtaClick} whatsappDirect={isWhatsApp} />
+      <Testimonials />
       <Philosophy />
       <Treatments onOpenModal={onCtaClick} />
       <Differentials />
-      <Testimonials />
       <About onOpenModal={onCtaClick} />
       <WhyPrivate />
       <GoogleReviews />
