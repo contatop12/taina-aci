@@ -58,28 +58,9 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 export function GoogleReviews() {
-  const ref = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.2 }
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
 
   const updateScrollButtons = () => {
     if (scrollRef.current) {
@@ -110,14 +91,9 @@ export function GoogleReviews() {
 
   return (
     <section id="avaliacoes" className="py-24 lg:py-32 bg-muted/30">
-      <div
-        ref={ref}
-        className={`container mx-auto px-4 lg:px-8 transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        }`}
-      >
+      <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12" data-gsap-reveal>
           <h2 className="text-3xl md:text-4xl font-serif mb-4">
             Avaliações no{" "}
             <span className="text-blue-600 underline decoration-blue-600 underline-offset-4">
@@ -177,6 +153,7 @@ export function GoogleReviews() {
             {reviews.map((review, index) => (
               <div
                 key={index}
+                data-gsap-card
                 className="flex-shrink-0 w-[300px] md:w-[340px] snap-start bg-white rounded-xl p-6 shadow-sm border-l-4 border-l-secondary"
               >
                 <StarRating rating={review.rating} />

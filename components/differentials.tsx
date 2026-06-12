@@ -93,25 +93,12 @@ function DifferentialCard({
 }
 
 export function Differentials() {
-  const sectionRef = useRef<HTMLDivElement>(null)
   const touchStartX = useRef<number | null>(null)
-  const [isVisible, setIsVisible] = useState(false)
   const [slidesPerView, setSlidesPerView] = useState(3)
   const [index, setIndex] = useState(START_INDEX)
   const [enableTransition, setEnableTransition] = useState(true)
 
   const logicalIndex = ((index - START_INDEX) % COUNT + COUNT) % COUNT
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true)
-      },
-      { threshold: 0.15 }
-    )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
 
   useEffect(() => {
     const update = () => setSlidesPerView(getSlidesPerView(window.innerWidth))
@@ -159,14 +146,8 @@ export function Differentials() {
 
   return (
     <section id="diferenciais" className="overflow-hidden bg-background py-24 lg:py-32">
-      <div
-        ref={sectionRef}
-        className={cn(
-          "container mx-auto px-4 transition-all duration-700 lg:px-8",
-          isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-        )}
-      >
-        <div className="mb-12 text-center md:mb-16">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="mb-12 text-center md:mb-16" data-gsap-reveal>
           <p className="mb-4 text-sm font-medium uppercase tracking-widest text-primary">
             Diferenciais
           </p>
@@ -175,7 +156,7 @@ export function Differentials() {
           </h2>
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-10 md:px-12">
+        <div className="relative mx-auto max-w-6xl px-10 md:px-12" data-gsap-carousel>
           <button
             type="button"
             onClick={goPrev}

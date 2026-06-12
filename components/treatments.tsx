@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import { CTAButton } from "@/components/ui/cta-button"
 import {
   Scale,
@@ -61,24 +60,10 @@ const treatments = [
 ]
 
 export function Treatments({ onOpenModal }: TreatmentsProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true)
-      },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section id="especialidades" className="py-24 lg:py-32 bg-muted">
-      <div ref={ref} className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-16">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="text-center mb-16" data-gsap-reveal>
           <p className="text-sm uppercase tracking-widest text-primary font-medium mb-4">
             Tratamentos
           </p>
@@ -87,16 +72,12 @@ export function Treatments({ onOpenModal }: TreatmentsProps) {
           </h2>
         </div>
 
-        <div
-          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          {treatments.map((treatment, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {treatments.map((treatment) => (
             <div
               key={treatment.title}
-              className="bg-card p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 group cursor-default"
-              style={{ transitionDelay: `${index * 100}ms` }}
+              data-gsap-card
+              className="bg-card p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-default"
             >
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 transition-colors duration-300 group-hover:bg-primary/20">
                 <treatment.icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
@@ -109,7 +90,7 @@ export function Treatments({ onOpenModal }: TreatmentsProps) {
           ))}
         </div>
 
-        <div className="text-center">
+        <div className="text-center" data-gsap-reveal>
           <CTAButton onClick={onOpenModal}>
             Quero saber qual tratamento é para mim
           </CTAButton>

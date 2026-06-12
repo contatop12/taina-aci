@@ -18,7 +18,7 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
 
       {/* ── MOBILE layout ── */}
       <div className="relative z-10 lg:hidden pt-[70px]">
-        <div className="relative h-[300px]">
+        <div className="relative h-[300px]" data-gsap-hero-image>
           <Image
             src={FOTO_TAINA_1}
             alt="Dra. Tainã Aci em seu consultório"
@@ -30,23 +30,23 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
         </div>
 
         <div className="px-6 pt-8 pb-12 space-y-5">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2" data-gsap-hero-item>
             <span className="block w-5 h-px bg-primary" />
             <span className="text-[11px] uppercase tracking-[0.18em] text-primary font-semibold">
               Vila Mariana · São Paulo
             </span>
           </div>
 
-          <h1 className="text-[2rem] leading-[1.15] font-serif text-foreground">
+          <h1 className="text-[2rem] leading-[1.15] font-serif text-foreground" data-gsap-hero-item>
             Endocrinologista<br />
             <span className="text-primary">na Vila Mariana</span>
           </h1>
 
-          <p className="text-[15px] text-muted-foreground leading-relaxed">
+          <p className="text-[15px] text-muted-foreground leading-relaxed" data-gsap-hero-item>
             Emagrecimento, Hormônios e Saúde Metabólica com embasamento científico.
           </p>
 
-          <div className="pt-1">
+          <div className="pt-1" data-gsap-hero-item>
             <p className="text-[10px] uppercase tracking-[0.18em] text-primary font-semibold mb-1">
               Endocrinologista
             </p>
@@ -55,7 +55,7 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
             </p>
           </div>
 
-          <div className="pt-2">
+          <div className="pt-2" data-gsap-hero-item>
             <CTAButton onClick={onOpenModal} size="sm">
               {whatsappDirect ? "Falar pelo WhatsApp" : "Fale com nossa equipe"}
             </CTAButton>
@@ -75,27 +75,27 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="order-1 space-y-8 text-left">
               <div className="space-y-6">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2" data-gsap-hero-item>
                   <span className="block w-5 h-px bg-primary" />
                   <span className="text-[11px] uppercase tracking-[0.18em] text-primary font-semibold">
                     Vila Mariana · São Paulo
                   </span>
                 </div>
 
-                <h1 className="text-5xl lg:text-6xl font-serif leading-tight text-balance">
+                <h1 className="text-5xl lg:text-6xl font-serif leading-tight text-balance" data-gsap-hero-item>
                   Endocrinologista{" "}
                   <span className="text-primary">na Vila Mariana</span>
                 </h1>
-                <p className="text-xl text-muted-foreground leading-relaxed max-w-xl">
+                <p className="text-xl text-muted-foreground leading-relaxed max-w-xl" data-gsap-hero-item>
                   Emagrecimento, Hormônios e Saúde Metabólica com embasamento científico.
                 </p>
 
-                <p className="text-[10px] uppercase tracking-[0.18em] text-primary font-semibold">
+                <p className="text-[10px] uppercase tracking-[0.18em] text-primary font-semibold" data-gsap-hero-item>
                   Endocrinologista · CRM 166519 · RQE 81061
                 </p>
               </div>
 
-              <div>
+              <div data-gsap-hero-item>
                 <CTAButton onClick={onOpenModal} size="lg">
                   {whatsappDirect ? "Falar pelo WhatsApp" : "Fale com nossa equipe"}
                 </CTAButton>
@@ -121,7 +121,7 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
             </div>
 
             <div className="order-2">
-              <div className="relative">
+              <div className="relative" data-gsap-hero-image>
                 <Image
                   src={FOTO_TAINA_1}
                   alt="Dra. Tainã Aci em seu consultório"

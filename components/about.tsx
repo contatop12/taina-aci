@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { CTAButton } from "@/components/ui/cta-button"
 import { Check } from "lucide-react"
@@ -21,36 +20,11 @@ const credentials = [
 ]
 
 export function About({ onOpenModal, extraParagraph }: AboutProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.2 }
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section id="sobre" className="py-24 lg:py-32 bg-background">
-      <div
-        ref={ref}
-        className={`container mx-auto px-4 lg:px-8 transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        }`}
-      >
+      <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="order-2 lg:order-1">
+          <div className="order-2 lg:order-1" data-gsap-reveal>
             <Image
               src="https://pub-fab1140cac404905a5537d13579c2404.r2.dev/foto-taina2.webp"
               alt="Dra. Tainã Aci"
@@ -61,7 +35,7 @@ export function About({ onOpenModal, extraParagraph }: AboutProps) {
           </div>
 
           <div className="order-1 lg:order-2 space-y-8">
-            <div>
+            <div data-gsap-reveal>
               <p className="text-sm uppercase tracking-widest text-primary font-medium mb-4">
                 Sobre a Dra. Tainã Aci
               </p>
@@ -73,7 +47,7 @@ export function About({ onOpenModal, extraParagraph }: AboutProps) {
               </p>
             </div>
 
-            <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <div className="space-y-4 text-muted-foreground leading-relaxed" data-gsap-reveal>
               <p>
                 Pacientes, alunos e amigos são testemunhas da minha paixão pela medicina. Após formação em Clínica Médica, encontrei na endocrinologia minha verdadeira realização profissional.
               </p>
@@ -85,20 +59,22 @@ export function About({ onOpenModal, extraParagraph }: AboutProps) {
 
             <div className="space-y-3">
               {credentials.map((credential) => (
-                <div key={credential} className="flex items-start gap-3">
+                <div key={credential} className="flex items-start gap-3" data-gsap-card>
                   <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                   <span className="text-sm text-foreground">{credential}</span>
                 </div>
               ))}
             </div>
 
-            <p className="text-sm font-medium text-foreground">
+            <p className="text-sm font-medium text-foreground" data-gsap-reveal>
               CRM: 166519 | RQE: 81061
             </p>
 
-            <CTAButton onClick={onOpenModal}>
-              Fale com nossa equipe
-            </CTAButton>
+            <div data-gsap-reveal>
+              <CTAButton onClick={onOpenModal}>
+                Fale com nossa equipe
+              </CTAButton>
+            </div>
           </div>
         </div>
       </div>

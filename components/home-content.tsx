@@ -1,6 +1,8 @@
 "use client"
 
+import { useRef } from "react"
 import { Header } from "@/components/header"
+import { HomeGsapAnimations } from "@/components/home-gsap-animations"
 import { Hero } from "@/components/hero"
 import { Philosophy } from "@/components/philosophy"
 import { Treatments } from "@/components/treatments"
@@ -22,11 +24,13 @@ interface HomeContentProps {
 }
 
 export function HomeContent({ variant = "form" }: HomeContentProps) {
+  const mainRef = useRef<HTMLElement>(null)
   const { isModalOpen, setIsModalOpen, onCtaClick, showModal } = useHomeCta(variant)
   const isWhatsApp = variant === "whatsapp"
 
   return (
-    <main className="min-h-screen bg-background">
+    <main ref={mainRef} className="min-h-screen bg-background">
+      <HomeGsapAnimations scope={mainRef} />
       <Header onOpenModal={onCtaClick} whatsappDirect={isWhatsApp} />
       <Hero onOpenModal={onCtaClick} whatsappDirect={isWhatsApp} />
       <Testimonials />

@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import { CTAButton } from "@/components/ui/cta-button"
 import { MapPin, Clock, Building, Globe, ExternalLink } from "lucide-react"
 
@@ -11,37 +10,12 @@ interface LocationProps {
 }
 
 export function Location({ onOpenModal, reinforcement, ctaLabel = "Fale com nossa equipe" }: LocationProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.2 }
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section id="localizacao" className="py-24 lg:py-32 bg-background">
-      <div
-        ref={ref}
-        className={`container mx-auto px-4 lg:px-8 transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        }`}
-      >
+      <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="space-y-8">
-            <div>
+            <div data-gsap-reveal>
               <p className="text-sm uppercase tracking-widest text-primary font-medium mb-4">
                 Onde nos encontrar
               </p>
@@ -101,7 +75,7 @@ export function Location({ onOpenModal, reinforcement, ctaLabel = "Fale com noss
             </CTAButton>
           </div>
 
-          <div className="rounded-2xl overflow-hidden shadow-lg h-[400px] lg:h-[500px]">
+          <div className="rounded-2xl overflow-hidden shadow-lg h-[400px] lg:h-[500px]" data-gsap-carousel>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.6893825089!2d-46.63819492469063!3d-23.589841363178455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5a2b2ed7f3a1%3A0x8f5e3cf4e2f9f3a1!2sR.%20Domingos%20de%20Morais%2C%202187%20-%20Vila%20Mariana%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2004035-000!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr"
               width="100%"

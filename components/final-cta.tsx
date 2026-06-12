@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import { CTAButton } from "@/components/ui/cta-button"
 
 interface FinalCTAProps {
@@ -9,34 +8,9 @@ interface FinalCTAProps {
 }
 
 export function FinalCTA({ onOpenModal, whatsappDirect = false }: FinalCTAProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.2 }
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section className="py-24 lg:py-32 bg-foreground">
-      <div
-        ref={ref}
-        className={`container mx-auto px-4 lg:px-8 text-center max-w-3xl transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        }`}
-      >
+      <div className="container mx-auto px-4 lg:px-8 text-center max-w-3xl" data-gsap-reveal>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white mb-6 text-balance">
           Agenda com número reduzido de pacientes por semana
         </h2>

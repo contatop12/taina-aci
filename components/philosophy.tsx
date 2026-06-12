@@ -1,40 +1,14 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import { InstagramStories } from "./instagram-stories"
 import { Ripple } from "@/components/ui/ripple"
 
 export function Philosophy() {
-  const ref = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.2 }
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section className="py-24 lg:py-32 bg-background relative overflow-hidden">
       <Ripple className="opacity-40" />
-      <div
-        ref={ref}
-        className={`container mx-auto px-4 max-w-4xl transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        }`}
-      >
-        <div className="text-center mb-16">
+      <div className="container mx-auto px-4 max-w-4xl">
+        <div className="text-center mb-16" data-gsap-reveal>
           <p className="text-sm uppercase tracking-widest text-primary font-medium mb-6">
             Nossa Filosofia
           </p>
@@ -46,8 +20,7 @@ export function Philosophy() {
           </p>
         </div>
 
-        {/* Instagram Stories Highlight */}
-        <div className="flex justify-center">
+        <div className="flex justify-center" data-gsap-carousel>
           <InstagramStories />
         </div>
       </div>
