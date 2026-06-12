@@ -1,153 +1,46 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { BookOpen, ChevronLeft, ChevronRight, Microscope, Pill, Users, type LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-interface DifferentialItem {
-  icon: LucideIcon
-  title: string
-  description: string
-  image?: string
+function publicAsset(filename: string): string {
+  return `/${encodeURIComponent(filename)}`
 }
 
-const differentials: DifferentialItem[] = [
+const differentials = [
   {
-    icon: BookOpen,
     title: "Medicina Baseada em Evidência",
     description:
       "Após 14 anos de formação, com duas residências médicas, dois registros de qualificação de especialista e mestrado profissional, a Dra. Tainã leva a sério o tratamento com embasamento científico correto. Cada decisão clínica é fundamentada em evidências robustas, associada a uma escuta ativa para identificar o que realmente funciona para a realidade de cada paciente.",
+    image: publicAsset("Medicina Baseada em Evidência.png"),
   },
   {
-    icon: Users,
     title: "Consulta Médica + Nutricional Integrada",
     description:
       "No programa de acompanhamento da Dra. Tainã — com resultados altamente positivos comprovados no consultório — você não precisa agendar uma consulta com endocrinologista e outra com nutricionista separadamente. O atendimento é realizado em conjunto: otimização do tratamento endocrinológico e ajustes da estratégia alimentar, com o paciente participando ativamente de cada decisão.",
+    image: publicAsset("Consulta Médica + Nutricional Integrada.png"),
   },
   {
-    icon: Microscope,
     title: "Exames Avançados: Teste Genético, Scanner Corporal e Bioimpedância",
     description:
       "Avaliação completa do seu metabolismo com teste genético, scanner corporal e bioimpedância, usando tecnologia de ponta para um diagnóstico mais preciso e um plano mais eficaz.",
+    image: publicAsset(
+      "Exames Avançados_ Teste Genético, Scanner Corporal e Bioimpedância.png"
+    ),
   },
   {
-    icon: Pill,
     title: "Quando indicado: tratamento medicamentoso acompanhado",
     description:
       "Avanços recentes trouxeram opções eficazes para o tratamento da obesidade e do diabetes, com benefícios no peso e no controle metabólico. A escolha da medicação deve ser criteriosa e personalizada. O acompanhamento profissional permite ajustes precisos para otimizar os resultados e a sua manutenção a longo prazo.",
+    image: publicAsset("Quando indicado_ tratamento medicamentoso acompanhado.png"),
   },
 ]
 
-const COUNT = differentials.length
-const LOOP_ITEMS = [...differentials, ...differentials, ...differentials]
-const START_INDEX = COUNT
-
-function getSlidesPerView(width: number) {
-  if (width < 640) return 1
-  if (width < 1024) return 2
-  return 3
-}
-
-function DifferentialCard({
-  item,
-  isActive,
-}: {
-  item: DifferentialItem
-  isActive: boolean
-}) {
-  const Icon = item.icon
-
-  return (
-    <article
-      className={cn(
-        "flex h-full flex-col rounded-xl border bg-card p-6 shadow-sm transition-colors duration-300",
-        isActive ? "border-primary/25" : "border-border/60"
-      )}
-    >
-      {item.image ? (
-        <div className="relative mb-4 aspect-[16/10] w-full overflow-hidden rounded-lg">
-          <Image
-            src={item.image}
-            alt={item.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
-          />
-        </div>
-      ) : (
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-          <Icon className="h-6 w-6 text-primary" strokeWidth={1.5} />
-        </div>
-      )}
-
-      <h3 className="mb-2 text-base font-semibold leading-snug text-card-foreground text-balance">
-        {item.title}
-      </h3>
-
-      <p className="text-sm leading-relaxed text-muted-foreground">
-        {item.description}
-      </p>
-    </article>
-  )
-}
-
 export function Differentials() {
-  const touchStartX = useRef<number | null>(null)
-  const [slidesPerView, setSlidesPerView] = useState(3)
-  const [index, setIndex] = useState(START_INDEX)
-  const [enableTransition, setEnableTransition] = useState(true)
-
-  const logicalIndex = ((index - START_INDEX) % COUNT + COUNT) % COUNT
-
-  useEffect(() => {
-    const update = () => setSlidesPerView(getSlidesPerView(window.innerWidth))
-    update()
-    window.addEventListener("resize", update)
-    return () => window.removeEventListener("resize", update)
-  }, [])
-
-  const resetLoop = useCallback((nextIndex: number) => {
-    setEnableTransition(false)
-    setIndex(nextIndex)
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEnableTransition(true))
-    })
-  }, [])
-
-  const handleTransitionEnd = useCallback(() => {
-    if (index >= COUNT * 2) {
-      resetLoop(index - COUNT)
-    } else if (index < COUNT) {
-      resetLoop(index + COUNT)
-    }
-  }, [index, resetLoop])
-
-  const goNext = useCallback(() => setIndex((i) => i + 1), [])
-  const goPrev = useCallback(() => setIndex((i) => i - 1), [])
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX
-  }
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return
-    const delta = touchStartX.current - e.changedTouches[0].clientX
-    if (Math.abs(delta) > 40) {
-      if (delta > 0) goNext()
-      else goPrev()
-    }
-    touchStartX.current = null
-  }
-
-  const gap = 24
-  const centerOffset = Math.floor(slidesPerView / 2)
-  const slideStep = `((100% - ${(slidesPerView - 1) * gap}px) / ${slidesPerView} + ${gap}px)`
-
   return (
     <section id="diferenciais" className="overflow-hidden bg-background py-24 lg:py-32">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="mb-12 text-center md:mb-16" data-gsap-reveal>
+      <div className="container mx-auto mb-12 px-4 md:mb-16 lg:px-8">
+        <div className="text-center" data-gsap-reveal>
           <p className="mb-4 text-sm font-medium uppercase tracking-widest text-primary">
             Diferenciais
           </p>
@@ -155,73 +48,53 @@ export function Differentials() {
             Um modelo de consulta que você não encontra no convencional
           </h2>
         </div>
+      </div>
 
-        <div className="relative mx-auto max-w-6xl px-10 md:px-12" data-gsap-carousel>
-          <button
-            type="button"
-            onClick={goPrev}
-            className="absolute left-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-muted-foreground shadow-sm transition-colors hover:text-foreground md:flex"
-            aria-label="Anterior"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
+      <div className="flex flex-col">
+        {differentials.map((item, index) => {
+          const imageFirst = index % 2 === 1
 
-          <button
-            type="button"
-            onClick={goNext}
-            className="absolute right-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-muted-foreground shadow-sm transition-colors hover:text-foreground md:flex"
-            aria-label="Próximo"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-
-          <div
-            className="overflow-hidden"
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-            aria-roledescription="carrossel"
-            aria-label="Diferenciais do atendimento"
-          >
+          return (
             <div
-              className={cn("flex", enableTransition && "transition-transform duration-500 ease-out")}
-              style={{
-                gap: `${gap}px`,
-                transform: `translateX(calc(-${index} * ${slideStep}))`,
-              }}
-              onTransitionEnd={handleTransitionEnd}
+              key={item.title}
+              data-gsap-differential={imageFirst ? "reversed" : "normal"}
+              className="grid min-h-[420px] grid-cols-1 lg:min-h-[480px] lg:grid-cols-2"
             >
-              {LOOP_ITEMS.map((item, i) => (
-                <div
-                  key={`${item.title}-${i}`}
-                  className="shrink-0"
-                  style={{
-                    width: `calc((100% - ${(slidesPerView - 1) * gap}px) / ${slidesPerView})`,
-                  }}
-                >
-                  <DifferentialCard item={item} isActive={i === index + centerOffset} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 flex items-center justify-center gap-2">
-            {differentials.map((item, i) => (
-              <button
-                key={item.title}
-                type="button"
-                aria-label={`Ir para: ${item.title}`}
-                onClick={() => {
-                  setEnableTransition(true)
-                  setIndex(START_INDEX + i)
-                }}
+              <div
+                data-gsap-diff-text
                 className={cn(
-                  "h-2 rounded-full transition-all duration-300",
-                  i === logicalIndex ? "w-8 bg-primary" : "w-2 bg-border hover:bg-primary/40"
+                  "flex items-center bg-muted px-8 py-12 lg:px-16 lg:py-20",
+                  imageFirst ? "order-2 lg:order-2" : "order-2 lg:order-1"
                 )}
-              />
-            ))}
-          </div>
-        </div>
+              >
+                <div className="mx-auto w-full max-w-xl">
+                  <h3 className="mb-5 font-serif text-2xl leading-snug text-balance text-foreground md:text-3xl lg:text-4xl">
+                    {item.title}
+                  </h3>
+                  <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+
+              <div
+                data-gsap-diff-image
+                className={cn(
+                  "relative min-h-[280px] lg:min-h-full",
+                  imageFirst ? "order-1 lg:order-1" : "order-1 lg:order-2"
+                )}
+              >
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          )
+        })}
       </div>
     </section>
   )
