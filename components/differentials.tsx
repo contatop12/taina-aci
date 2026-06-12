@@ -49,57 +49,45 @@ function getSlidesPerView(width: number) {
   return 3
 }
 
-function DifferentialVisual({ item, index }: { item: DifferentialItem; index: number }) {
-  const Icon = item.icon
-
-  if (item.image) {
-    return (
-      <div className="relative h-28 w-full overflow-hidden rounded-t-xl">
-        <Image
-          src={item.image}
-          alt={item.title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
-        />
-      </div>
-    )
-  }
-
-  return (
-    <div className="flex h-28 items-center justify-center rounded-t-xl bg-muted/60">
-      <Icon className="h-7 w-7 text-primary/70" strokeWidth={1.5} />
-      <span className="sr-only">Diferencial 0{(index % COUNT) + 1}</span>
-    </div>
-  )
-}
-
 function DifferentialCard({
   item,
-  index,
   isActive,
 }: {
   item: DifferentialItem
-  index: number
   isActive: boolean
 }) {
+  const Icon = item.icon
+
   return (
     <article
       className={cn(
-        "flex h-full flex-col overflow-hidden rounded-xl border bg-white transition-colors duration-300",
-        isActive ? "border-primary/30" : "border-border/60"
+        "flex h-full flex-col rounded-xl border bg-card p-6 shadow-sm transition-colors duration-300",
+        isActive ? "border-primary/25" : "border-border/60"
       )}
     >
-      <DifferentialVisual item={item} index={index} />
+      {item.image ? (
+        <div className="relative mb-4 aspect-[16/10] w-full overflow-hidden rounded-lg">
+          <Image
+            src={item.image}
+            alt={item.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+          />
+        </div>
+      ) : (
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+          <Icon className="h-6 w-6 text-primary" strokeWidth={1.5} />
+        </div>
+      )}
 
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <h3 className="text-sm font-semibold leading-snug text-foreground line-clamp-2">
-          {item.title}
-        </h3>
-        <p className="text-xs leading-relaxed text-muted-foreground line-clamp-3">
-          {item.description}
-        </p>
-      </div>
+      <h3 className="mb-2 text-base font-semibold leading-snug text-card-foreground text-balance">
+        {item.title}
+      </h3>
+
+      <p className="text-sm leading-relaxed text-muted-foreground">
+        {item.description}
+      </p>
     </article>
   )
 }
@@ -165,43 +153,45 @@ export function Differentials() {
     touchStartX.current = null
   }
 
-  const gap = 12
+  const gap = 24
   const centerOffset = Math.floor(slidesPerView / 2)
   const slideStep = `((100% - ${(slidesPerView - 1) * gap}px) / ${slidesPerView} + ${gap}px)`
 
   return (
-    <section id="diferenciais" className="overflow-hidden bg-background py-16 lg:py-20">
+    <section id="diferenciais" className="overflow-hidden bg-background py-24 lg:py-32">
       <div
         ref={sectionRef}
         className={cn(
-          "container mx-auto px-4 transition-all duration-500 lg:px-8",
-          isVisible ? "opacity-100" : "opacity-0"
+          "container mx-auto px-4 transition-all duration-700 lg:px-8",
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
         )}
       >
-        <div className="mx-auto mb-8 max-w-xl text-center">
-          <p className="mb-2 text-xs uppercase tracking-widest text-primary">Diferenciais</p>
-          <h2 className="font-serif text-2xl text-balance md:text-3xl">
+        <div className="mb-12 text-center md:mb-16">
+          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-primary">
+            Diferenciais
+          </p>
+          <h2 className="mx-auto max-w-2xl font-serif text-3xl text-balance md:text-4xl lg:text-5xl">
             Um modelo de consulta que você não encontra no convencional
           </h2>
         </div>
 
-        <div className="relative mx-auto max-w-5xl">
+        <div className="relative mx-auto max-w-6xl px-10 md:px-12">
           <button
             type="button"
             onClick={goPrev}
-            className="absolute -left-1 top-1/2 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-muted-foreground transition-colors hover:text-foreground md:flex"
+            className="absolute left-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-muted-foreground shadow-sm transition-colors hover:text-foreground md:flex"
             aria-label="Anterior"
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-5 w-5" />
           </button>
 
           <button
             type="button"
             onClick={goNext}
-            className="absolute -right-1 top-1/2 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-muted-foreground transition-colors hover:text-foreground md:flex"
+            className="absolute right-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-muted-foreground shadow-sm transition-colors hover:text-foreground md:flex"
             aria-label="Próximo"
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-5 w-5" />
           </button>
 
           <div
@@ -212,7 +202,7 @@ export function Differentials() {
             aria-label="Diferenciais do atendimento"
           >
             <div
-              className={cn("flex", enableTransition && "transition-transform duration-400 ease-out")}
+              className={cn("flex", enableTransition && "transition-transform duration-500 ease-out")}
               style={{
                 gap: `${gap}px`,
                 transform: `translateX(calc(-${index} * ${slideStep}))`,
@@ -227,17 +217,13 @@ export function Differentials() {
                     width: `calc((100% - ${(slidesPerView - 1) * gap}px) / ${slidesPerView})`,
                   }}
                 >
-                  <DifferentialCard
-                    item={item}
-                    index={i}
-                    isActive={i === index + centerOffset}
-                  />
+                  <DifferentialCard item={item} isActive={i === index + centerOffset} />
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="mt-5 flex items-center justify-center gap-1.5">
+          <div className="mt-8 flex items-center justify-center gap-2">
             {differentials.map((item, i) => (
               <button
                 key={item.title}
@@ -248,8 +234,8 @@ export function Differentials() {
                   setIndex(START_INDEX + i)
                 }}
                 className={cn(
-                  "h-1.5 rounded-full transition-all duration-300",
-                  i === logicalIndex ? "w-5 bg-primary" : "w-1.5 bg-border"
+                  "h-2 rounded-full transition-all duration-300",
+                  i === logicalIndex ? "w-8 bg-primary" : "w-2 bg-border hover:bg-primary/40"
                 )}
               />
             ))}
