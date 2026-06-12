@@ -12,22 +12,12 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { InstagramReelsCarousel } from "@/components/instagram-reels-carousel"
 import { VILA_MARIANA_FLOW, type FormFlow } from "@/lib/form-flows"
+import { FOTO_TAINA_1, FOTO_TAINA_2, porQueParticularStoryUrls } from "@/lib/media"
 import { WHATSAPP_NUMBER } from "@/lib/tracking"
 
-const CDN = "https://pub-fab1140cac404905a5537d13579c2404.r2.dev"
-const FOTO_HERO = `${CDN}/foto-taina1.webp`
-const FOTO_SOBRE = `${CDN}/foto-taina2.webp`
-
+const FOTO_HERO = FOTO_TAINA_1
+const FOTO_SOBRE = FOTO_TAINA_2
 const WA_URL = `https://wa.me/${WHATSAPP_NUMBER}`
-
-function carouselStoryUrls(): string[] {
-  const nums: number[] = []
-  for (let n = 4; n <= 21; n++) {
-    if (n !== 5) nums.push(n)
-  }
-  for (let n = 25; n <= 29; n++) nums.push(n)
-  return nums.map((n) => `${CDN}/story-${String(n).padStart(2, "0")}.mp4`)
-}
 
 const practiceCards = [
   {
@@ -118,7 +108,7 @@ function GoogleIcon({ className }: { className?: string }) {
 }
 
 function StoryVideoCarousel() {
-  const urls = carouselStoryUrls()
+  const urls = porQueParticularStoryUrls()
   const ref = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
@@ -201,13 +191,13 @@ function StoryVideoCarousel() {
               style={{ aspectRatio: "9/16" }}
             >
               <video
-                src={url}
+                src={isVisible ? url : undefined}
                 className="h-full w-full object-cover"
                 muted
                 playsInline
                 loop
-                autoPlay
-                preload="metadata"
+                autoPlay={isVisible}
+                preload="none"
                 title={`História ${index + 1}`}
               />
             </div>

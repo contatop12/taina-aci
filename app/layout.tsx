@@ -5,6 +5,7 @@ import { Suspense } from 'react'
 import './globals.css'
 import { PageviewTracker } from '@/components/pageview-tracker'
 import { CookieBanner } from '@/components/CookieBanner'
+import { HERO_VIDEO_URL, MEDIA_CDN } from '@/lib/media'
 
 const playfair = Playfair_Display({ 
   subsets: ["latin"],
@@ -42,7 +43,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className={`${playfair.variable} ${inter.variable} bg-background scroll-smooth`}>
+    <html
+      lang="pt-BR"
+      suppressHydrationWarning
+      className={`${playfair.variable} ${inter.variable} bg-background scroll-smooth`}
+    >
       <head>
         <meta name="facebook-domain-verification" content="4yad41aniydcacq7jndnwbxujtr44t" />
         {/* Pré-conexão com Google Tag Manager e Google Analytics para reduzir latência */}
@@ -50,6 +55,14 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href={MEDIA_CDN} crossOrigin="" />
+        <link rel="dns-prefetch" href={MEDIA_CDN} />
+        <link
+          rel="preload"
+          href={HERO_VIDEO_URL}
+          as="fetch"
+          type="video/mp4"
+        />
         <link
           rel="preload"
           as="script"
@@ -84,7 +97,7 @@ fbq('init','2028496574752822');
 fbq('track','PageView');`}
         </Script>
       </head>
-      <body className="font-sans antialiased">
+      <body suppressHydrationWarning className="font-sans antialiased">
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-MX88GNQ9"

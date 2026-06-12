@@ -13,6 +13,7 @@ next.user-config.*
 
 # Common ignores
 node_modules
+public/videos/
 .next/
 .open-next/
 .wrangler/

@@ -3,44 +3,25 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react"
 import Image from "next/image"
+import { INSTAGRAM_STORIES } from "@/lib/media"
 
-const BASE = "https://pub-fab1140cac404905a5537d13579c2404.r2.dev"
-
-const stories = [
-  { id:  1, type: "video", url: `${BASE}/story-01.mp4` },
-  { id:  3, type: "video", url: `${BASE}/story-03.mp4` },
-  { id:  4, type: "video", url: `${BASE}/story-04.mp4` },
-  { id:  5, type: "video", url: `${BASE}/story-05.mp4` },
-  { id:  6, type: "video", url: `${BASE}/story-06.mp4` },
-  { id:  7, type: "video", url: `${BASE}/story-07.mp4` },
-  { id:  8, type: "video", url: `${BASE}/story-08.mp4` },
-  { id:  9, type: "video", url: `${BASE}/story-09.mp4` },
-  { id: 10, type: "video", url: `${BASE}/story-10.mp4` },
-  { id: 11, type: "video", url: `${BASE}/story-11.mp4` },
-  { id: 12, type: "video", url: `${BASE}/story-12.mp4` },
-  { id: 13, type: "video", url: `${BASE}/story-13.mp4` },
-  { id: 14, type: "video", url: `${BASE}/story-14.mp4` },
-  { id: 15, type: "video", url: `${BASE}/story-15.mp4` },
-  { id: 16, type: "video", url: `${BASE}/story-16.mp4` },
-  { id: 17, type: "video", url: `${BASE}/story-17.mp4` },
-  { id: 18, type: "video", url: `${BASE}/story-18.mp4` },
-  { id: 19, type: "video", url: `${BASE}/story-19.mp4` },
-  { id: 20, type: "video", url: `${BASE}/story-20.mp4` },
-  { id: 21, type: "video", url: `${BASE}/story-21.mp4` },
-  { id: 23, type: "image", url: `${BASE}/story-23.webp` },
-  { id: 25, type: "video", url: `${BASE}/story-25.mp4` },
-  { id: 26, type: "video", url: `${BASE}/story-26.mp4` },
-  { id: 27, type: "video", url: `${BASE}/story-27.mp4` },
-  { id: 28, type: "video", url: `${BASE}/story-28.mp4` },
-  { id: 29, type: "video", url: `${BASE}/story-29.mp4` },
-] as const
-
+const stories = INSTAGRAM_STORIES
 const IMAGE_DURATION = 5000
 
+function shouldPreloadStory(index: number, currentIndex: number): boolean {
+  const diff = Math.abs(index - currentIndex)
+  if (diff <= 1) return true
+  if (currentIndex === stories.length - 1 && index === 0) return true
+  if (currentIndex === 0 && index === stories.length - 1) return true
+  return false
+}
+
 export function InstagramStories() {
+  const containerRef = useRef<HTMLDivElement>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [progress, setProgress] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const [isInView, setIsInView] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const imageTimerRef = useRef<NodeJS.Timeout | null>(null)
   const imageStartRef = useRef<number>(0)
@@ -48,6 +29,19 @@ export function InstagramStories() {
 
   const current = stories[currentIndex]
   const isVideo = current.type === "video"
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { rootMargin: "120px", threshold: 0.15 }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const goToNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % stories.length)
@@ -123,7 +117,7 @@ export function InstagramStories() {
   }
 
   return (
-    <div className="w-full max-w-sm mx-auto">
+    <div ref={containerRef} className="w-full max-w-sm mx-auto">
       <div
         className="relative bg-black rounded-3xl overflow-hidden shadow-xl"
         style={{ aspectRatio: "9/16" }}
@@ -182,10 +176,13 @@ export function InstagramStories() {
             ) : (
               <video
                 ref={index === currentIndex ? videoRef : undefined}
-                src={story.url}
+                src={
+                  isInView && shouldPreloadStory(index, currentIndex) ? story.url : undefined
+                }
                 className="w-full h-full object-cover"
                 playsInline
                 muted
+                preload="none"
                 onTimeUpdate={index === currentIndex ? handleTimeUpdate : undefined}
                 onEnded={index === currentIndex ? handleVideoEnded : undefined}
               />

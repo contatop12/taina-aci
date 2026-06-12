@@ -2,6 +2,8 @@
 
 import Image from "next/image"
 import { CTAButton } from "@/components/ui/cta-button"
+import { HeroBackgroundVideo } from "@/components/hero-background-video"
+import { FOTO_TAINA_1 } from "@/lib/media"
 
 interface HeroProps {
   onOpenModal: () => void
@@ -10,15 +12,15 @@ interface HeroProps {
 
 export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
   return (
-    <section>
+    <section className="relative isolate min-h-svh overflow-hidden">
+      <HeroBackgroundVideo />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-white/90" />
 
       {/* ── MOBILE layout ── */}
-      <div className="lg:hidden pt-[70px]">
-
-        {/* Photo — max 300px */}
-        <div className="relative w-full h-[300px]">
+      <div className="relative z-10 lg:hidden pt-[70px]">
+        <div className="relative h-[300px]">
           <Image
-            src="https://pub-fab1140cac404905a5537d13579c2404.r2.dev/foto-taina1.webp"
+            src={FOTO_TAINA_1}
             alt="Dra. Tainã Aci em seu consultório"
             fill
             className="object-cover object-center"
@@ -27,10 +29,7 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
           />
         </div>
 
-        {/* Content */}
         <div className="px-6 pt-8 pb-12 space-y-5">
-
-          {/* eyebrow */}
           <div className="flex items-center gap-2">
             <span className="block w-5 h-px bg-primary" />
             <span className="text-[11px] uppercase tracking-[0.18em] text-primary font-semibold">
@@ -47,7 +46,6 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
             Emagrecimento, Hormônios e Saúde Metabólica com embasamento científico.
           </p>
 
-          {/* credentials — now below subtitle */}
           <div className="pt-1">
             <p className="text-[10px] uppercase tracking-[0.18em] text-primary font-semibold mb-1">
               Endocrinologista
@@ -72,30 +70,28 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
       </div>
 
       {/* ── DESKTOP layout ── */}
-      <div className="hidden lg:flex items-center min-h-[100svh]">
+      <div className="relative z-10 hidden lg:flex items-center min-h-[100svh]">
         <div className="container mx-auto px-8 py-20">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-
-            <div className="order-2">
-              <div className="relative">
-                <Image
-                  src="https://pub-fab1140cac404905a5537d13579c2404.r2.dev/foto-taina1.webp"
-                  alt="Dra. Tainã Aci em seu consultório"
-                  width={600}
-                  height={750}
-                  className="rounded-2xl shadow-xl object-cover w-full"
-                  priority
-                />
-              </div>
-            </div>
-
             <div className="order-1 space-y-8 text-left">
               <div className="space-y-6">
+                <div className="flex items-center gap-2">
+                  <span className="block w-5 h-px bg-primary" />
+                  <span className="text-[11px] uppercase tracking-[0.18em] text-primary font-semibold">
+                    Vila Mariana · São Paulo
+                  </span>
+                </div>
+
                 <h1 className="text-5xl lg:text-6xl font-serif leading-tight text-balance">
-                  Endocrinologista na Vila Mariana
+                  Endocrinologista{" "}
+                  <span className="text-primary">na Vila Mariana</span>
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed max-w-xl">
-                  Emagrecimento, Hormônios e Saúde Metabólica
+                  Emagrecimento, Hormônios e Saúde Metabólica com embasamento científico.
+                </p>
+
+                <p className="text-[10px] uppercase tracking-[0.18em] text-primary font-semibold">
+                  Endocrinologista · CRM 166519 · RQE 81061
                 </p>
               </div>
 
@@ -123,10 +119,22 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
                 <span className="text-sm text-muted-foreground">Membro SBEM</span>
               </div>
             </div>
+
+            <div className="order-2">
+              <div className="relative">
+                <Image
+                  src={FOTO_TAINA_1}
+                  alt="Dra. Tainã Aci em seu consultório"
+                  width={600}
+                  height={750}
+                  className="rounded-2xl shadow-xl object-cover w-full"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
     </section>
   )
 }
