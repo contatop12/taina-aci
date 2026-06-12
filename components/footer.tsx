@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { LOGO_RODAPE_BRANCO } from "@/lib/media"
 import { Instagram, MapPin, Phone, MessageCircle } from "lucide-react"
 
 const quickLinks = [
@@ -40,11 +41,12 @@ export function Footer() {
               className="inline-block rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
             >
               <Image
-                src="/LOGO%20V2%20TAIN%C3%83%20BRANCO.png"
+                src={LOGO_RODAPE_BRANCO}
                 alt="Dra. Tainã Aci - Endocrinologia e Metabologia Nutrologia"
                 width={280}
                 height={70}
                 className="h-16 w-auto"
+                loading="lazy"
               />
             </Link>
             <p className="text-sm leading-relaxed text-white/80">

@@ -8,6 +8,7 @@ import { CTAButton } from "@/components/ui/cta-button"
 import { cn } from "@/lib/utils"
 import { storeWhatsappRedirectUrl } from "@/lib/whatsapp-redirect-session"
 import { getFormFlow } from "@/lib/form-flows"
+import { LOGO_PRINCIPAL } from "@/lib/media"
 import {
   CODI_ID,
   EMPTY_TRACKING_PARAMS,
@@ -282,7 +283,7 @@ export function ContactModal({
           {/* Header */}
           <div className="text-center mb-7">
             <Image
-              src="/LOGO%20V2%20TAIN%C3%83.png"
+              src={LOGO_PRINCIPAL}
               alt="Dra. Tainã Aci"
               width={160}
               height={50}

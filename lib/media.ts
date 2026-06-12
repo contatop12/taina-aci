@@ -4,12 +4,26 @@ export function mediaUrl(path: string): string {
   return `${MEDIA_CDN}/${path.replace(/^\//, "")}`
 }
 
-export const HERO_POSTER_URL = mediaUrl("foto-taina1.webp")
-
-export const HERO_VIDEO_URL = mediaUrl("hero-home-v3.mp4")
-
+/** Fotos principais */
 export const FOTO_TAINA_1 = mediaUrl("foto-taina1.webp")
 export const FOTO_TAINA_2 = mediaUrl("foto-taina2.webp")
+
+/** Hero */
+export const HERO_POSTER_URL = FOTO_TAINA_1
+export const HERO_VIDEO_URL = mediaUrl("hero-home-v3.mp4")
+
+/** Branding */
+export const LOGO_PRINCIPAL = mediaUrl("logo-principal.webp")
+export const LOGO_RODAPE_BRANCO = mediaUrl("logo-rodape-branco.webp")
+export const FAVICON = mediaUrl("favicon.webp")
+
+/** Seção Diferenciais */
+export const DIFFERENCIAL_IMAGES = {
+  medicina: mediaUrl("diferencial-medicina-evidencia.webp"),
+  consulta: mediaUrl("diferencial-consulta-integrada.webp"),
+  exames: mediaUrl("diferencial-exames-avancados.webp"),
+  medicamento: mediaUrl("diferencial-tratamento-medicamentoso.webp"),
+} as const
 
 const STORY_VIDEO_IDS = [
   1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 25, 26, 27, 28, 29,
@@ -42,3 +56,9 @@ export function porQueParticularStoryUrls(): string[] {
   for (let n = 25; n <= 29; n++) nums.push(n)
   return nums.map(storyVideoUrl)
 }
+
+/** Preload apenas recursos críticos above-the-fold (LCP). */
+export const CRITICAL_PRELOADS = [
+  { href: LOGO_PRINCIPAL, as: "image" as const },
+  { href: FOTO_TAINA_1, as: "image" as const },
+]

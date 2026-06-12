@@ -2,37 +2,32 @@
 
 import Image from "next/image"
 import { cn } from "@/lib/utils"
-
-function publicAsset(filename: string): string {
-  return `/${encodeURIComponent(filename)}`
-}
+import { DIFFERENCIAL_IMAGES } from "@/lib/media"
 
 const differentials = [
   {
     title: "Medicina Baseada em Evidência",
     description:
       "Após 14 anos de formação, com duas residências médicas, dois registros de qualificação de especialista e mestrado profissional, a Dra. Tainã leva a sério o tratamento com embasamento científico correto. Cada decisão clínica é fundamentada em evidências robustas, associada a uma escuta ativa para identificar o que realmente funciona para a realidade de cada paciente.",
-    image: publicAsset("Medicina Baseada em Evidência.png"),
+    image: DIFFERENCIAL_IMAGES.medicina,
   },
   {
     title: "Consulta Médica + Nutricional Integrada",
     description:
       "No programa de acompanhamento da Dra. Tainã — com resultados altamente positivos comprovados no consultório — você não precisa agendar uma consulta com endocrinologista e outra com nutricionista separadamente. O atendimento é realizado em conjunto: otimização do tratamento endocrinológico e ajustes da estratégia alimentar, com o paciente participando ativamente de cada decisão.",
-    image: publicAsset("Consulta Médica + Nutricional Integrada.png"),
+    image: DIFFERENCIAL_IMAGES.consulta,
   },
   {
     title: "Exames Avançados: Teste Genético, Scanner Corporal e Bioimpedância",
     description:
       "Avaliação completa do seu metabolismo com teste genético, scanner corporal e bioimpedância, usando tecnologia de ponta para um diagnóstico mais preciso e um plano mais eficaz.",
-    image: publicAsset(
-      "Exames Avançados_ Teste Genético, Scanner Corporal e Bioimpedância.png"
-    ),
+    image: DIFFERENCIAL_IMAGES.exames,
   },
   {
     title: "Quando indicado: tratamento medicamentoso acompanhado",
     description:
       "Avanços recentes trouxeram opções eficazes para o tratamento da obesidade e do diabetes, com benefícios no peso e no controle metabólico. A escolha da medicação deve ser criteriosa e personalizada. O acompanhamento profissional permite ajustes precisos para otimizar os resultados e a sua manutenção a longo prazo.",
-    image: publicAsset("Quando indicado_ tratamento medicamentoso acompanhado.png"),
+    image: DIFFERENCIAL_IMAGES.medicamento,
   },
 ]
 
@@ -90,6 +85,7 @@ export function Differentials() {
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
+                  loading="lazy"
                 />
               </div>
             </div>

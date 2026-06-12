@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { CTAButton } from "@/components/ui/cta-button"
+import { FOTO_TAINA_2 } from "@/lib/media"
 import { Check } from "lucide-react"
 
 interface AboutProps {
@@ -26,11 +27,12 @@ export function About({ onOpenModal, extraParagraph }: AboutProps) {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="order-2 lg:order-1" data-gsap-reveal>
             <Image
-              src="https://pub-fab1140cac404905a5537d13579c2404.r2.dev/foto-taina2.webp"
+              src={FOTO_TAINA_2}
               alt="Dra. Tainã Aci"
               width={500}
               height={650}
               className="rounded-2xl shadow-xl object-cover w-full max-w-md mx-auto lg:mx-0"
+              loading="lazy"
             />
           </div>
 

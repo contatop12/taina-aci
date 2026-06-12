@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { Check } from "lucide-react"
+import { FOTO_TAINA_1 } from "@/lib/media"
 import { CTAButton } from "@/components/ui/cta-button"
 
 interface EmagrecerHeroProps {
@@ -25,7 +26,7 @@ export function EmagrecerHero({ onOpenModal }: EmagrecerHeroProps) {
         {/* Photo — max 300px */}
         <div className="relative w-full h-[300px]">
           <Image
-            src="https://pub-fab1140cac404905a5537d13579c2404.r2.dev/foto-taina1.webp"
+            src={FOTO_TAINA_1}
             alt="Dra. Tainã Aci, endocrinologista para emagrecer em São Paulo"
             fill
             className="object-cover object-center"
@@ -86,7 +87,7 @@ export function EmagrecerHero({ onOpenModal }: EmagrecerHeroProps) {
             <div className="order-2">
               <div className="relative">
                 <Image
-                  src="https://pub-fab1140cac404905a5537d13579c2404.r2.dev/foto-taina1.webp"
+                  src={FOTO_TAINA_1}
                   alt="Dra. Tainã Aci, endocrinologista para emagrecer em São Paulo"
                   width={600}
                   height={750}

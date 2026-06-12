@@ -5,7 +5,7 @@ import { Suspense } from 'react'
 import './globals.css'
 import { PageviewTracker } from '@/components/pageview-tracker'
 import { CookieBanner } from '@/components/CookieBanner'
-import { HERO_VIDEO_URL, MEDIA_CDN } from '@/lib/media'
+import { CRITICAL_PRELOADS, FAVICON, MEDIA_CDN } from '@/lib/media'
 
 const playfair = Playfair_Display({ 
   subsets: ["latin"],
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   description: 'Endocrinologista especializada em emagrecimento, hormônios e saúde metabólica. Atendimento de alto padrão na Vila Mariana, São Paulo. CRM 166519 | RQE 81061.',
   keywords: 'endocrinologista, Vila Mariana, São Paulo, emagrecimento, hormônios, tireoide, diabetes, menopausa, caneta emagrecedora',
   icons: {
-    icon: '/FAV%20ICON%20TAINA%20V2.png',
-    shortcut: '/FAV%20ICON%20TAINA%20V2.png',
-    apple: '/FAV%20ICON%20TAINA%20V2.png',
+    icon: FAVICON,
+    shortcut: FAVICON,
+    apple: FAVICON,
   },
   other: {
     'facebook-domain-verification': 'r3puut6a1stg0tccn5v972ti5j2kpk',
@@ -57,12 +57,9 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="preconnect" href={MEDIA_CDN} crossOrigin="" />
         <link rel="dns-prefetch" href={MEDIA_CDN} />
-        <link
-          rel="preload"
-          href={HERO_VIDEO_URL}
-          as="fetch"
-          type="video/mp4"
-        />
+        {CRITICAL_PRELOADS.map(({ href, as }) => (
+          <link key={href} rel="preload" href={href} as={as} type="image/webp" />
+        ))}
         <link
           rel="preload"
           as="script"

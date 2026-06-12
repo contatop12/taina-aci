@@ -8,6 +8,7 @@ import {
   clearWhatsappRedirectUrl,
   getWhatsappRedirectUrl,
 } from "@/lib/whatsapp-redirect-session"
+import { LOGO_PRINCIPAL } from "@/lib/media"
 import { CTAButton } from "@/components/ui/cta-button"
 import { VILA_MARIANA_FLOW, type FormFlow } from "@/lib/form-flows"
 import { WHATSAPP_NUMBER } from "@/lib/tracking"
@@ -90,7 +91,7 @@ export function ObrigadoContent({ flow = VILA_MARIANA_FLOW }: ObrigadoContentPro
         <div className="container mx-auto px-4 lg:px-8 h-[70px] md:h-[80px] flex items-center justify-center md:justify-start">
           <Link href={flow.homePath} className="inline-block">
             <Image
-              src="/LOGO%20V2%20TAIN%C3%83.png"
+              src={LOGO_PRINCIPAL}
               alt="Dra. Tainã Aci"
               width={220}
               height={56}
