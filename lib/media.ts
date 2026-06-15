@@ -11,6 +11,7 @@ export const FOTO_TAINA_2 = mediaUrl("foto-taina2.webp")
 /** Hero */
 export const HERO_POSTER_URL = FOTO_TAINA_1
 export const HERO_VIDEO_URL = mediaUrl("hero-home-v3.mp4")
+export const HERO_PORTRAIT_VIDEO_URL = mediaUrl("taina-boas-vindas.mp4")
 
 /** Branding */
 export const LOGO_PRINCIPAL = mediaUrl("logo-principal.webp")
@@ -26,7 +27,7 @@ export const DIFFERENCIAL_IMAGES = {
 } as const
 
 const STORY_VIDEO_IDS = [
-  1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 25, 26, 27, 28, 29,
+  3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 25, 26, 27, 28, 29,
 ] as const
 
 export function storyVideoUrl(id: number): string {

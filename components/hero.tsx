@@ -1,9 +1,8 @@
 "use client"
 
-import Image from "next/image"
 import { CTAButton } from "@/components/ui/cta-button"
 import { HeroBackgroundVideo } from "@/components/hero-background-video"
-import { FOTO_TAINA_1 } from "@/lib/media"
+import { HeroPortraitMedia } from "@/components/hero-portrait-media"
 
 interface HeroProps {
   onOpenModal: () => void
@@ -18,15 +17,8 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
 
       {/* ── MOBILE layout ── */}
       <div className="relative z-10 lg:hidden pt-[70px]">
-        <div className="relative h-[300px]" data-gsap-hero-image>
-          <Image
-            src={FOTO_TAINA_1}
-            alt="Dra. Tainã Aci em seu consultório"
-            fill
-            className="object-cover object-center"
-            priority
-            sizes="100vw"
-          />
+        <div className="relative h-[300px] rounded-none" data-gsap-hero-image>
+          <HeroPortraitMedia priority sizes="100vw" />
         </div>
 
         <div className="px-6 pt-8 pb-12 space-y-5">
@@ -121,13 +113,9 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
             </div>
 
             <div className="order-2">
-              <div className="relative" data-gsap-hero-image>
-                <Image
-                  src={FOTO_TAINA_1}
-                  alt="Dra. Tainã Aci em seu consultório"
-                  width={600}
-                  height={750}
-                  className="rounded-2xl shadow-xl object-cover w-full"
+              <div className="relative aspect-[4/5] w-full" data-gsap-hero-image>
+                <HeroPortraitMedia
+                  className="h-full w-full rounded-2xl shadow-xl"
                   priority
                 />
               </div>
