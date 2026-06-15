@@ -8,20 +8,11 @@ import { INSTAGRAM_STORIES } from "@/lib/media"
 const stories = INSTAGRAM_STORIES
 const IMAGE_DURATION = 5000
 
-function shouldPreloadStory(index: number, currentIndex: number): boolean {
-  const diff = Math.abs(index - currentIndex)
-  if (diff <= 1) return true
-  if (currentIndex === stories.length - 1 && index === 0) return true
-  if (currentIndex === 0 && index === stories.length - 1) return true
-  return false
-}
-
 export function InstagramStories() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [progress, setProgress] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
-  const [isInView, setIsInView] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const imageTimerRef = useRef<NodeJS.Timeout | null>(null)
   const imageStartRef = useRef<number>(0)
@@ -29,19 +20,6 @@ export function InstagramStories() {
 
   const current = stories[currentIndex]
   const isVideo = current.type === "video"
-
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { rootMargin: "120px", threshold: 0.15 }
-    )
-
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
 
   const goToNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % stories.length)
@@ -88,22 +66,29 @@ export function InstagramStories() {
     goToNext()
   }, [goToNext])
 
-  // Control video play/pause
+  // Control video play/pause and autoplay on index change
   useEffect(() => {
     const video = videoRef.current
     if (!video || !isVideo) return
-    if (isPaused) video.pause()
-    else video.play().catch(() => {})
-  }, [isPaused, isVideo, currentIndex])
 
-  // Auto-play video on index change
-  useEffect(() => {
-    if (!isVideo) return
-    const video = videoRef.current
-    if (!video) return
-    video.currentTime = 0
-    if (!isPaused) video.play().catch(() => {})
-  }, [currentIndex, isVideo, isPaused])
+    if (isPaused) {
+      video.pause()
+      return
+    }
+
+    const startPlayback = () => {
+      video.currentTime = 0
+      void video.play().catch(() => {})
+    }
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      startPlayback()
+      return
+    }
+
+    video.addEventListener("loadeddata", startPlayback, { once: true })
+    return () => video.removeEventListener("loadeddata", startPlayback)
+  }, [isPaused, isVideo, currentIndex])
 
   // Touch/swipe support
   const touchStartX = useRef<number>(0)
@@ -176,13 +161,11 @@ export function InstagramStories() {
             ) : (
               <video
                 ref={index === currentIndex ? videoRef : undefined}
-                src={
-                  isInView && shouldPreloadStory(index, currentIndex) ? story.url : undefined
-                }
+                src={story.url}
                 className="w-full h-full object-cover"
                 playsInline
                 muted
-                preload="none"
+                preload={index === currentIndex ? "auto" : "metadata"}
                 onTimeUpdate={index === currentIndex ? handleTimeUpdate : undefined}
                 onEnded={index === currentIndex ? handleVideoEnded : undefined}
               />
