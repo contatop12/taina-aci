@@ -102,7 +102,7 @@ export function InstagramStories() {
   }
 
   return (
-    <div ref={containerRef} className="w-full max-w-sm mx-auto">
+    <div ref={containerRef} className="mx-auto w-full max-w-[min(100%,320px)] px-1 sm:max-w-sm sm:px-0">
       <div
         className="relative bg-black rounded-3xl overflow-hidden shadow-xl"
         style={{ aspectRatio: "9/16" }}

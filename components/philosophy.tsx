@@ -5,10 +5,10 @@ import { Ripple } from "@/components/ui/ripple"
 
 export function Philosophy() {
   return (
-    <section className="py-24 lg:py-32 bg-background relative overflow-hidden">
+    <section className="relative overflow-hidden bg-background py-16 sm:py-20 lg:py-32">
       <Ripple className="opacity-40" />
-      <div className="container mx-auto px-4 max-w-4xl">
-        <div className="text-center mb-16" data-gsap-reveal>
+      <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="mb-10 text-center sm:mb-16" data-gsap-reveal>
           <p className="text-sm uppercase tracking-widest text-primary font-medium mb-6">
             Nossa Filosofia
           </p>

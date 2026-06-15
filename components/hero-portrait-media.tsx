@@ -1,11 +1,9 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { FOTO_TAINA_1, HERO_PORTRAIT_VIDEO_URL } from "@/lib/media"
-
-const IMAGE_HOLD_MS = 3000
 
 interface HeroPortraitMediaProps {
   className?: string
@@ -21,16 +19,8 @@ export function HeroPortraitMedia({
   sizes = "(max-width: 1024px) 100vw, 600px",
 }: HeroPortraitMediaProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [showVideo, setShowVideo] = useState(false)
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setShowVideo(true), IMAGE_HOLD_MS)
-    return () => window.clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
-    if (!showVideo) return
-
     const video = videoRef.current
     if (!video) return
 
@@ -40,11 +30,16 @@ export function HeroPortraitMedia({
       void video.play().catch(() => {})
     }
 
-    play()
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      play()
+    } else {
+      video.addEventListener("loadeddata", play, { once: true })
+    }
+
     video.addEventListener("canplay", play)
 
     return () => video.removeEventListener("canplay", play)
-  }, [showVideo])
+  }, [])
 
   return (
     <div className={cn("relative overflow-hidden", className)}>
@@ -52,27 +47,20 @@ export function HeroPortraitMedia({
         src={FOTO_TAINA_1}
         alt="Dra. Tainã Aci em seu consultório"
         fill
-        className={cn(
-          "object-cover object-center transition-opacity duration-700",
-          showVideo ? "opacity-0" : "opacity-100",
-          imageClassName
-        )}
+        className={cn("object-cover object-center", imageClassName)}
         priority={priority}
         sizes={sizes}
       />
 
       <video
         ref={videoRef}
-        src={showVideo ? HERO_PORTRAIT_VIDEO_URL : undefined}
-        className={cn(
-          "absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700",
-          showVideo ? "opacity-100" : "opacity-0"
-        )}
-        autoPlay={showVideo}
+        src={HERO_PORTRAIT_VIDEO_URL}
+        className="absolute inset-0 h-full w-full object-cover object-center"
+        autoPlay
         muted
         loop
         playsInline
-        preload="none"
+        preload="auto"
         poster={FOTO_TAINA_1}
       />
     </div>

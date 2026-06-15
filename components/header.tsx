@@ -28,23 +28,23 @@ export function Header({ onOpenModal, whatsappDirect = false }: HeaderProps) {
         isScrolled ? "shadow-sm md:bg-white/95" : "shadow-sm md:bg-transparent md:shadow-none"
       }`}
     >
-      <div className="container mx-auto h-full flex items-center justify-between px-4 lg:px-8">
+      <div className="container mx-auto flex h-full items-center justify-between gap-3 px-4 lg:px-8">
         <Link
           href="/"
           aria-label="Ir para a página inicial"
-          className="inline-flex items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="inline-flex min-w-0 shrink items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           <Image
             src={LOGO_PRINCIPAL}
             alt="Dra. Tainã Aci - Endocrinologia e Metabologia Nutrologia"
             width={280}
             height={70}
-            className="h-12 md:h-16 w-auto"
+            className="h-9 w-auto max-w-[148px] sm:h-12 sm:max-w-none"
             priority
           />
         </Link>
-        <CTAButton onClick={onOpenModal} size="sm" className="md:hidden">
-          {whatsappDirect ? "WhatsApp" : "Fale com a equipe"}
+        <CTAButton onClick={onOpenModal} size="sm" className="shrink-0 md:hidden">
+          {whatsappDirect ? "WhatsApp" : "Fale conosco"}
         </CTAButton>
         <CTAButton onClick={onOpenModal} className="hidden md:inline-flex">
           {whatsappDirect ? "Falar pelo WhatsApp" : "Fale com nossa equipe"}

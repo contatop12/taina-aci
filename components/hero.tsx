@@ -1,8 +1,10 @@
 "use client"
 
+import Image from "next/image"
 import { CTAButton } from "@/components/ui/cta-button"
 import { HeroBackgroundVideo } from "@/components/hero-background-video"
 import { HeroPortraitMedia } from "@/components/hero-portrait-media"
+import { FOTO_TAINA_1 } from "@/lib/media"
 
 interface HeroProps {
   onOpenModal: () => void
@@ -11,34 +13,43 @@ interface HeroProps {
 
 export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
   return (
-    <section className="relative isolate min-h-svh overflow-hidden">
-      <HeroBackgroundVideo />
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-white/90" />
+    <section className="relative isolate overflow-hidden lg:min-h-svh">
+      <div className="absolute inset-0 z-0 hidden lg:block">
+        <HeroBackgroundVideo />
+      </div>
+      <div className="pointer-events-none absolute inset-0 z-[1] hidden bg-white/90 lg:block" />
 
       {/* ── MOBILE layout ── */}
-      <div className="relative z-10 lg:hidden pt-[70px]">
-        <div className="relative h-[300px] rounded-none" data-gsap-hero-image>
-          <HeroPortraitMedia priority sizes="100vw" />
+      <div className="relative z-10 bg-background lg:hidden pt-[70px]">
+        <div className="relative h-[260px] w-full sm:h-[300px]">
+          <Image
+            src={FOTO_TAINA_1}
+            alt="Dra. Tainã Aci em seu consultório"
+            fill
+            className="object-cover object-center"
+            priority
+            sizes="100vw"
+          />
         </div>
 
-        <div className="px-6 pt-8 pb-12 space-y-5">
-          <div className="flex items-center gap-2" data-gsap-hero-item>
+        <div className="space-y-4 px-5 pb-10 pt-6 sm:px-6">
+          <div className="flex items-center gap-2">
             <span className="block w-5 h-px bg-primary" />
             <span className="text-[11px] uppercase tracking-[0.18em] text-primary font-semibold">
               Vila Mariana · São Paulo
             </span>
           </div>
 
-          <h1 className="text-[2rem] leading-[1.15] font-serif text-foreground" data-gsap-hero-item>
+          <h1 className="text-[1.75rem] leading-[1.15] font-serif text-foreground sm:text-[2rem]">
             Endocrinologista<br />
             <span className="text-primary">na Vila Mariana</span>
           </h1>
 
-          <p className="text-[15px] text-muted-foreground leading-relaxed" data-gsap-hero-item>
+          <p className="text-[15px] text-muted-foreground leading-relaxed">
             Emagrecimento, Hormônios e Saúde Metabólica com embasamento científico.
           </p>
 
-          <div className="pt-1" data-gsap-hero-item>
+          <div className="pt-1">
             <p className="text-[10px] uppercase tracking-[0.18em] text-primary font-semibold mb-1">
               Endocrinologista
             </p>
@@ -47,8 +58,8 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
             </p>
           </div>
 
-          <div className="pt-2" data-gsap-hero-item>
-            <CTAButton onClick={onOpenModal} size="sm">
+          <div className="pt-2">
+            <CTAButton onClick={onOpenModal} size="sm" fullWidth>
               {whatsappDirect ? "Falar pelo WhatsApp" : "Fale com nossa equipe"}
             </CTAButton>
           </div>
