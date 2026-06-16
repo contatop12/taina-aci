@@ -148,6 +148,33 @@ export function InstagramReelsCarousel({
         </div>
       </div>
 
+      <div className="mt-6 flex items-center justify-center gap-4 md:hidden">
+        <Button
+          variant="outline"
+          size="icon"
+          className={`h-11 w-11 rounded-full bg-white shadow-md ${
+            !canScrollLeft ? "opacity-40" : "opacity-100"
+          }`}
+          onClick={() => scroll("left")}
+          disabled={!canScrollLeft}
+          aria-label="Depoimento anterior"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          className={`h-11 w-11 rounded-full bg-white shadow-md ${
+            !canScrollRight ? "opacity-40" : "opacity-100"
+          }`}
+          onClick={() => scroll("right")}
+          disabled={!canScrollRight}
+          aria-label="Próximo depoimento"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </Button>
+      </div>
+
       {hint ? (
         <div className="text-center mt-8 text-sm text-muted-foreground">
           <p>{hint}</p>
