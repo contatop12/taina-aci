@@ -18,10 +18,16 @@ const R2_BASE = "https://pub-fab1140cac404905a5537d13579c2404.r2.dev"
 /** Nome legível no R2 (sem acentos/espaços). */
 const R2_KEYS = {
   "Medicina Baseada em Evidência.png": "diferencial-medicina-evidencia.webp",
+  "Medicina Baseada em Evidência- V2.png": "diferencial-medicina-evidencia.webp",
   "Consulta Médica + Nutricional Integrada.png": "diferencial-consulta-integrada.webp",
+  "Consulta Médica + Nutricional Integrada- V2.png": "diferencial-consulta-integrada.webp",
   "Exames Avançados_ Teste Genético, Scanner Corporal e Bioimpedância.png":
     "diferencial-exames-avancados.webp",
+  "Exames Avançados_ Teste Genético, Scanner Corporal e Bioimpedância- V2.png":
+    "diferencial-exames-avancados.webp",
   "Quando indicado_ tratamento medicamentoso acompanhado.png":
+    "diferencial-tratamento-medicamentoso.webp",
+  "Quando indicado_ tratamento medicamentoso acompanhado- V2.png":
     "diferencial-tratamento-medicamentoso.webp",
   "LOGO V2 TAINÃ.png": "logo-principal.webp",
   "LOGO V2 TAINÃ BRANCO.png": "logo-rodape-branco.webp",
