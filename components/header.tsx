@@ -24,7 +24,7 @@ export function Header({ onOpenModal, whatsappDirect = false }: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 h-[70px] md:h-[80px] transition-all duration-300 bg-white/95 backdrop-blur-sm md:shadow-none ${
+      className={`fixed top-0 left-0 right-0 z-50 h-[70px] pt-[env(safe-area-inset-top)] md:h-[80px] transition-all duration-300 bg-white/95 backdrop-blur-sm md:shadow-none ${
         isScrolled ? "shadow-sm md:bg-white/95" : "shadow-sm md:bg-transparent md:shadow-none"
       }`}
     >

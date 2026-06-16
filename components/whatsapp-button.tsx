@@ -8,7 +8,7 @@ export function WhatsAppButton({ onOpenModal }: WhatsAppButtonProps) {
   return (
     <button
       onClick={onOpenModal}
-      className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#25D366] hover:bg-[#20BD5A] rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 animate-pulse hover:animate-none md:bottom-8 md:right-8"
+      className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1.5rem,env(safe-area-inset-right))] z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg transition-all hover:scale-110 hover:animate-none hover:bg-[#20BD5A] animate-pulse md:bottom-8 md:right-8"
       aria-label="Abrir WhatsApp"
     >
       <svg

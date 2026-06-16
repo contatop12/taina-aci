@@ -165,7 +165,7 @@ export function InstagramStories() {
                 className="w-full h-full object-cover"
                 playsInline
                 muted
-                preload={index === currentIndex ? "auto" : "metadata"}
+                preload="auto"
                 onTimeUpdate={index === currentIndex ? handleTimeUpdate : undefined}
                 onEnded={index === currentIndex ? handleVideoEnded : undefined}
               />

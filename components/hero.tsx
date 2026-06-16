@@ -1,10 +1,8 @@
 "use client"
 
-import Image from "next/image"
 import { CTAButton } from "@/components/ui/cta-button"
 import { HeroBackgroundVideo } from "@/components/hero-background-video"
 import { HeroPortraitMedia } from "@/components/hero-portrait-media"
-import { FOTO_TAINA_1 } from "@/lib/media"
 
 interface HeroProps {
   onOpenModal: () => void
@@ -20,80 +18,72 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
       <div className="pointer-events-none absolute inset-0 z-[1] hidden bg-white/90 lg:block" />
 
       {/* ── MOBILE layout ── */}
-      <div className="relative z-10 bg-background lg:hidden pt-[70px]">
-        <div className="relative h-[260px] w-full sm:h-[300px]">
-          <Image
-            src={FOTO_TAINA_1}
-            alt="Dra. Tainã Aci em seu consultório"
-            fill
-            className="object-cover object-center"
-            priority
-            sizes="100vw"
-          />
+      <div className="relative z-10 min-h-svh lg:hidden">
+        <div className="absolute inset-0">
+          <HeroPortraitMedia priority sizes="100vw" className="h-full w-full" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/15" />
         </div>
 
-        <div className="space-y-4 px-5 pb-10 pt-6 sm:px-6">
-          <div className="flex items-center gap-2">
-            <span className="block w-5 h-px bg-primary" />
-            <span className="text-[11px] uppercase tracking-[0.18em] text-primary font-semibold">
-              Vila Mariana · São Paulo
-            </span>
-          </div>
+        <div className="relative z-10 flex min-h-svh flex-col justify-end px-5 pb-[max(6.5rem,env(safe-area-inset-bottom)+5rem)] pt-[calc(70px+env(safe-area-inset-top))]">
+          <div className="space-y-3.5">
+            <div className="flex items-center gap-2">
+              <span className="block h-px w-5 bg-primary" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/90">
+                Vila Mariana · São Paulo
+              </span>
+            </div>
 
-          <h1 className="text-[1.75rem] leading-[1.15] font-serif text-foreground sm:text-[2rem]">
-            Endocrinologista<br />
-            <span className="text-primary">na Vila Mariana</span>
-          </h1>
-
-          <p className="text-[15px] text-muted-foreground leading-relaxed">
-            Emagrecimento, Hormônios e Saúde Metabólica com embasamento científico.
-          </p>
-
-          <div className="pt-1">
-            <p className="text-[10px] uppercase tracking-[0.18em] text-primary font-semibold mb-1">
+            <h1 className="font-serif text-[1.85rem] leading-[1.12] text-white sm:text-[2rem]">
               Endocrinologista
+              <br />
+              <span className="text-[#C8D89A]">na Vila Mariana</span>
+            </h1>
+
+            <p className="max-w-[20rem] text-[15px] leading-relaxed text-white/85">
+              Emagrecimento, Hormônios e Saúde Metabólica com embasamento científico.
             </p>
-            <p className="text-sm text-foreground font-medium">
-              CRM 166519 · RQE 81061
+
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/70">
+              Endocrinologista · CRM 166519 · RQE 81061
+            </p>
+
+            <div className="pt-1">
+              <CTAButton onClick={onOpenModal} size="sm" fullWidth>
+                {whatsappDirect ? "Falar pelo WhatsApp" : "Fale com nossa equipe"}
+              </CTAButton>
+            </div>
+
+            <p className="text-xs text-white/65">
+              {whatsappDirect
+                ? "Abra uma conversa direto no WhatsApp"
+                : "Nossa equipe entrará em contato pelo WhatsApp"}
             </p>
           </div>
-
-          <div className="pt-2">
-            <CTAButton onClick={onOpenModal} size="sm" fullWidth>
-              {whatsappDirect ? "Falar pelo WhatsApp" : "Fale com nossa equipe"}
-            </CTAButton>
-          </div>
-
-          <p className="text-xs text-muted-foreground">
-            {whatsappDirect
-              ? "Abra uma conversa direto no WhatsApp"
-              : "Nossa equipe entrará em contato pelo WhatsApp"}
-          </p>
         </div>
       </div>
 
       {/* ── DESKTOP layout ── */}
-      <div className="relative z-10 hidden lg:flex items-center min-h-[100svh]">
+      <div className="relative z-10 hidden min-h-svh items-center lg:flex">
         <div className="container mx-auto px-8 py-20">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid items-center gap-16 lg:grid-cols-2">
             <div className="order-1 space-y-8 text-left">
               <div className="space-y-6">
                 <div className="flex items-center gap-2" data-gsap-hero-item>
-                  <span className="block w-5 h-px bg-primary" />
-                  <span className="text-[11px] uppercase tracking-[0.18em] text-primary font-semibold">
+                  <span className="block h-px w-5 bg-primary" />
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
                     Vila Mariana · São Paulo
                   </span>
                 </div>
 
-                <h1 className="text-5xl lg:text-6xl font-serif leading-tight text-balance" data-gsap-hero-item>
+                <h1 className="font-serif text-5xl leading-tight text-balance lg:text-6xl" data-gsap-hero-item>
                   Endocrinologista{" "}
                   <span className="text-primary">na Vila Mariana</span>
                 </h1>
-                <p className="text-xl text-muted-foreground leading-relaxed max-w-xl" data-gsap-hero-item>
+                <p className="max-w-xl text-xl leading-relaxed text-muted-foreground" data-gsap-hero-item>
                   Emagrecimento, Hormônios e Saúde Metabólica com embasamento científico.
                 </p>
 
-                <p className="text-[10px] uppercase tracking-[0.18em] text-primary font-semibold" data-gsap-hero-item>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary" data-gsap-hero-item>
                   Endocrinologista · CRM 166519 · RQE 81061
                 </p>
               </div>
@@ -110,12 +100,12 @@ export function Hero({ onOpenModal, whatsappDirect = false }: HeroProps) {
                   : "Nossa equipe entrará em contato pelo WhatsApp"}
               </p>
 
-              <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-                <span className="text-sm text-muted-foreground flex items-center gap-2">
+              <div className="flex flex-wrap gap-3 border-t border-border pt-4">
+                <span className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span className="text-primary">CRM 166519</span>
                 </span>
                 <span className="text-muted-foreground/50">|</span>
-                <span className="text-sm text-muted-foreground flex items-center gap-2">
+                <span className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span className="text-primary">RQE 81061</span>
                 </span>
                 <span className="text-muted-foreground/50">|</span>
