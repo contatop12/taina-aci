@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { InstagramReelsCarousel } from "@/components/instagram-reels-carousel"
 import { VILA_MARIANA_FLOW, type FormFlow } from "@/lib/form-flows"
+import { pushDataLayerEvent } from "@/lib/tracking"
 import { FOTO_TAINA_1, FOTO_TAINA_2, porQueParticularStoryUrls } from "@/lib/media"
 import { WHATSAPP_NUMBER } from "@/lib/tracking"
 
@@ -219,13 +220,8 @@ export function PorQueParticularContent({ flow = VILA_MARIANA_FLOW }: PorQuePart
   }
 
   useEffect(() => {
-    if (typeof window === "undefined") return
-
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push({
-      event: "lead_desqualificado",
+    pushDataLayerEvent("lead_desqualificado", flow.formId, {
       page_path: flow.porQueParticularPath,
-      form_id: flow.formId,
     })
   }, [flow.formId, flow.porQueParticularPath])
 

@@ -2,12 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import { usePathname } from "next/navigation"
-
-declare global {
-  interface Window {
-    dataLayer: Record<string, unknown>[]
-  }
-}
+import { getDataLayer } from "@/lib/tracking"
 
 export function PageviewTracker() {
   const pathname = usePathname()
@@ -22,8 +17,7 @@ export function PageviewTracker() {
     if (lastUrlRef.current === url) return
     lastUrlRef.current = url
 
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push({
+    getDataLayer().push({
       event: "page_view",
       page_path: url,
       page_location: window.location.href,

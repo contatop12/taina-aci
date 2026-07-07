@@ -1,6 +1,13 @@
+export function getDataLayer(): Record<string, unknown>[] {
+  const w = window as Window & { dataLayer?: Record<string, unknown>[] }
+  w.dataLayer = w.dataLayer ?? []
+  return w.dataLayer
+}
+
 export const SITE_BASE_URL = "https://endocrinologista.tainaaci.com.br"
 export const WHATSAPP_NUMBER = "5511951515103"
 export const CODI_ID = "73058194261490732816540927385016"
+export const META_PIXEL_ID = "2028496574752822"
 
 export interface TrackingParams {
   utm_source: string
@@ -142,19 +149,109 @@ function buildWhatsAppMessage(options?: {
   return message
 }
 
+async function sha256(value: string): Promise<string> {
+  const hashBuffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value))
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("")
+}
+
+async function buildMetaAdvancedMatching(
+  extraData: Record<string, unknown>
+): Promise<Record<string, string>> {
+  const matching: Record<string, string> = {}
+
+  const email = typeof extraData.email === "string" ? extraData.email.trim().toLowerCase() : ""
+  if (email) {
+    matching.em = await sha256(email)
+  }
+
+  const telefone = typeof extraData.telefone === "string" ? extraData.telefone.replace(/\D/g, "") : ""
+  if (telefone) {
+    matching.ph = await sha256(telefone)
+  }
+
+  const nome = typeof extraData.nome === "string" ? extraData.nome.trim().toLowerCase() : ""
+  if (nome) {
+    const [firstName, ...lastNameParts] = nome.split(/\s+/)
+    if (firstName) {
+      matching.fn = await sha256(firstName)
+    }
+    if (lastNameParts.length > 0) {
+      matching.ln = await sha256(lastNameParts.join(" "))
+    }
+  }
+
+  return matching
+}
+
+function callMetaPixel(
+  method: "track" | "trackCustom",
+  eventName: string,
+  params?: Record<string, unknown>
+): void {
+  if (typeof window === "undefined") return
+  const fbq = (window as Window & { fbq?: (...args: unknown[]) => void }).fbq
+  if (typeof fbq !== "function") return
+
+  if (params && Object.keys(params).length > 0) {
+    fbq(method, eventName, params)
+    return
+  }
+
+  fbq(method, eventName)
+}
+
+async function pushMetaPixelForEvent(
+  eventName: string,
+  formId: string,
+  extraData: Record<string, unknown> = {}
+): Promise<void> {
+  const baseParams = {
+    content_name: formId,
+    content_category: extraData.origem,
+  }
+
+  switch (eventName) {
+    case "form_start":
+      callMetaPixel("trackCustom", "FormStart", baseParams)
+      break
+    case "form_submit": {
+      const situacao = extraData.situacao
+      if (situacao === "pronto") {
+        const matching = await buildMetaAdvancedMatching(extraData)
+        callMetaPixel("track", "Lead", { ...baseParams, ...matching })
+      } else {
+        callMetaPixel("trackCustom", "LeadDesqualificado", baseParams)
+      }
+      break
+    }
+    case "whatsapp_click":
+      callMetaPixel("track", "Contact", baseParams)
+      break
+    case "lead_obrigado":
+    case "lead_desqualificado":
+      // Conversão já enviada em form_submit; aqui só espelha no GTM.
+      break
+    default:
+      break
+  }
+}
+
 export function pushDataLayerEvent(
   eventName: string,
   formId: string,
   extraData: Record<string, unknown> = {}
 ): void {
   if (typeof window === "undefined") return
-  window.dataLayer = window.dataLayer || []
-  window.dataLayer.push({
+  getDataLayer().push({
     event: eventName,
     form_id: formId,
     codi_id: CODI_ID,
     ...extraData,
   })
+
+  void pushMetaPixelForEvent(eventName, formId, extraData)
 }
 
 export async function sendLeadClickToWebhook(payload: Record<string, unknown>): Promise<void> {

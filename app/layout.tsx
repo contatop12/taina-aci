@@ -6,6 +6,7 @@ import './globals.css'
 import { PageviewTracker } from '@/components/pageview-tracker'
 import { CookieBanner } from '@/components/CookieBanner'
 import { CRITICAL_PRELOADS, FAVICON, MEDIA_CDN } from '@/lib/media'
+import { META_PIXEL_ID } from '@/lib/tracking'
 
 const playfair = Playfair_Display({ 
   subsets: ["latin"],
@@ -93,7 +94,7 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window,document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','2028496574752822');
+fbq('init','${META_PIXEL_ID}');
 fbq('track','PageView');`}
         </Script>
       </head>
@@ -109,7 +110,7 @@ fbq('track','PageView');`}
         <noscript>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img height="1" width="1" style={{ display: 'none' }}
-            src="https://www.facebook.com/tr?id=2028496574752822&ev=PageView&noscript=1"
+            src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
             alt=""
           />
         </noscript>

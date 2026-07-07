@@ -11,7 +11,7 @@ import {
 import { LOGO_PRINCIPAL } from "@/lib/media"
 import { CTAButton } from "@/components/ui/cta-button"
 import { VILA_MARIANA_FLOW, type FormFlow } from "@/lib/form-flows"
-import { WHATSAPP_NUMBER } from "@/lib/tracking"
+import { pushDataLayerEvent, WHATSAPP_NUMBER } from "@/lib/tracking"
 
 const FALLBACK_WHATSAPP = `https://wa.me/${WHATSAPP_NUMBER}`
 const FALLBACK_COUNTDOWN = 5
@@ -28,13 +28,8 @@ export function ObrigadoContent({ flow = VILA_MARIANA_FLOW }: ObrigadoContentPro
   useEffect(() => {
     setWhatsappUrl(getWhatsappRedirectUrl())
 
-    if (typeof window === "undefined") return
-
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push({
-      event: "lead_obrigado",
+    pushDataLayerEvent("lead_obrigado", flow.formId, {
       page_path: flow.obrigadoPath,
-      form_id: flow.formId,
     })
   }, [flow.formId, flow.obrigadoPath])
 
