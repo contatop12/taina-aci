@@ -3,11 +3,13 @@
 import { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
+import Link from "next/link"
 import { X, ChevronDown, Check } from "lucide-react"
 import { CTAButton } from "@/components/ui/cta-button"
 import { cn } from "@/lib/utils"
 import { storeWhatsappRedirectUrl } from "@/lib/whatsapp-redirect-session"
 import { getFormFlow } from "@/lib/form-flows"
+import { LEGAL_PAGE_PATH, PRIVACY_SECTION_ID } from "@/lib/legal-content"
 import { LOGO_PRINCIPAL } from "@/lib/media"
 import {
   CODI_ID,
@@ -545,7 +547,16 @@ export function ContactModal({
                   </div>
                 </div>
                 <span className="text-xs text-muted-foreground leading-relaxed">
-                  Autorizo o uso dos meus dados para contato, conforme a política de privacidade.
+                  Autorizo o uso dos meus dados para contato, conforme a{" "}
+                  <Link
+                    href={`${LEGAL_PAGE_PATH}#${PRIVACY_SECTION_ID}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary underline underline-offset-2 hover:text-primary/80"
+                  >
+                    política de privacidade
+                  </Link>
+                  .
                 </span>
               </label>
 

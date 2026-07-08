@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { LOGO_RODAPE_BRANCO } from "@/lib/media"
+import { LEGAL_PAGE_PATH, PRIVACY_SECTION_ID, TERMS_SECTION_ID } from "@/lib/legal-content"
 import { Instagram, MapPin, Phone, MessageCircle } from "lucide-react"
 
 const quickLinks = [
@@ -152,9 +153,20 @@ export function Footer() {
             </a>
 
             {/* Copyright */}
-            <p className="text-sm text-white/60 text-center order-last md:order-none">
-              © {new Date().getFullYear()} Dra. Tainã Aci — Todos os direitos reservados
-            </p>
+            <div className="text-center order-last md:order-none space-y-2">
+              <p className="text-sm text-white/60">
+                © {new Date().getFullYear()} Dra. Tainã Aci — Todos os direitos reservados
+              </p>
+              <p className="text-xs text-white/45">
+                <Link href={`${LEGAL_PAGE_PATH}#${PRIVACY_SECTION_ID}`} className="hover:text-white/70 transition-colors">
+                  Política de Privacidade
+                </Link>
+                <span className="mx-2">·</span>
+                <Link href={`${LEGAL_PAGE_PATH}#${TERMS_SECTION_ID}`} className="hover:text-white/70 transition-colors">
+                  Termos de Uso
+                </Link>
+              </p>
+            </div>
 
             {/* P12 */}
             <p className="text-xs text-white/40">
