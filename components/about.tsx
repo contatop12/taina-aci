@@ -35,24 +35,29 @@ export function About({ onOpenModal, extraParagraph, paragraphs }: AboutProps) {
   return (
     <section id="sobre" className="py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="order-2 lg:order-1" data-gsap-reveal>
-            <Image
-              src={FOTO_TAINA_2}
-              alt="Dra. Tainã Aci"
-              width={500}
-              height={650}
-              className="rounded-2xl shadow-xl object-cover w-full max-w-md mx-auto lg:mx-0"
-              loading="lazy"
-            />
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          <div
+            className="order-2 lg:order-1 lg:col-span-5 lg:sticky lg:top-28"
+            data-gsap-reveal
+          >
+            <div className="relative mx-auto aspect-[3/4] w-full max-w-lg overflow-hidden rounded-2xl shadow-xl lg:max-w-none">
+              <Image
+                src={FOTO_TAINA_2}
+                alt="Dra. Tainã Aci"
+                fill
+                className="object-cover object-[center_20%]"
+                sizes="(max-width: 1024px) 90vw, 42vw"
+                loading="lazy"
+              />
+            </div>
           </div>
 
-          <div className="order-1 lg:order-2 space-y-8">
+          <div className="order-1 lg:order-2 lg:col-span-7 space-y-6">
             <div data-gsap-reveal>
-              <p className="text-sm uppercase tracking-widest text-primary font-medium mb-4">
+              <p className="text-sm uppercase tracking-widest text-primary font-medium mb-3">
                 Sobre a Dra. Tainã Aci
               </p>
-              <h2 className="text-3xl md:text-4xl font-serif mb-6 text-balance">
+              <h2 className="text-3xl md:text-4xl font-serif mb-4 text-balance">
                 Experiência clínica aliada à formação acadêmica
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed text-balance">
@@ -60,26 +65,25 @@ export function About({ onOpenModal, extraParagraph, paragraphs }: AboutProps) {
               </p>
             </div>
 
-            <div className="space-y-4 text-muted-foreground leading-relaxed" data-gsap-reveal>
+            <div className="space-y-3.5 text-muted-foreground leading-relaxed" data-gsap-reveal>
               {bodyParagraphs.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
 
-            <div className="space-y-3">
-              {credentials.map((credential) => (
-                <div key={credential} className="flex items-start gap-3" data-gsap-card>
-                  <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-foreground">{credential}</span>
+            <div className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
+              {credentials.map((credential, index) => (
+                <div key={index} className="flex items-start gap-3" data-gsap-card>
+                  <Check className="mt-0.5 size-5 shrink-0 text-primary" />
+                  <span className="text-sm leading-snug text-foreground">{credential}</span>
                 </div>
               ))}
             </div>
 
-            <p className="text-sm font-medium text-foreground" data-gsap-reveal>
-              CRM: 166519 | RQE: 81061
-            </p>
-
-            <div data-gsap-reveal>
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between" data-gsap-reveal>
+              <p className="text-sm font-medium text-foreground">
+                CRM: 166519 | RQE: 81061
+              </p>
               <CTAButton onClick={onOpenModal}>
                 Fale com nossa equipe
               </CTAButton>
