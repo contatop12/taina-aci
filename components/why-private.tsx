@@ -11,7 +11,7 @@ const benefits = [
 
 export function WhyPrivate() {
   return (
-    <section className="py-24 lg:py-32 bg-foreground">
+    <section className="py-12 md:py-24 lg:py-32 bg-foreground">
       <div className="container mx-auto px-4 lg:px-8 text-center">
         <div data-gsap-reveal>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white mb-6 text-balance">

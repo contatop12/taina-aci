@@ -52,7 +52,7 @@ const faqs = [
 
 export function FAQ() {
   return (
-    <section id="faq" className="py-24 lg:py-32 bg-muted">
+    <section id="faq" className="py-12 md:py-24 lg:py-32 bg-muted">
       <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
         <div className="text-center mb-12" data-gsap-reveal>
           <p className="text-sm uppercase tracking-widest text-primary font-medium mb-4">

@@ -11,7 +11,7 @@ interface LocationProps {
 
 export function Location({ onOpenModal, reinforcement, ctaLabel = "Fale com nossa equipe" }: LocationProps) {
   return (
-    <section id="localizacao" className="py-24 lg:py-32 bg-background">
+    <section id="localizacao" className="py-12 md:py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="space-y-8">

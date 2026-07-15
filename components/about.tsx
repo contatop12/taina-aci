@@ -33,7 +33,7 @@ export function About({ onOpenModal, extraParagraph, paragraphs }: AboutProps) {
   ]
 
   return (
-    <section id="sobre" className="py-24 lg:py-32 bg-background">
+    <section id="sobre" className="py-12 md:py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           <div

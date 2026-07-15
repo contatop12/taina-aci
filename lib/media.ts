@@ -16,7 +16,6 @@ export const HERO_PORTRAIT_VIDEO_URL = mediaUrl("taina-boas-vindas.mp4")
 /** Branding */
 export const LOGO_PRINCIPAL = mediaUrl("logo-principal.webp")
 export const LOGO_RODAPE_BRANCO = mediaUrl("logo-rodape-branco.webp")
-export const FAVICON = mediaUrl("favicon.webp")
 
 /** Seção Diferenciais */
 export const DIFFERENCIAL_IMAGES = {

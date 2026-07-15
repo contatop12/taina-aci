@@ -56,7 +56,7 @@ export function EmagrecerPain({ onOpenModal }: EmagrecerPainProps) {
   }, [])
 
   return (
-    <section className="py-24 lg:py-32 bg-muted">
+    <section className="py-12 md:py-24 lg:py-32 bg-muted">
       <div ref={ref} className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <p className="text-sm uppercase tracking-widest text-primary font-medium mb-4">

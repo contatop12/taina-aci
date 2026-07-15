@@ -18,7 +18,7 @@ export function EmagrecerIndividual() {
   }, [])
 
   return (
-    <section className="py-24 lg:py-32 bg-background">
+    <section className="py-12 md:py-24 lg:py-32 bg-background">
       <div
         ref={ref}
         className={`container mx-auto px-4 lg:px-8 max-w-3xl transition-all duration-700 ${

@@ -4,7 +4,7 @@ import { InstagramReelsCarousel } from "@/components/instagram-reels-carousel"
 
 export function Testimonials() {
   return (
-    <section id="depoimentos" className="py-24 lg:py-32 bg-muted">
+    <section id="depoimentos" className="py-12 md:py-24 lg:py-32 bg-muted">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12" data-gsap-reveal>
           <p className="text-sm uppercase tracking-widest text-primary font-medium mb-4">

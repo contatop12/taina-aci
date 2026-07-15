@@ -25,7 +25,7 @@ export function EmagrecerFAQ() {
   }, [])
 
   return (
-    <section id="faq" className="py-24 lg:py-32 bg-muted">
+    <section id="faq" className="py-12 md:py-24 lg:py-32 bg-muted">
       <div
         ref={ref}
         className={`container mx-auto px-4 lg:px-8 max-w-4xl transition-all duration-700 ${

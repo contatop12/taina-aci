@@ -5,7 +5,7 @@ import { Ripple } from "@/components/ui/ripple"
 
 export function Philosophy() {
   return (
-    <section className="relative overflow-hidden bg-background py-16 sm:py-20 lg:py-32">
+    <section className="relative overflow-hidden bg-background py-12 sm:py-20 lg:py-32">
       <Ripple className="opacity-40" />
       <div className="container mx-auto max-w-4xl px-4 sm:px-6">
         <div className="mb-10 text-center sm:mb-16" data-gsap-reveal>

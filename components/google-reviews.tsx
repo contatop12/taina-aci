@@ -90,7 +90,7 @@ export function GoogleReviews() {
   }
 
   return (
-    <section id="avaliacoes" className="py-24 lg:py-32 bg-muted/30">
+    <section id="avaliacoes" className="py-12 md:py-24 lg:py-32 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12" data-gsap-reveal>

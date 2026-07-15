@@ -5,7 +5,7 @@ import { Suspense } from 'react'
 import './globals.css'
 import { PageviewTracker } from '@/components/pageview-tracker'
 import { CookieBanner } from '@/components/CookieBanner'
-import { CRITICAL_PRELOADS, FAVICON, MEDIA_CDN } from '@/lib/media'
+import { CRITICAL_PRELOADS, MEDIA_CDN } from '@/lib/media'
 import { META_PIXEL_ID } from '@/lib/tracking'
 
 const playfair = Playfair_Display({ 
@@ -25,9 +25,11 @@ export const metadata: Metadata = {
   description: 'Endocrinologista especializada em emagrecimento, hormônios e saúde metabólica. Atendimento de alto padrão na Vila Mariana, São Paulo. CRM 166519 | RQE 81061.',
   keywords: 'endocrinologista, Vila Mariana, São Paulo, emagrecimento, hormônios, tireoide, diabetes, menopausa, caneta emagrecedora',
   icons: {
-    icon: FAVICON,
-    shortcut: FAVICON,
-    apple: FAVICON,
+    icon: [
+      { url: 'https://tainaaci.com.br/favicon.png', type: 'image/png', sizes: '144x144' },
+    ],
+    shortcut: 'https://tainaaci.com.br/favicon.png',
+    apple: 'https://tainaaci.com.br/favicon.png',
   },
   other: {
     'facebook-domain-verification': 'r3puut6a1stg0tccn5v972ti5j2kpk',

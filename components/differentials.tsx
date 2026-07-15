@@ -55,7 +55,7 @@ function DifferentialDescription({ description }: { description: string | string
 
 export function Differentials({ items = defaultDifferentials }: DifferentialsProps) {
   return (
-    <section id="diferenciais" className="overflow-hidden bg-background py-24 lg:py-32">
+    <section id="diferenciais" className="overflow-hidden bg-background py-12 md:py-24 lg:py-32">
       <div className="container mx-auto mb-12 px-4 md:mb-16 lg:px-8">
         <div className="text-center" data-gsap-reveal>
           <p className="mb-4 text-sm font-medium uppercase tracking-widest text-primary">

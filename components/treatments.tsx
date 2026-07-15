@@ -61,7 +61,7 @@ const treatments = [
 
 export function Treatments({ onOpenModal }: TreatmentsProps) {
   return (
-    <section id="especialidades" className="py-24 lg:py-32 bg-muted">
+    <section id="especialidades" className="py-12 md:py-24 lg:py-32 bg-muted">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16" data-gsap-reveal>
           <p className="text-sm uppercase tracking-widest text-primary font-medium mb-4">
