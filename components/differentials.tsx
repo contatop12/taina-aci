@@ -4,7 +4,13 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { DIFFERENCIAL_IMAGES } from "@/lib/media"
 
-const differentials = [
+export type DifferentialItem = {
+  title: string
+  description: string | string[]
+  image: string
+}
+
+const defaultDifferentials: DifferentialItem[] = [
   {
     title: "Medicina Baseada em Evidência",
     description:
@@ -31,7 +37,23 @@ const differentials = [
   },
 ]
 
-export function Differentials() {
+interface DifferentialsProps {
+  items?: DifferentialItem[]
+}
+
+function DifferentialDescription({ description }: { description: string | string[] }) {
+  const paragraphs = Array.isArray(description) ? description : [description]
+
+  return (
+    <div className="space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+      {paragraphs.map((paragraph) => (
+        <p key={paragraph}>{paragraph}</p>
+      ))}
+    </div>
+  )
+}
+
+export function Differentials({ items = defaultDifferentials }: DifferentialsProps) {
   return (
     <section id="diferenciais" className="overflow-hidden bg-background py-24 lg:py-32">
       <div className="container mx-auto mb-12 px-4 md:mb-16 lg:px-8">
@@ -46,7 +68,7 @@ export function Differentials() {
       </div>
 
       <div className="flex flex-col">
-        {differentials.map((item, index) => {
+        {items.map((item, index) => {
           const imageFirst = index % 2 === 1
 
           return (
@@ -66,9 +88,7 @@ export function Differentials() {
                   <h3 className="mb-5 font-serif text-2xl leading-snug text-balance text-foreground md:text-3xl lg:text-4xl">
                     {item.title}
                   </h3>
-                  <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-                    {item.description}
-                  </p>
+                  <DifferentialDescription description={item.description} />
                 </div>
               </div>
 
@@ -95,3 +115,5 @@ export function Differentials() {
     </section>
   )
 }
+
+export { defaultDifferentials }

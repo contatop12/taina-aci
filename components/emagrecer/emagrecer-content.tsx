@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Header } from "@/components/header"
 import { Philosophy } from "@/components/philosophy"
-import { Differentials } from "@/components/differentials"
+import { defaultDifferentials, Differentials } from "@/components/differentials"
 import { Testimonials } from "@/components/testimonials"
 import { About } from "@/components/about"
 import { WhyPrivate } from "@/components/why-private"
@@ -30,6 +30,27 @@ const EMAGRECER_OBJECTIVES = [
   "Outro",
 ]
 
+const EMAGRECER_DIFFERENTIALS = defaultDifferentials.map((item) =>
+  item.title === "Consulta Médica + Nutricional Integrada"
+    ? {
+        ...item,
+        description: [
+          "Cuidar da saúde de forma completa significa olhar para diferentes aspectos do seu bem-estar de maneira integrada.",
+          "No programa de acompanhamento da Dra. Tainã, você conta com atendimento conjunto em endocrinologia e nutrição, sem a necessidade de consultas separadas. Essa abordagem favorece um cuidado mais coordenado, com estratégias alinhadas e acompanhamento contínuo.",
+          "O tratamento une a avaliação endocrinológica ao planejamento alimentar, sempre considerando sua rotina, seus objetivos e suas necessidades individuais.",
+          "Cada decisão é construída em parceria, para que você participe ativamente do seu processo de cuidado e alcance resultados consistentes e sustentáveis.",
+        ],
+      }
+    : item
+)
+
+const EMAGRECER_ABOUT_PARAGRAPHS = [
+  "Minha trajetória na medicina é guiada pelo compromisso com um cuidado humano, ético e fundamentado em evidências.",
+  "Após a formação em Clínica Médica, encontrei na endocrinologia minha verdadeira realização profissional. Ao longo dos anos, pacientes, alunos e colegas têm acompanhado essa dedicação à prática clínica e ao ensino.",
+  "Além do atendimento em consultório, atuo na formação de médicos, com experiência no ensino de endocrinologia na graduação, na pós-graduação e na mentoria de profissionais. A vivência acadêmica contribui para uma atualização constante e para a integração entre conhecimento científico e prática clínica.",
+  "No contexto do emagrecimento, realizo uma avaliação clínica abrangente, com interpretação cuidadosa dos exames e acompanhamento metabólico individualizado. O objetivo é identificar fatores hormonais, metabólicos e comportamentais que possam influenciar a saúde e a composição corporal, permitindo a construção de um plano terapêutico adequado para cada pessoa.",
+]
+
 export function EmagrecerContent() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const openModal = () => setIsModalOpen(true)
@@ -46,11 +67,8 @@ export function EmagrecerContent() {
       <EmagrecerIndividual />
       <EmagrecerEducational />
       <EmagrecerMedication />
-      <Differentials />
-      <About
-        onOpenModal={openModal}
-        extraParagraph="No contexto do emagrecimento, a Dra. Tainã Aci realiza avaliação clínica completa, interpretação de exames e acompanhamento metabólico individualizado, com foco em causas hormonais e metabólicas que podem dificultar a perda de peso."
-      />
+      <Differentials items={EMAGRECER_DIFFERENTIALS} />
+      <About onOpenModal={openModal} paragraphs={EMAGRECER_ABOUT_PARAGRAPHS} />
       <WhyPrivate />
       <GoogleReviews />
       <Location

@@ -1,8 +1,19 @@
 /** Mantenha runtime padrão (Node/OpenNext). `edge` nesta rota pode falhar no Worker da Cloudflare (500). */
 
-const WEBHOOK_URLS = [
-  "https://n8n.sitespdoze.com.br/webhook/vila-mariana-sp",
-]
+import { EMAGRECER_FLOW, VILA_MARIANA_FLOW } from "@/lib/form-flows"
+
+const WEBHOOK_VILA_MARIANA = "https://n8n.sitespdoze.com.br/webhook/vila-mariana-sp"
+const WEBHOOK_EMAGRECER =
+  "https://n8n.sitespdoze.com.br/webhook/endocrinologista-para-emagrecer/327dfe93-4155-4224-8091-529ff408bfec"
+
+function resolveWebhookUrl(body: unknown): string {
+  if (body && typeof body === "object" && "form_id" in body) {
+    const formId = (body as { form_id?: unknown }).form_id
+    if (formId === EMAGRECER_FLOW.formId) return WEBHOOK_EMAGRECER
+    if (formId === VILA_MARIANA_FLOW.formId) return WEBHOOK_VILA_MARIANA
+  }
+  return WEBHOOK_VILA_MARIANA
+}
 
 async function sendWithTimeout(url: string, body: string, timeoutMs = 8000): Promise<void> {
   const controller = new AbortController()
@@ -31,8 +42,9 @@ export async function POST(request: Request) {
   }
 
   const payload = JSON.stringify(body)
+  const webhookUrl = resolveWebhookUrl(body)
 
-  await Promise.allSettled(WEBHOOK_URLS.map((url) => sendWithTimeout(url, payload)))
+  await Promise.allSettled([sendWithTimeout(webhookUrl, payload)])
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,

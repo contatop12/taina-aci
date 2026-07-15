@@ -60,14 +60,19 @@ export function EmagrecerPain({ onOpenModal }: EmagrecerPainProps) {
       <div ref={ref} className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <p className="text-sm uppercase tracking-widest text-primary font-medium mb-4">
-            Você não está sozinho(a)
+            Entender é o primeiro passo
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-balance mb-8">
-            Você faz esforço, mas o peso não cede?
+            Você se dedica, mas os resultados parecem não acompanhar seus esforços?
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Muitas pessoas relatam que já tentaram dietas, rotinas de exercício e mudanças de hábito — e mesmo assim sentem que algo não funciona. Isso não é fraqueza. Em muitos casos, existem fatores clínicos e metabólicos que dificultam o emagrecimento e que só uma avaliação médica consegue identificar.
-          </p>
+          <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
+            <p>
+              Muitas pessoas já tentaram diferentes estratégias — como ajustes na alimentação, prática de exercícios e mudanças de hábitos — e, ainda assim, sentem que o emagrecimento não evolui como esperado.
+            </p>
+            <p>
+              Em alguns casos, fatores clínicos e metabólicos podem influenciar esse processo. Uma avaliação médica individualizada pode ajudar a compreender essas questões.
+            </p>
+          </div>
         </div>
 
         <div
@@ -92,7 +97,7 @@ export function EmagrecerPain({ onOpenModal }: EmagrecerPainProps) {
 
         <div className="text-center mt-14 space-y-6 max-w-2xl mx-auto">
           <p className="text-lg text-foreground leading-relaxed">
-            Se você se identifica com algum desses cenários, pode ser hora de buscar uma avaliação endocrinológica.
+            Se você se reconhece em algum desses sinais, uma avaliação endocrinológica pode ajudar a esclarecer possíveis causas.
           </p>
           <CTAButton onClick={onOpenModal}>
             Quero agendar minha avaliação

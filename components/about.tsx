@@ -8,6 +8,7 @@ import { Check } from "lucide-react"
 interface AboutProps {
   onOpenModal: () => void
   extraParagraph?: string
+  paragraphs?: string[]
 }
 
 const credentials = [
@@ -20,7 +21,17 @@ const credentials = [
   "Fellow Research — McGill University, Canadá",
 ]
 
-export function About({ onOpenModal, extraParagraph }: AboutProps) {
+const defaultParagraphs = [
+  "Pacientes, alunos e amigos são testemunhas da minha paixão pela medicina. Após formação em Clínica Médica, encontrei na endocrinologia minha verdadeira realização profissional.",
+  "Além do atendimento clínico, atuo na formação de médicos, com experiência no ensino de endocrinologia em nível de graduação e pós-graduação, e na mentoria de colegas. A vivência acadêmica contribui para atualização constante e integração entre evidência científica e prática clínica.",
+]
+
+export function About({ onOpenModal, extraParagraph, paragraphs }: AboutProps) {
+  const bodyParagraphs = paragraphs ?? [
+    ...defaultParagraphs,
+    ...(extraParagraph ? [extraParagraph] : []),
+  ]
+
   return (
     <section id="sobre" className="py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
@@ -50,13 +61,9 @@ export function About({ onOpenModal, extraParagraph }: AboutProps) {
             </div>
 
             <div className="space-y-4 text-muted-foreground leading-relaxed" data-gsap-reveal>
-              <p>
-                Pacientes, alunos e amigos são testemunhas da minha paixão pela medicina. Após formação em Clínica Médica, encontrei na endocrinologia minha verdadeira realização profissional.
-              </p>
-              <p>
-                Além do atendimento clínico, atuo na formação de médicos, com experiência no ensino de endocrinologia em nível de graduação e pós-graduação, e na mentoria de colegas. A vivência acadêmica contribui para atualização constante e integração entre evidência científica e prática clínica.
-              </p>
-              {extraParagraph && <p>{extraParagraph}</p>}
+              {bodyParagraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </div>
 
             <div className="space-y-3">
