@@ -26,10 +26,10 @@ export const metadata: Metadata = {
   keywords: 'endocrinologista, Vila Mariana, São Paulo, emagrecimento, hormônios, tireoide, diabetes, menopausa, caneta emagrecedora',
   icons: {
     icon: [
-      { url: 'https://tainaaci.com.br/favicon.png', type: 'image/png', sizes: '144x144' },
+      { url: '/favicon.png', type: 'image/png', sizes: '144x144' },
     ],
-    shortcut: 'https://tainaaci.com.br/favicon.png',
-    apple: 'https://tainaaci.com.br/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
   },
   other: {
     'facebook-domain-verification': 'r3puut6a1stg0tccn5v972ti5j2kpk',
