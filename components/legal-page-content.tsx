@@ -23,13 +23,13 @@ function LegalDocumentSection({ document }: { document: LegalDocument }) {
           <article key={section.id} id={section.id} className="scroll-mt-28">
             <h3 className="text-lg font-semibold text-foreground mb-3">{section.title}</h3>
             <div className="space-y-3 text-muted-foreground leading-relaxed">
-              {section.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+              {section.paragraphs.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
               ))}
               {section.list && (
                 <ul className="list-disc space-y-2 pl-5">
-                  {section.list.map((item) => (
-                    <li key={item}>{item}</li>
+                  {section.list.map((item, index) => (
+                    <li key={index}>{item}</li>
                   ))}
                 </ul>
               )}

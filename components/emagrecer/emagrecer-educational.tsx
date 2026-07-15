@@ -43,8 +43,8 @@ export function EmagrecerEducational() {
         </div>
 
         <div className="space-y-5 text-lg text-muted-foreground leading-relaxed">
-          {paragraphs.map((text) => (
-            <p key={text}>{text}</p>
+          {paragraphs.map((text, index) => (
+            <p key={index}>{text}</p>
           ))}
         </div>
       </div>

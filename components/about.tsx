@@ -61,8 +61,8 @@ export function About({ onOpenModal, extraParagraph, paragraphs }: AboutProps) {
             </div>
 
             <div className="space-y-4 text-muted-foreground leading-relaxed" data-gsap-reveal>
-              {bodyParagraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+              {bodyParagraphs.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
               ))}
             </div>
 

@@ -46,8 +46,8 @@ function DifferentialDescription({ description }: { description: string | string
 
   return (
     <div className="space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
-      {paragraphs.map((paragraph) => (
-        <p key={paragraph}>{paragraph}</p>
+      {paragraphs.map((paragraph, index) => (
+        <p key={index}>{paragraph}</p>
       ))}
     </div>
   )
